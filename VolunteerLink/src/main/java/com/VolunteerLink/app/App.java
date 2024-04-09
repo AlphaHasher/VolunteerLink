@@ -16,7 +16,7 @@ import com.mongodb.client.MongoDatabase;
 public class App
 {
     public static void main( String[] args ) {
-        // Connect to MongoDB
+        // Store the MongoDB URI
         String uri = "";
 
         try (InputStream input = App.class.getClassLoader().getResourceAsStream("config.properties")) {
@@ -29,6 +29,14 @@ public class App
             uri = prop.getProperty("MongoDBKey");
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+
+        // Connecting to the MongoDB database
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("VolunteerLink");
+            MongoCollection<Document> collection = database.getCollection("Users");
+            Document doc = collection.find(eq("firstName", "first")).first();
+            System.out.println(doc.toJson());
         }
     }
 }
