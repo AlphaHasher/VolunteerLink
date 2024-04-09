@@ -9,5 +9,3 @@ Cameron Lanzaro
 Rushabh Patel
 
 Christian Kinyon
-
-i like dommy mommys
