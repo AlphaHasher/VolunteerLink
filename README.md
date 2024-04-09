@@ -1,7 +1,7 @@
 # VolunteerLink
 
-# Cameron added
-
-# Rushabh added
-
-# Christian Kinyon
+This is a project built by:
+Daniel Agafonov
+Cameron Lanzaro
+Rushabh Patel
+Christian Kinyon
