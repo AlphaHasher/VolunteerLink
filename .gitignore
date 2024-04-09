@@ -24,4 +24,4 @@ target/
 .vscode/
 
 # Test folder
-test/
+VolunteerLink/VolunteerLink/src/test/
