@@ -1,4 +1,4 @@
-# VolunteerLink
+# VolunteerLink - An event organizers dream interface
 
 This is a project built by:
 Daniel Agafonov
