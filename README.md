@@ -1,9 +1,13 @@
-# VolunteerLink
+# VolunteerLink - An event organizers dream interface
 
-# Cameron added
+This is a project built by:
 
-# Rushabh added
+Daniel Agafonov
 
-# Christian Kinyon
+Cameron Lanzaro
 
-# Colin Heinselman added
+Rushabh Patel
+
+Christian Kinyon
+
+Colin Heinselman
