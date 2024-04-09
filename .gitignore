@@ -1,5 +1,6 @@
 # API Key File
 info.txt
+config.properties
 
 # Compiled class file
 *.class
