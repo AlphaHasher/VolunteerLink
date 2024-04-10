@@ -1,4 +1,4 @@
-package com.VolunteerLink.app;
+package VolunteerLink;
 
 // Java Imports
 import java.io.IOException;
