@@ -1,5 +1,27 @@
 .nav-container {
-  background: rgb(148, 28, 28);
+  background: rgb(255, 255, 255);
+}
+
+nav {
+  width: 95%;
+  margin: auto;
+  min-height: 10vh;
+  padding: 3rem 0rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+img {
+  scale: 0.5;
+}
+
+nav ul {
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex: 0.5;
+  list-style: none;
 }
 
 button {
