@@ -34,18 +34,23 @@ public class App
         // Connecting to the MongoDB database
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("VolunteerLink");
-            MongoCollection<Document> collection = database.getCollection("Users");
-            Document doc = collection.find(eq("role", "volunteer")).first();
-            System.out.println(doc.toJson());
-            System.out.println("User Id = " + doc.get("_id"));      // Prints the found user's _id
+            // MongoCollection<Document> collection = database.getCollection("Users");
+            // Document doc = collection.find(eq("role", "volunteer")).first();
+            // System.out.println(doc.toJson());
+            // System.out.println("User Id = " + doc.get("_id"));      // Prints the found user's _id
 
-            Document doc2 = new Document();
-            doc2.put("email", "test1234@yahoo.com"); // Creates a new field 
-            
-            System.out.println(doc2.get("email")); // prints the value of doc2's email
-            
+            // Document doc2 = new Document();
+            // doc2.put("email", "test1234@yahoo.com"); // Creates a new field
 
-            collection.insertOne(doc2);
+            // System.out.println(doc2.get("email")); // prints the value of doc2's email
+            // collection.insertOne(doc2);
+
+            MongoCollection<Document> collection = database.getCollection("Events");
+            Document doc = collection.find(eq("eventName", "event name")).first();
+
+            Admin admin = new Admin(mongoClient, database, collection);
+            admin.denyEvent(doc);
+
         }
 
     }
