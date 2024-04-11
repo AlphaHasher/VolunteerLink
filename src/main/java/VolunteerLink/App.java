@@ -45,7 +45,8 @@ public class App
             System.out.println(doc2.get("email")); // prints the value of doc2's email
             
 
-            //collection.insert(doc2);
+            
+            
         }
 
     }
