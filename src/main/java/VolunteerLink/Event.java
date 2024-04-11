@@ -5,23 +5,29 @@ import org.bson.Document;
 // template for our events class. Can be adjusted in future after inputs are more defined.
 public class Event {
 
-    private String id;
+    private String id; // need a way to generate unique IDs
     private String name;
     private String description;
-    private String startDate;
+
+    private String startDate; // needs to be a date object NOT a string
     private String endDate;
+
+    private String location;
     private int volunteersNeeded;
     private int volunteersRegistered;
     private String eventStatus;
     private boolean approved;
-    private String location;
-
 
     //Constructor
-    public Event(String name, String description, String location){
+    public Event(String name, String description, String startDate, String endDate, String location, int volunteersNeeded, int volunteersRegistered, String eventStatus){
         this.name = name;
         this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.location = location;
+        this.volunteersNeeded = volunteersNeeded;
+        this.volunteersRegistered = volunteersRegistered;
+        this.eventStatus = eventStatus;
         this.approved = false;
     }
 

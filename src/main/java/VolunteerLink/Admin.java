@@ -16,11 +16,8 @@ import com.mongodb.client.result.UpdateResult;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused") // not needed maybe?
+@SuppressWarnings("unused")
 public class Admin {
-
-    private int priority;
-    private int AdminCode;
 
     private MongoClient mongoClient;
     private MongoCollection<Document> userCollection;

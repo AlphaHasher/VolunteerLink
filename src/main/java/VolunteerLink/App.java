@@ -35,6 +35,7 @@ public class App
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("VolunteerLink");
             Admin admin = new Admin(mongoClient, database);
+            EventManager eventManager = new EventManager(mongoClient, database);
 
             // ----------------- Event Approval Test -----------------
             // admin.denyEvent("Sample Event");
@@ -49,6 +50,23 @@ public class App
             // ----------------- User get/set Priority Test -----------------
 
             // System.out.println(admin.getUsers());
+
+            // ----------------- Event Creation Test -----------------
+            // Document event = new Document("name", "Sample Event")
+            //     .append("description", "This is a sample event.")
+            //     .append("startDate", "2021-12-31")
+            //     .append("endDate", "2022-1-1")
+            //     .append("location", "Sample Location")
+            //     .append("volunteersNeeded", 10)
+            //     .append("volunteersRegistered", 0)
+            //     .append("eventStatus", "Pending");
+
+            // eventManager.addEvent(event);
+            // ----------------- Event Creation Test -----------------
+
+            // ----------------- Event Deletion Test -----------------
+            // eventManager.deleteEvent("21");
+            // ----------------- Event Deletion Test -----------------
         }
     }
 }
