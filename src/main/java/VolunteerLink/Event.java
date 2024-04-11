@@ -6,8 +6,8 @@ import org.bson.Document;
 public class Event {
 
     private String id; // need a way to generate unique IDs
-    private String name;
-    private String description;
+    private String eventName;
+    private String eventDescription;
 
     private String startDate; // needs to be a date object NOT a string
     private String endDate;
@@ -19,9 +19,9 @@ public class Event {
     private boolean approved;
 
     //Constructor
-    public Event(String name, String description, String startDate, String endDate, String location, int volunteersNeeded, int volunteersRegistered, String eventStatus){
-        this.name = name;
-        this.description = description;
+    public Event(String eventName, String description, String startDate, String endDate, String location, int volunteersNeeded, int volunteersRegistered, String eventStatus){
+        this.eventName = eventName;
+        this.eventDescription = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.location = location;
@@ -31,32 +31,27 @@ public class Event {
         this.approved = false;
     }
 
-    //default constructor
     public Event(){
         this.approved = false;
     }
-
 
     public Event getEvent(){
         return this;
     }
 
-
-    public void setEventName(String name){
-        this.name = name;
+    public void setEventName(String eventName){
+        this.eventName = eventName;
     }
     public String getEventName(){
-        return name;
+        return eventName;
     }
-
 
     public String getDescription() {
-        return description;
+        return eventDescription;
     }
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
     }
-
 
     public String getStartDate() {
         return startDate;
@@ -79,18 +74,10 @@ public class Event {
     public void setId(String id) {
         this.id = id;
     }
-    public String getName() {
-        return name;
-    }
 
-
-    public void setName(String name) {
-        this.name = name;
-    }
     public int getVolunteersNeeded() {
         return volunteersNeeded;
     }
-
 
     public void setVolunteersNeeded(int volunteersNeeded) {
         this.volunteersNeeded = volunteersNeeded;
@@ -98,7 +85,6 @@ public class Event {
     public int getVolunteersRegistered() {
         return volunteersRegistered;
     }
-
 
     public void setVolunteersRegistered(int volunteersRegistered) {
         this.volunteersRegistered = volunteersRegistered;
@@ -111,14 +97,12 @@ public class Event {
         this.eventStatus = eventStatus;
     }
 
-
     public boolean isApproved() {
         return approved;
     }
     public void setApproved(boolean approved) {
         this.approved = approved;
     }
-
 
     public String getLocation() {
         return location;
@@ -128,9 +112,10 @@ public class Event {
     }
 
     //Converts events to Documents to be stored in DB.
+    // Not needed?
     public Document toDocument(){
-        return new Document("name", name)
-                .append("description", description)
+        return new Document("eventName", eventName)
+                .append("eventDescription", eventDescription)
                 .append("startDate", startDate)
                 .append("endDate", endDate)
                 .append("volunteersNeeded", volunteersNeeded)

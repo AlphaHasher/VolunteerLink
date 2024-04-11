@@ -44,7 +44,14 @@ public class EventManager {
     }
 
     public void addEvent(Document event){
-        Event newEvent = new Event(event.getString("name"), event.getString("description"), event.getString("startDate"), event.getString("endDate"), event.getString("location"), event.getInteger("volunteersNeeded"), event.getInteger("volunteersRegistered"), event.getString("eventStatus"));
+        Event newEvent = new Event( event.getString("eventName"),
+                                    event.getString("eventDescription"),
+                                    event.getString("startDate"),
+                                    event.getString("endDate"),
+                                    event.getString("location"),
+                                    event.getInteger("volunteersNeeded"),
+                                    event.getInteger("volunteersRegistered"),
+                                    event.getString("eventStatus"));
         eventCollection.insertOne(event);
     }
 
