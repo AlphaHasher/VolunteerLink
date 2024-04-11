@@ -43,30 +43,38 @@ public class Admin {
         return usersString.toString();
     }
 
-    // Priority is set as: 1 = volunteer, 2 = event organizer, 3 = admin
-
-    public int getPriority(String userId){
-        Document doc = userCollection.find(eq("userID", userId)).first();
-        return doc.getInteger("priority");
-    }
-
-    public void setPriority(String userId, int priority){
-        Document doc = userCollection.find(eq("userID", userId)).first();
-        Bson update = Updates.set("priority", priority);
+    public void setRole(String userId, String role){
+        if (role != "volunteer" && role != "event organizer" && role != "admin") {
+            throw new IllegalArgumentException("Invalid role. Please enter 'volunteer', 'event organizer', or 'admin'.");
+        }
+        Document doc = userCollection.find(eq("_id", userId)).first();
+        Bson update = Updates.set("role", role);
         UpdateResult result = userCollection.updateOne(doc, update);
     }
 
-    public void revokePriority(String userId){
-        if(getPriority(userId) > 1){
-            setPriority(userId, getPriority(userId) - 1);
-        }
-    }
+    // Priority is set as: 1 = volunteer, 2 = event organizer, 3 = admin
+    // public int getPriority(String userId){
+    //     Document doc = userCollection.find(eq("userID", userId)).first();
+    //     return doc.getInteger("priority");
+    // }
 
-    public void elevatePriority(String userId){
-        if(getPriority(userId) < 3){
-            setPriority(userId, getPriority(userId) + 1);
-        }
-    }
+    // public void setPriority(String userId, int priority){
+    //     Document doc = userCollection.find(eq("userID", userId)).first();
+    //     Bson update = Updates.set("priority", priority);
+    //     UpdateResult result = userCollection.updateOne(doc, update);
+    // }
+
+    // public void revokePriority(String userId){
+    //     if(getPriority(userId) > 1){
+    //         setPriority(userId, getPriority(userId) - 1);
+    //     }
+    // }
+
+    // public void elevatePriority(String userId){
+    //     if(getPriority(userId) < 3){
+    //         setPriority(userId, getPriority(userId) + 1);
+    //     }
+    // }
 
     // Currently requires the event name but will later need to be changed to the id of the event
 
