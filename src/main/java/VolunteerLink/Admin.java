@@ -16,7 +16,7 @@ import com.mongodb.client.result.UpdateResult;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
+@SuppressWarnings("unused") // not needed maybe?
 public class Admin {
 
     private int priority;
@@ -27,63 +27,61 @@ public class Admin {
     private MongoCollection<Document> eventCollection;
     private MongoDatabase database;
 
-    public Admin(MongoClient mongoClient, MongoDatabase database, MongoCollection<Document> collection){
+    // public Admin(MongoClient mongoClient, MongoDatabase database, MongoCollection<Document> collection){
+    public Admin(MongoClient mongoClient, MongoDatabase database){
         this.mongoClient = mongoClient;
         this.userCollection = database.getCollection("Users");
         this.eventCollection = database.getCollection("Events");
         this.database = database;
     }
 
-    public List<Document> getUsers(){
-
-        List<Document> users = new ArrayList<>();
-
+    // returns every user in the database
+    public String getUsers() {
+        StringBuilder usersString = new StringBuilder();
         Iterable<Document> documents = userCollection.find();
 
         for (Document document : documents) {
-            users.add(document);
-
-            //need to look more into how to parse the document info
-            System.out.println(document);
+            usersString.append(document.toString()).append("\n");
         }
-        return users;
+        return usersString.toString();
     }
 
     // Priority is set as: 1 = volunteer, 2 = event organizer, 3 = admin
-    public int getPriority(Document user){
-        Document doc = userCollection.find(eq("userID", user.getString("userID"))).first();
+
+    public int getPriority(String userId){
+        Document doc = userCollection.find(eq("userID", userId)).first();
         return doc.getInteger("priority");
     }
 
-    public void setPriority(Document user, int priority){
-        Bson filter = Filters.eq("userID", user.getString("userID"));
+    public void setPriority(String userId, int priority){
+        Document doc = userCollection.find(eq("userID", userId)).first();
         Bson update = Updates.set("priority", priority);
-        UpdateResult result = userCollection.updateOne(filter, update);
+        UpdateResult result = userCollection.updateOne(doc, update);
     }
 
-    public void revokePriority(Document user){
-        if(getPriority(user) > 1){
-            setPriority(user, getPriority(user) - 1);
+    public void revokePriority(String userId){
+        if(getPriority(userId) > 1){
+            setPriority(userId, getPriority(userId) - 1);
         }
     }
 
-    public void elevatePriority(Document user){
-        if(getPriority(user) < 3){
-            setPriority(user, getPriority(user) + 1);
+    public void elevatePriority(String userId){
+        if(getPriority(userId) < 3){
+            setPriority(userId, getPriority(userId) + 1);
         }
     }
 
-    // Currently requires the event name but likely will need to be changed to _id
+    // Currently requires the event name but will later need to be changed to the id of the event
 
-    public void approveEvent(Document event){
-        Bson filter = Filters.eq("eventName", event.getString("eventName"));
+    public void approveEvent(String event){
+        Document doc = eventCollection.find(eq("name", event)).first();
         Bson update = Updates.set("approved", true);
-        UpdateResult result = eventCollection.updateOne(filter, update);
+        UpdateResult result = eventCollection.updateOne(doc, update);
     }
 
-    public void denyEvent(Document event){
-        Bson filter = Filters.eq("eventName", event.getString("eventName"));
+    public void denyEvent(String event){
+        Document doc = eventCollection.find(eq("name", event)).first();
         Bson update = Updates.set("approved", false);
-        UpdateResult result = eventCollection.updateOne(filter, update);
+        UpdateResult result = eventCollection.updateOne(doc, update);
     }
 }

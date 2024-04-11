@@ -34,24 +34,21 @@ public class App
         // Connecting to the MongoDB database
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("VolunteerLink");
-            // MongoCollection<Document> collection = database.getCollection("Users");
-            // Document doc = collection.find(eq("role", "volunteer")).first();
-            // System.out.println(doc.toJson());
-            // System.out.println("User Id = " + doc.get("_id"));      // Prints the found user's _id
+            Admin admin = new Admin(mongoClient, database);
 
-            // Document doc2 = new Document();
-            // doc2.put("email", "test1234@yahoo.com"); // Creates a new field
+            // ----------------- Event Approval Test -----------------
+            // admin.denyEvent("Sample Event");
+            // admin.approveEvent("Sample Event");
+            // ----------------- Event Approval Test -----------------
 
-            // System.out.println(doc2.get("email")); // prints the value of doc2's email
-            // collection.insertOne(doc2);
+            // ----------------- User get/set Priority Test -----------------
+            // System.out.println(admin.getPriority("1"));
 
-            MongoCollection<Document> collection = database.getCollection("Events");
-            Document doc = collection.find(eq("eventName", "event name")).first();
+            // admin.elevatePriority("1");
+            // System.out.println(admin.getPriority("1"));
+            // ----------------- User get/set Priority Test -----------------
 
-            Admin admin = new Admin(mongoClient, database, collection);
-            admin.denyEvent(doc);
-
+            // System.out.println(admin.getUsers());
         }
-
     }
 }

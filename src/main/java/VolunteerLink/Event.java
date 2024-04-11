@@ -1,7 +1,7 @@
 package VolunteerLink;
 import org.bson.Document;
 
-//import org.w3c.dom.events.Event;
+//import org.w3c.dom.events.Event; // What is the purpose of this import?
 // template for our events class. Can be adjusted in future after inputs are more defined.
 public class Event {
 
@@ -15,7 +15,7 @@ public class Event {
     private String eventStatus;
     private boolean approved;
     private String location;
-    
+
 
     //Constructor
     public Event(String name, String description, String location){
@@ -42,7 +42,7 @@ public class Event {
     public String getEventName(){
         return name;
     }
-    
+
 
     public String getDescription() {
         return description;
@@ -50,7 +50,7 @@ public class Event {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
 
     public String getStartDate() {
         return startDate;
