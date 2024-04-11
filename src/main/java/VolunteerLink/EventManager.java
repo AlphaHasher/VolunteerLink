@@ -43,7 +43,6 @@ public class EventManager {
         return eventsString.toString();
     }
 
-    // create a public void method called addEvent that creates an event based on the event.java class "Event"
     public void addEvent(Document event){
         Event newEvent = new Event(event.getString("name"), event.getString("description"), event.getString("startDate"), event.getString("endDate"), event.getString("location"), event.getInteger("volunteersNeeded"), event.getInteger("volunteersRegistered"), event.getString("eventStatus"));
         eventCollection.insertOne(event);

@@ -37,6 +37,9 @@ public class App
             Admin admin = new Admin(mongoClient, database);
             EventManager eventManager = new EventManager(mongoClient, database);
 
+            // These tests will need to be moved to a proper testing suite
+
+
             // ----------------- Event Approval Test -----------------
             // admin.denyEvent("Sample Event");
             // admin.approveEvent("Sample Event");
