@@ -14,6 +14,9 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class Admin {
 
+    private int priority;
+    private int AdminCode;
+
     private MongoClient mongoClient;
     private MongoCollection<Document> collection;
     private MongoDatabase database;
@@ -39,8 +42,31 @@ public class Admin {
         return users;
     }
 
-    public void EventApprovalStatus(Document event, boolean status){
-        event.append("status", status); // true if approved and false if denied
+    // Priority is set as: 1 = volunteer, 2 = event organizer, 3 = admin
+    public int getPriority(){
+        return priority;
+    }
+
+    public void setPriority(int priority){
+        this.priority = priority;
+    }
+
+    public void revokePriority(Document user){
+        int newPriority = user.getInteger("priority");
+        if(newPriority > 1){
+            user.append("priority", newPriority - 1);
+        }
+    }
+
+    public void elevatePriority(Document user){
+        int newPriority = user.getInteger("priority");
+        if(newPriority < 3){
+            user.append("priority", newPriority + 1);
+        }
+    }
+
+    public void approveEvent(Document event){
+        event.append("approved", true);
         collection.insertOne(event);
     }
 }
