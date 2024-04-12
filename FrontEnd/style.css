@@ -30,6 +30,14 @@ nav ul {
   background: linear-gradient(to right, rgb(0, 96, 70), rgb(2, 30, 20));
 }
 
+.login-butt {
+  background-color: rgb(204, 184, 120);
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
 .filters {
   font-family: inter;
   list-style: none;
