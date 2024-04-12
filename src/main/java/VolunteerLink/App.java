@@ -51,7 +51,7 @@ public class App
 
             // Testing section for Colin
             if (true) {
-                //Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending");
+                //Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending"); // test import
                 //Document testDocument = testEvent.toDocument();
                 //Events.insertOne(testDocument); 
                 User testUser = new User(mongoClient, database);
