@@ -31,11 +31,17 @@ public class User {
     private String role;
     private Date registrationDate;
 
-    public User(MongoClient mongoClient, MongoDatabase database){
-        this.mongoClient = mongoClient;
-        this.eventCollection = database.getCollection("Events");
-        this.database = database;
+    public User(MongoClient mongoClient, MongoDatabase database) {
+        try {
+            this.mongoClient = mongoClient;
+            this.eventCollection = database.getCollection("Events");
+            this.database = database;
+        } catch (Exception e) {
+            System.err.println("Failed to initialize User with database connection: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
+
 
     // returns every event in the database (will need to implement a way to filter later)
     public String getEvents() {
@@ -192,14 +198,15 @@ public class User {
 
     public int numPendingEvents() {
         int count = 0;
-        MongoCursor<Document> cursor = eventCollection.find().iterator();
-        while (cursor.hasNext()) {
-            Document testDoc = cursor.next();
-            String eventStatus = testDoc.get("eventStatus") + "";
-            if (eventStatus.equals("Pending")) {
-                count++;
+        try (MongoCursor<Document> cursor = eventCollection.find().iterator()) {
+            while (cursor.hasNext()) {
+                Document testDoc = cursor.next();
+                String eventStatus = testDoc.get("eventStatus") + "";
+                if ("Pending".equals(eventStatus)) {
+                    count++;
+                }
             }
-        }
+        } // The cursor is automatically closed here
         return count;
     }
 
@@ -216,11 +223,17 @@ public class User {
     }
 
     public void setRole(String role) {
-        if (!"volunteer".equals(role) && !"event organizer".equals(role) && !"admin".equals(role)) {
-            throw new IllegalArgumentException("Invalid role. Please enter 'volunteer', 'event organizer', or 'admin'.");
+        try {
+            if (!"volunteer".equals(role) && !"event organizer".equals(role) && !"admin".equals(role)) {
+                throw new IllegalArgumentException("Invalid role. Please enter 'volunteer', 'event organizer', or 'admin'.");
+            }
+            this.role = role;
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error setting role: " + e.getMessage());
+            throw e; // Rethrowing the exception after logging it
         }
-        this.role = role;
     }
+
 
     public Date getRegistrationDate(){
         return registrationDate;
