@@ -1,15 +1,16 @@
 package VolunteerLink;
+
 import org.bson.Document;
 
 //import org.w3c.dom.events.Event; // What is the purpose of this import?
-// template for our events class. Can be adjusted in future after inputs are more defined.
+
 public class Event {
 
     private String id; // need a way to generate unique IDs
     private String eventName;
     private String eventDescription;
 
-    private String startDate; // needs to be a date object NOT a string
+    private String startDate; // needs to be a Date object NOT a string
     private String endDate;
 
     private String location;
@@ -112,7 +113,6 @@ public class Event {
     }
 
     //Converts events to Documents to be stored in DB.
-    // Not needed?
     public Document toDocument(){
         return new Document("eventName", eventName)
                 .append("eventDescription", eventDescription)

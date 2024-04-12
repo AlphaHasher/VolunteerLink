@@ -32,7 +32,9 @@ public class Admin {
         this.database = database;
     }
 
-    // returns every user in the database
+    // returns every user in the database (will need to implement a way to filter later)
+    // this method is currently duplicated in EventManager.java and Admin.java so later a new class will need to be created to handle this
+
     public String getUsers() {
         StringBuilder usersString = new StringBuilder();
         Iterable<Document> documents = userCollection.find();
@@ -41,6 +43,16 @@ public class Admin {
             usersString.append(document.toString()).append("\n");
         }
         return usersString.toString();
+    }
+
+    public String getEvents() {
+        StringBuilder eventsString = new StringBuilder();
+        Iterable<Document> documents = eventCollection.find();
+
+        for (Document document : documents) {
+            eventsString.append(document.toString()).append("\n");
+        }
+        return eventsString.toString();
     }
 
     public void setRole(String userId, String role){

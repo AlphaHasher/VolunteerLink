@@ -24,7 +24,6 @@ public class EventManager {
     private MongoCollection<Document> eventCollection;
     private MongoDatabase database;
 
-    //constructor
     public EventManager(MongoClient mongoClient, MongoDatabase database){
         this.mongoClient = mongoClient;
         this.userCollection = database.getCollection("Users");
@@ -32,7 +31,7 @@ public class EventManager {
         this.database = database;
     }
 
-    // returns every user in the database
+    // returns every event in the database (will need to implement a way to filter later)
     public String getEvents() {
         StringBuilder eventsString = new StringBuilder();
         Iterable<Document> documents = eventCollection.find();
