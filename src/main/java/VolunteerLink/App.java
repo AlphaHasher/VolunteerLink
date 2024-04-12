@@ -48,63 +48,29 @@ public class App
             MongoCollection<Document> Events = database.getCollection("Events");
 
 
-            
 
-
-            
-            
-            
             // Testing section for Colin
-             if (true) {
-            //Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending");
-            //Document testDocument = testEvent.toDocument();
-            //Events.insertOne(testDocument); 
-            User testUser = new User(mongoClient, database);
-            //System.out.println(testUser.getEvents());
-            //testUser.viewEventNames();
-            String[] arr = testUser.getPendingEvents();
-            for (int i = 0; i < arr.length - 1; ++i) {
-                System.out.println("EventPending: " + i + " " + arr[i]);
-            }
-            //testUser.viewEventNames();
-
-
-            } 
+            if (true) {
+                //Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending");
+                //Document testDocument = testEvent.toDocument();
+                //Events.insertOne(testDocument); 
+                User testUser = new User(mongoClient, database);
+                //System.out.println(testUser.getEvents());
+                //testUser.viewEventNames();
+                String[] arr = testUser.getPendingEvents();
+                for (int i = 0; i < arr.length - 1; ++i) {
+                    System.out.println("EventPending: " + i + " " + arr[i]);
+                }
+                //testUser.viewEventNames();
+    
+    
+                } 
             // Colin testing section end
         }
 
 
             
 
-           
-
-
-            MongoCollection<Document> Events = database.getCollection("Events");
-
-
-            
-
-
-            
-            
-            
-            // Testing section for Colin
-             if (true) {
-            //Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending");
-            //Document testDocument = testEvent.toDocument();
-            //Events.insertOne(testDocument); 
-            User testUser = new User(mongoClient, database);
-            //System.out.println(testUser.getEvents());
-            //testUser.viewEventNames();
-            String[] arr = testUser.getPendingEvents();
-            for (int i = 0; i < arr.length - 1; ++i) {
-                System.out.println("EventPending: " + i + " " + arr[i]);
-            }
-            //testUser.viewEventNames();
-
-
-            } 
-            // Colin testing section end
         }
 
 
@@ -146,5 +112,5 @@ public class App
             // admin.approveEvent("Sample Event");
             // ----------------- Event Approval Test -----------------
         }
-    }
+    
 
