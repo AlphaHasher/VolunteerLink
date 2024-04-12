@@ -6,7 +6,7 @@ import org.bson.Document;
 
 public class Event {
 
-    private String id; // need a way to generate unique IDs
+    private String id; // MongoDB makes _ids automatically unique when imported to the DB
     private String eventName;
     private String eventDescription;
 
@@ -72,7 +72,7 @@ public class Event {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(String id) { 
         this.id = id;
     }
 

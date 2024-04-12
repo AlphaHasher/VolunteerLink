@@ -2,6 +2,7 @@ package VolunteerLink;
 
 import org.bson.Document;
 
+
 // import static com.mongodb.client.model.Filters.eq;
 // import org.bson.Document;
 // import org.bson.conversions.Bson;
@@ -17,6 +18,7 @@ import com.mongodb.client.MongoDatabase;
 
 // import java.util.ArrayList;
 // import java.util.List;
+import com.mongodb.client.MongoCursor;
 
 public class User {
 
@@ -99,7 +101,127 @@ public class User {
     }
 
     public void viewEvents(){
-        // TODO
+        Iterable<Document> documents = eventCollection.find();
+        for (Document document : documents) {
+            System.out.println(document.toString());
+        }
+    }
+    
+    // Event Parsing created by Colin, may update in future to automatically sort by most recent.
+    // Currently sorted by most recently imported (I believe)
+    // Displays/prints a list of all eventNames in DB
+    // Inefficient but works, perhaps there's a way to do the same function without iterating twice, which we may improve once everything's functional
+    // Will update to reduce redundancy.
+
+    public void viewEventNames() { // Might want to create a cursor variable/object for the entire class to avoid redundancy. Testing needs to be done to check if the cursor "resets" each time
+        int count = 0;
+        Iterable<Document> documents = eventCollection.find();
+        for (Document document : documents) {
+            count ++;
+        }
+        MongoCursor<Document> cursor = eventCollection.find().iterator();
+        while (cursor.hasNext()) { 
+            Document testDoc = cursor.next();
+            Object eventName = testDoc.get("eventName");
+            System.out.println(eventName);
+            cursor.close();
+
+        }
+    }
+
+    public String[] getEventNames() { // returns an Array of all EventNames in DB
+        int count = 1;
+        Iterable<Document> documents = eventCollection.find();
+        MongoCursor<Document> cursor = eventCollection.find().iterator();
+        for (Document document : documents) {
+            count ++;
+        }
+        String[] eventNameArr = new String[count];
+        int i = 0;
+        while (cursor.hasNext()) { // Used MongoCursor object to iterate over docs in Events collection
+            Document testDoc = cursor.next();
+            String eventName = testDoc.get("eventName") + ""; // Converts the eventName in DB from Object to String (DB imports from MongoCursor defaults to Object)
+            eventNameArr[i] = eventName;
+            i++;
+        }
+        return eventNameArr;
+    }
+    public String[] getEventDescriptions() { // returns an Array of all eventDescriptions in DB
+        int count = 1;
+        Iterable<Document> documents = eventCollection.find();
+        MongoCursor<Document> cursor = eventCollection.find().iterator();
+        for (Document document : documents) {
+            count ++;
+        }
+        String[] eventDescArr = new String[count];
+        int i = 0;
+        while (cursor.hasNext()) { // Used MongoCursor object to iterate over docs in Events collection
+            Document testDoc = cursor.next();
+            String eventDesc = testDoc.get("eventDescription") + ""; // Converts the eventDescription in DB from Object to String (DB imports from MongoCursor defaults to Object)
+            eventDescArr[i] = eventDesc;
+            i++;
+        }
+        return eventDescArr;
+    }
+    public String[] getLocations() { // returns an Array of all Event locations in DB
+        int count = 1;
+        Iterable<Document> documents = eventCollection.find();
+        MongoCursor<Document> cursor = eventCollection.find().iterator();
+        for (Document document : documents) {
+            count ++;
+        }
+        String[] eventLocationArr = new String[count];
+        int i = 0;
+        while (cursor.hasNext()) { // Used MongoCursor object to iterate over docs in Events collection
+            Document testDoc = cursor.next();
+            String eventLocation = testDoc.get("location") + ""; // Converts the event location in DB from Object to String (DB imports from MongoCursor defaults to Object)
+            eventLocationArr[i] = eventLocation;
+            i++;
+        }
+        return eventLocationArr;
+    }
+    public String[] getPendingEvents() { // returns an Array of all Pending Event Names in DB
+        Iterable<Document> documents = eventCollection.find();
+        MongoCursor<Document> cursor = eventCollection.find().iterator();
+        int count = numPendingEvents();
+        int runningCount = 0;
+        String[] eventNameArr = new String[count];
+        int i = 0;
+        while (cursor.hasNext()) { // Used MongoCursor object to iterate over docs in Events collection
+            Document testDoc = cursor.next();
+            String eventName;
+            String eventStatus = testDoc.get("eventStatus") + "";
+            //System.out.println(eventStatus);
+            if (eventStatus.equals("Pending")) { // Must use .equals, doesn't work with == comparison.
+            eventName = testDoc.get("eventName") + ""; // Converts the event Name in DB from Object to String (DB imports from MongoCursor defaults to Object)
+            eventNameArr[runningCount] = eventName;
+            ++runningCount;
+            }
+            i++;
+        }
+        return eventNameArr;
+    }
+
+    public int numEvents() {
+        int count = 0;
+        Iterable<Document> documents = eventCollection.find();
+        for (Document document : documents) {
+            count ++;
+        }
+        return count;
+    }
+
+    public int numPendingEvents() {
+        int count = 0;
+        MongoCursor<Document> cursor = eventCollection.find().iterator();
+        while (cursor.hasNext()) {
+            Document testDoc = cursor.next();
+            String eventStatus = testDoc.get("eventStatus") + "";
+            if (eventStatus.equals("Pending")) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public void selectEvent(String event){

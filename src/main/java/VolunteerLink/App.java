@@ -7,11 +7,19 @@ import java.util.Properties;
 
 // MongoDB Imports
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.lt;
+
 import org.bson.Document;
+import org.bson.conversions.Bson;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.model.Projections;
+import com.mongodb.client.model.Sorts;
+import org.bson.types.ObjectId;
 
 public class App
 {
@@ -36,6 +44,40 @@ public class App
             MongoDatabase database = mongoClient.getDatabase("VolunteerLink");
             Admin admin = new Admin(mongoClient, database);
             EventManager eventManager = new EventManager(mongoClient, database);
+
+            MongoCollection<Document> Events = database.getCollection("Events");
+
+
+            
+
+
+            
+            
+            
+            // Testing section for Colin
+             if (true) {
+            //Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending");
+            //Document testDocument = testEvent.toDocument();
+            //Events.insertOne(testDocument); 
+            User testUser = new User(mongoClient, database);
+            //System.out.println(testUser.getEvents());
+            //testUser.viewEventNames();
+            String[] arr = testUser.getPendingEvents();
+            for (int i = 0; i < arr.length - 1; ++i) {
+                System.out.println("EventPending: " + i + " " + arr[i]);
+            }
+            //testUser.viewEventNames();
+
+
+            } 
+            // Colin testing section end
+        }
+
+
+            
+
+           
+
 
             // These tests will need to be moved to a proper testing suite
 
@@ -70,6 +112,8 @@ public class App
             // ----------------- Event Deletion Test -----------------
             // eventManager.deleteEvent("21");
             // ----------------- Event Deletion Test -----------------
+            
+
         }
     }
-}
+
