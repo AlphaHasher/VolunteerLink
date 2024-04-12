@@ -48,11 +48,13 @@ public class App
 
             MongoCollection<Document> Events = database.getCollection("Events");
 
+            System.out.println("Connected to the database.");
 
+            System.out.println("Number of Events : " + Events.countDocuments());
 
             // Testing section for Colin
             if (true) {
-                //Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending");
+                //Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending"); // test import
                 //Document testDocument = testEvent.toDocument();
                 //Events.insertOne(testDocument);
                 User testUser = new User(mongoClient, database);
