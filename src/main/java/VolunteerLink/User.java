@@ -1,10 +1,7 @@
 package VolunteerLink;
 
 import org.bson.Document;
-
-
 // import static com.mongodb.client.model.Filters.eq;
-// import org.bson.Document;
 // import org.bson.conversions.Bson;
 
 import com.mongodb.client.MongoClient;
@@ -97,7 +94,7 @@ public class User {
             System.out.println(document.toString());
         }
     }
-    
+
     // Event Parsing created by Colin, may update in future to automatically sort by most recent.
     // Currently sorted by most recently imported (I believe)
     // Displays/prints a list of all eventNames in DB
@@ -111,7 +108,7 @@ public class User {
             count ++;
         }
         MongoCursor<Document> cursor = eventCollection.find().iterator();
-        while (cursor.hasNext()) { 
+        while (cursor.hasNext()) {
             Document testDoc = cursor.next();
             Object eventName = testDoc.get("eventName");
             System.out.println(eventName);
@@ -193,15 +190,6 @@ public class User {
         return eventNameArr;
     }
 
-    public int numEvents() {
-        int count = 0;
-        Iterable<Document> documents = eventCollection.find();
-        for (Document document : documents) {
-            count ++;
-        }
-        return count;
-    }
-
     public int numPendingEvents() {
         int count = 0;
         MongoCursor<Document> cursor = eventCollection.find().iterator();
@@ -227,8 +215,8 @@ public class User {
         return role;
     }
 
-    public void setRole(String role){
-        if (role != "volunteer" && role != "event organizer" && role != "admin") {
+    public void setRole(String role) {
+        if (!"volunteer".equals(role) && !"event organizer".equals(role) && !"admin".equals(role)) {
             throw new IllegalArgumentException("Invalid role. Please enter 'volunteer', 'event organizer', or 'admin'.");
         }
         this.role = role;
