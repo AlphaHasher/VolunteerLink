@@ -57,10 +57,10 @@ public class App
                 //Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending"); // test import
                 //Document testDocument = testEvent.toDocument();
                 //Events.insertOne(testDocument);
-                User testUser = new User(mongoClient, database);
+                Event testEvent = new Event(mongoClient, database);
                 //System.out.println(testUser.getEvents());
                 //testUser.viewEventNames();
-                String[] arr = testUser.getPendingEvents();
+                String[] arr = testEvent.getPendingEvents();
                 for (int i = 0; i < arr.length - 1; ++i) {
                     System.out.println("EventPending: " + i + " " + arr[i]);
                 }

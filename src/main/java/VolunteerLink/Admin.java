@@ -5,18 +5,18 @@ import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
+// import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.UpdateOptions;
+// import com.mongodb.client.model.Filters;
+// import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
-import com.mongodb.client.result.UpdateResult;
+// import com.mongodb.client.result.UpdateResult;
 
-import java.util.ArrayList;
-import java.util.List;
+// import java.util.ArrayList;
+// import java.util.List;
 
-@SuppressWarnings("unused")
+// @SuppressWarnings("unused")
 public class Admin {
 
     private MongoClient mongoClient;
@@ -31,62 +31,6 @@ public class Admin {
         this.eventCollection = database.getCollection("Events");
         this.database = database;
     }
-
-    // returns every user in the database (will need to implement a way to filter later)
-    // this method is currently duplicated in EventManager.java and Admin.java so later a new class will need to be created to handle this
-
-    public String getUsers() {
-        StringBuilder usersString = new StringBuilder();
-        Iterable<Document> documents = userCollection.find();
-
-        for (Document document : documents) {
-            usersString.append(document.toString()).append("\n");
-        }
-        return usersString.toString();
-    }
-
-    public String getEvents() {
-        StringBuilder eventsString = new StringBuilder();
-        Iterable<Document> documents = eventCollection.find();
-
-        for (Document document : documents) {
-            eventsString.append(document.toString()).append("\n");
-        }
-        return eventsString.toString();
-    }
-
-    public void setRole(String userId, String role){
-        if (role != "volunteer" && role != "event organizer" && role != "admin") {
-            throw new IllegalArgumentException("Invalid role. Please enter 'volunteer', 'event organizer', or 'admin'.");
-        }
-        Document doc = userCollection.find(eq("_id", userId)).first();
-        Bson update = Updates.set("role", role);
-        userCollection.updateOne(doc, update);
-    }
-
-    // Priority is set as: 1 = volunteer, 2 = event organizer, 3 = admin
-    // public int getPriority(String userId){
-    //     Document doc = userCollection.find(eq("userID", userId)).first();
-    //     return doc.getInteger("priority");
-    // }
-
-    // public void setPriority(String userId, int priority){
-    //     Document doc = userCollection.find(eq("userID", userId)).first();
-    //     Bson update = Updates.set("priority", priority);
-    //     UpdateResult result = userCollection.updateOne(doc, update);
-    // }
-
-    // public void revokePriority(String userId){
-    //     if(getPriority(userId) > 1){
-    //         setPriority(userId, getPriority(userId) - 1);
-    //     }
-    // }
-
-    // public void elevatePriority(String userId){
-    //     if(getPriority(userId) < 3){
-    //         setPriority(userId, getPriority(userId) + 1);
-    //     }
-    // }
 
     // Currently requires the event name but will later need to be changed to the id of the event
 
