@@ -61,7 +61,7 @@ public class Admin {
         }
         Document doc = userCollection.find(eq("_id", userId)).first();
         Bson update = Updates.set("role", role);
-        UpdateResult result = userCollection.updateOne(doc, update);
+        userCollection.updateOne(doc, update);
     }
 
     // Priority is set as: 1 = volunteer, 2 = event organizer, 3 = admin
@@ -93,12 +93,12 @@ public class Admin {
     public void approveEvent(String event){
         Document doc = eventCollection.find(eq("name", event)).first();
         Bson update = Updates.set("approved", true);
-        UpdateResult result = eventCollection.updateOne(doc, update);
+        eventCollection.updateOne(doc, update);
     }
 
     public void denyEvent(String event){
         Document doc = eventCollection.find(eq("name", event)).first();
         Bson update = Updates.set("approved", false);
-        UpdateResult result = eventCollection.updateOne(doc, update);
+        eventCollection.updateOne(doc, update);
     }
 }

@@ -37,13 +37,7 @@ public class App
             Admin admin = new Admin(mongoClient, database);
             EventManager eventManager = new EventManager(mongoClient, database);
 
-            // These tests will need to be moved to a proper testing suite
-
-
-            // ----------------- Event Approval Test -----------------
-            // admin.denyEvent("Sample Event");
-            // admin.approveEvent("Sample Event");
-            // ----------------- Event Approval Test -----------------
+            // These tests will need to be proper Junit tests
 
             // ----------------- User get/set Priority Test -----------------
             // System.out.println(admin.getPriority("1"));
@@ -55,21 +49,26 @@ public class App
             // System.out.println(admin.getUsers());
 
             // ----------------- Event Creation Test -----------------
-            // Document event = new Document("name", "Sample Event")
-            //     .append("description", "This is a sample event.")
-            //     .append("startDate", "2021-12-31")
-            //     .append("endDate", "2022-1-1")
-            //     .append("location", "Sample Location")
-            //     .append("volunteersNeeded", 10)
-            //     .append("volunteersRegistered", 0)
-            //     .append("eventStatus", "Pending");
+            Document event = new Document("name", "Sample Event")
+                .append("description", "This is a sample event.")
+                .append("startDate", "2017-02-08T12:30:00")
+                .append("endDate", "2017-02-08T20:10:00")
+                .append("location", "Sample Location")
+                .append("volunteersNeeded", 10)
+                .append("volunteersRegistered", 0)
+                .append("eventStatus", "Pending");
 
-            // eventManager.addEvent(event);
+            eventManager.addEvent(event);
             // ----------------- Event Creation Test -----------------
 
             // ----------------- Event Deletion Test -----------------
             // eventManager.deleteEvent("21");
             // ----------------- Event Deletion Test -----------------
+
+            // ----------------- Event Approval Test -----------------
+            // admin.denyEvent("Sample Event");
+            // admin.approveEvent("Sample Event");
+            // ----------------- Event Approval Test -----------------
         }
     }
 }
