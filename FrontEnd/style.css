@@ -3,6 +3,7 @@
 }
 
 nav {
+  font-family: inter;
   width: 95%;
   margin: auto;
   min-height: 10vh;
@@ -23,8 +24,14 @@ nav ul {
   flex: 0.5;
   list-style: none;
 }
+.spotlight {
+  font-family: inter;
+  color: white;
+  background: linear-gradient(to right, rgb(0, 96, 70), rgb(2, 30, 20));
+}
 
-.filters-li {
+.filters {
+  font-family: inter;
   list-style: none;
 }
 

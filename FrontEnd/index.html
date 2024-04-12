@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simple Webpage</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+    </style>
   </head>
   <body>
     <div class="nav-container">
@@ -18,18 +21,18 @@
       </nav>
     </div>
     <div class="spotlight">
-      <h1>VolunteerLink</h1>
+      <h1>Volunteer Link</h1>
       <button>Login</button>
     </div>
-
     <div class="filters">
-      <input type="text" placeholder="Search.." />
-      <ul class="filters-li">
+      <p>Search</p>
+      <input type="text" />
+      <ul class="filters">
         <li>
           <input type="checkbox" id="option" /><label for="option">
             Sac State</label
           >
-          <ul class="filters-li">
+          <ul class="filters">
             <li>
               <label
                 ><input type="checkbox" class="subOption" /> Academic</label
@@ -46,6 +49,11 @@
             </li>
           </ul>
         </li>
+      </ul>
+    </div>
+    <div class="events">
+      <ul>
+        <li>Test</li>
       </ul>
     </div>
   </body>
