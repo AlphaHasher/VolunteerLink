@@ -19,6 +19,7 @@ import com.mongodb.client.MongoDatabase;
 // import java.util.ArrayList;
 // import java.util.List;
 import com.mongodb.client.MongoCursor;
+import java.util.Date;
 
 public class User {
 
@@ -26,13 +27,12 @@ public class User {
     private MongoCollection<Document> eventCollection;
     private MongoDatabase database;
 
-    private String id; // need a way to generate unique IDs
     private String email;
     private String password;
     private String firstName;
     private String lastName;
     private String role;
-    private String registrationDate;
+    private Date registrationDate;
 
     public User(MongoClient mongoClient, MongoDatabase database){
         this.mongoClient = mongoClient;
@@ -51,9 +51,8 @@ public class User {
         return eventsString.toString();
     }
 
-    // TODO: eventRole_id, id, and registrationDate (Date object)
-    public User(String id, String email, String password, String firstName, String lastName, String role, String registrationDate){
-        this.id = id;
+    //  TODO: make registrationDate a Date object
+    public User(String email, String password, String firstName, String lastName, String role, Date registrationDate){
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -90,14 +89,6 @@ public class User {
 
     public void setEmail(String email){
         this.email = email;
-    }
-
-    public String getId(){
-        return id;
-    }
-
-    public void setId(String id){
-        this.id = id;
     }
 
     public void viewEvents(){
@@ -232,13 +223,22 @@ public class User {
         // TODO
     }
 
-    public Document toDocument(){
-        return new Document("id", id)
-                .append("email", email)
-                .append("password", password)
-                .append("firstName", firstName)
-                .append("lastName", lastName)
-                .append("role", role)
-                .append("registrationDate", registrationDate);
+    public String getRole(){
+        return role;
+    }
+
+    public void setRole(String role){
+        if (role != "volunteer" && role != "event organizer" && role != "admin") {
+            throw new IllegalArgumentException("Invalid role. Please enter 'volunteer', 'event organizer', or 'admin'.");
+        }
+        this.role = role;
+    }
+
+    public Date getRegistrationDate(){
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate){
+        this.registrationDate = registrationDate;
     }
 }

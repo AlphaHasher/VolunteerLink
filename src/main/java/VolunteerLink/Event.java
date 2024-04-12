@@ -1,8 +1,6 @@
 package VolunteerLink;
 
-import org.bson.Document;
-
-//import org.w3c.dom.events.Event; // What is the purpose of this import?
+import java.util.Date;
 
 public class Event {
 
@@ -10,8 +8,8 @@ public class Event {
     private String eventName;
     private String eventDescription;
 
-    private String startDate; // needs to be a Date object NOT a string
-    private String endDate;
+    private Date startDate;
+    private Date endDate;
 
     private String location;
     private int volunteersNeeded;
@@ -20,7 +18,7 @@ public class Event {
     private boolean approved;
 
     //Constructor
-    public Event(String eventName, String description, String startDate, String endDate, String location, int volunteersNeeded, int volunteersRegistered, String eventStatus){
+    public Event(String eventName, String description, Date startDate, Date endDate, String location, int volunteersNeeded, int volunteersRegistered, String eventStatus){
         this.eventName = eventName;
         this.eventDescription = description;
         this.startDate = startDate;
@@ -29,10 +27,6 @@ public class Event {
         this.volunteersNeeded = volunteersNeeded;
         this.volunteersRegistered = volunteersRegistered;
         this.eventStatus = eventStatus;
-        this.approved = false;
-    }
-
-    public Event(){
         this.approved = false;
     }
 
@@ -54,17 +48,17 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -72,7 +66,7 @@ public class Event {
         return id;
     }
 
-    public void setId(String id) { 
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -110,19 +104,6 @@ public class Event {
     }
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    //Converts events to Documents to be stored in DB.
-    public Document toDocument(){
-        return new Document("eventName", eventName)
-                .append("eventDescription", eventDescription)
-                .append("startDate", startDate)
-                .append("endDate", endDate)
-                .append("volunteersNeeded", volunteersNeeded)
-                .append("volunteersRegistered", volunteersRegistered)
-                .append("eventStatus", eventStatus)
-                .append("approved", approved)
-                .append("location", location);
     }
 
 }
