@@ -24,6 +24,10 @@ nav ul {
   list-style: none;
 }
 
+.filters-li {
+  list-style: none;
+}
+
 /*button {
   background-color: #4caf50;
   border: none;
