@@ -42,18 +42,21 @@ public class App
         // Connecting to the MongoDB database
         try (MongoClient mongoClient = MongoClients.create(uri)) {
             MongoDatabase database = mongoClient.getDatabase("VolunteerLink");
+
             Admin admin = new Admin(mongoClient, database);
             EventManager eventManager = new EventManager(mongoClient, database);
 
             MongoCollection<Document> Events = database.getCollection("Events");
 
+            System.out.println("Connected to the database.");
 
+            System.out.println("Number of Events : " + Events.countDocuments());
 
             // Testing section for Colin
             if (true) {
                 //Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending"); // test import
                 //Document testDocument = testEvent.toDocument();
-                //Events.insertOne(testDocument); 
+                //Events.insertOne(testDocument);
                 User testUser = new User(mongoClient, database);
                 //System.out.println(testUser.getEvents());
                 //testUser.viewEventNames();
@@ -62,24 +65,8 @@ public class App
                     System.out.println("EventPending: " + i + " " + arr[i]);
                 }
                 //testUser.viewEventNames();
-    
-    
-                } 
+            }
             // Colin testing section end
-        }
-
-
-            
-
-        }
-
-
-            
-
-           
-
-
-            // These tests will need to be proper Junit tests
 
             // ----------------- User get/set Priority Test -----------------
             // System.out.println(admin.getPriority("1"));
@@ -91,16 +78,16 @@ public class App
             // System.out.println(admin.getUsers());
 
             // ----------------- Event Creation Test -----------------
-            Document event = new Document("name", "Sample Event")
-                .append("description", "This is a sample event.")
-                .append("startDate", "2017-02-08T12:30:00")
-                .append("endDate", "2017-02-08T20:10:00")
-                .append("location", "Sample Location")
-                .append("volunteersNeeded", 10)
-                .append("volunteersRegistered", 0)
-                .append("eventStatus", "Pending");
+            // Document event = new Document("name", "Sample Event")
+            //     .append("description", "This is a sample event.")
+            //     .append("startDate", "2017-02-08T12:30:00")
+            //     .append("endDate", "2017-02-08T20:10:00")
+            //     .append("location", "Sample Location")
+            //     .append("volunteersNeeded", 10)
+            //     .append("volunteersRegistered", 0)
+            //     .append("eventStatus", "Pending");
 
-            eventManager.addEvent(event);
+            // eventManager.addEvent(event);
             // ----------------- Event Creation Test -----------------
 
             // ----------------- Event Deletion Test -----------------
@@ -112,5 +99,5 @@ public class App
             // admin.approveEvent("Sample Event");
             // ----------------- Event Approval Test -----------------
         }
-    
-
+    }
+}

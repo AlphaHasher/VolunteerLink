@@ -1,8 +1,13 @@
 package VolunteerLink;
 
 import java.util.Date;
+// import org.bson.Document;
+
+// import com.mongodb.client.MongoCollection;
 
 public class Event {
+
+    // private MongoCollection<Document> eventCollection;
 
     private String id; // MongoDB makes _ids automatically unique when imported to the DB
     private String eventName;
