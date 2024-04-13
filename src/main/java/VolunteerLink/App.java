@@ -48,6 +48,7 @@ public class App
 
             MongoCollection<Document> Events = database.getCollection("Events");
 
+
             System.out.println("Connected to the database.");
 
             System.out.println("Number of Events : " + Events.countDocuments());
@@ -62,7 +63,7 @@ public class App
                 //testUser.viewEventNames();
                 String[] arr = testEvent.getPendingEvents();
                 for (int i = 0; i < arr.length - 1; ++i) {
-                    System.out.println("EventPending: " + i + " " + arr[i]);
+                    System.out.println("EventPending: " + i + " " + arr[i] + " " + "_id");
                 }
                 //testUser.viewEventNames();
             }
@@ -98,6 +99,13 @@ public class App
             // admin.denyEvent("Sample Event");
             // admin.approveEvent("Sample Event");
             // ----------------- Event Approval Test -----------------
+
+
+            // // ----------------- Event setName Test -----------------
+            //    Event CamTestEvent = new Event(mongoClient, database);
+            //    CamTestEvent.setEventName("6619d381a6f00c7e014fb733", "NewTestName");
+            // // ----------------- Event setName Test -----------------
+
         }
     }
 }
