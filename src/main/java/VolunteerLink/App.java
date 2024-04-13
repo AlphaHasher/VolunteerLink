@@ -63,7 +63,7 @@ public class App
                 //testUser.viewEventNames();
                 String[] arr = testEvent.getPendingEvents();
                 for (int i = 0; i < arr.length - 1; ++i) {
-                    System.out.println("EventPending: " + i + " " + arr[i] + " " + "_id");
+                    System.out.println("EventPending: " + i + " " + arr[i] );
                 }
                 //testUser.viewEventNames();
             }
