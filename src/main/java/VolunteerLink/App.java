@@ -26,22 +26,25 @@ public class App
     public static void main( String[] args ) {
 
         // Optimization checker
-        long startTime = System.nanoTime();
+        // long startTime = System.nanoTime();
+        // long endTime = System.nanoTime();
+        // long durationInMilliseconds = (endTime - startTime) / 1_000_000;
+        // System.out.println("Execution time: " + durationInMilliseconds + " milliseconds");
+
 
             // Testing section for Colin
-            //Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending"); // test import
+            // Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending");
             //Document testDocument = testEvent.toDocument();
             //Events.insertOne(testDocument);
-            
-            Event testEvent = new Event(mongoClient, database);
-            //System.out.println(testUser.getEvents());
-            //testUser.viewEventNames();
-            String[] arr = testEvent.getLocations();
-            for (int i = 0; i < arr.length - 1; ++i) {
-                System.out.println("EventLocations: " + i + " " + arr[i]);
-            }
-            //testUser.viewEventNames();
 
+
+            Event testEvent = new Event();
+            // String[] arr = testEvent.getLocations();
+            // for (int i = 0; i < arr.length - 1; ++i) {
+            //     System.out.println("EventLocations: " + i + " " + arr[i]);
+            // }
+
+            testEvent.setEventName("6612159eddad0fe4253600b8", "Basketball Game");
             // Colin testing section end
 
             // ----------------- User get/set Priority Test -----------------

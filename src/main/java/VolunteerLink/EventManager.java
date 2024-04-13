@@ -46,16 +46,16 @@ public class EventManager {
     }
 
     public void addEvent(Document event){
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-            Date startDate = dateFormat.parse(event.getString("startDate"));
-            Date endDate = dateFormat.parse(event.getString("endDate"));
+        // try {
+            // SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            // Date startDate = dateFormat.parse(event.getString("startDate"));
+            // Date endDate = dateFormat.parse(event.getString("endDate"));
 
             Event newEvent = new Event(
                 event.getString("eventName"),
                 event.getString("eventDescription"),
-                startDate,
-                endDate,
+                event.getString("startDate"),
+                event.getString("endDate"),
                 event.getString("location"),
                 event.getInteger("volunteersNeeded"),
                 event.getInteger("volunteersRegistered"),
@@ -64,9 +64,10 @@ public class EventManager {
             event.append("approved", false);
 
             eventCollection.insertOne(event);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        // }
+        // catch (ParseException e) {
+        //     e.printStackTrace();
+        // }
     }
 
     public void deleteEvent(String id){

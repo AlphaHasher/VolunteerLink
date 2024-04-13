@@ -3,8 +3,12 @@ package VolunteerLink;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import org.bson.Document;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 public class Database {
@@ -42,7 +46,7 @@ public class Database {
         return instance;
     }
 
-    public MongoDatabase getDatabase() {
-        return database;
+    public MongoCollection<Document> getEventCollection() {
+        return database.getCollection("Events");
     }
 }

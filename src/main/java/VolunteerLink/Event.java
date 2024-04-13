@@ -10,6 +10,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+
 import static com.mongodb.client.model.Filters.eq;
 
 import java.util.List;
@@ -18,17 +21,14 @@ import java.util.Arrays;
 
 public class Event {
 
-    private MongoClient mongoClient;
     private MongoCollection<Document> eventCollection;
-    private MongoDatabase database;
-
 
     private String id; // MongoDB makes _ids automatically unique when imported to the DB
     private String eventName;
     private String eventDescription;
 
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
 
     private String location;
     private int volunteersNeeded;
@@ -36,18 +36,21 @@ public class Event {
     private String eventStatus;
     private boolean approved;
 
-    public Event(MongoClient mongoClient, MongoDatabase database) {
-        try {
-            this.mongoClient = mongoClient;
-            this.eventCollection = database.getCollection("Events");
-            this.database = database;
-        } catch (Exception e) {
-            System.err.println("Failed to initialize Event with database connection: " + e.getMessage());
-            e.printStackTrace();
-        }
+    // public Event(MongoClient mongoClient, MongoDatabase database) {
+    //     try {
+    //         this.mongoClient = mongoClient;
+    //         this.eventCollection = database.getCollection("Events");
+    //         this.database = database;
+    //     } catch (Exception e) {
+    //         System.err.println("Failed to initialize Event with database connection: " + e.getMessage());
+    //         e.printStackTrace();
+    //     }
+    // }
+    public Event() {
+        this.eventCollection = Database.getInstance().getEventCollection();
     }
 
-    public Event(String eventName, String description, Date startDate, Date endDate, String location, int volunteersNeeded, int volunteersRegistered, String eventStatus){
+    public Event(String eventName, String description, String startDate, String endDate, String location, int volunteersNeeded, int volunteersRegistered, String eventStatus){
         this.eventName = eventName;
         this.eventDescription = description;
         this.startDate = startDate;
@@ -73,12 +76,9 @@ public class Event {
         return this;
     }
 
-    //converting string to objectID. Should accept ObjectId type later from front end or we will need to convert for every function.
-    public void setEventName(String id, String eventName){
+    public void setEventName(String id, String eventName) {
         ObjectId objectId = new ObjectId(id);
-        Document filter = new Document("_id", objectId);
-        Document update = new Document("$set", new Document("eventName", eventName));
-        eventCollection.updateOne(filter, update);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventName", eventName));
     }
 
     public String getEventName(){
@@ -92,17 +92,17 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
