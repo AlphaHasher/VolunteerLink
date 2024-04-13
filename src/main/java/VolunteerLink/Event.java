@@ -7,6 +7,13 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Accumulators;
+import com.mongodb.client.model.Aggregates;
+import static com.mongodb.client.model.Filters.eq;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Event {
 
@@ -193,44 +200,39 @@ public class Event {
         }
         return eventDescArr;
     }
-    public String[] getLocations() { // returns an Array of all Event locations in DB
-        int count = 1;
-        Iterable<Document> documents = eventCollection.find();
-        MongoCursor<Document> cursor = eventCollection.find().iterator();
-        for (Document document : documents) {
-            count ++;
-        }
-        String[] eventLocationArr = new String[count];
-        int i = 0;
-        while (cursor.hasNext()) { // Used MongoCursor object to iterate over docs in Events collection
-            Document testDoc = cursor.next();
-            String eventLocation = testDoc.get("location") + ""; // Converts the event location in DB from Object to String (DB imports from MongoCursor defaults to Object)
-            eventLocationArr[i] = eventLocation;
-            i++;
-        }
-        return eventLocationArr;
-    }
-    public String[] getPendingEvents() { // returns an Array of all Pending Event Names in DB
-        Iterable<Document> documents = eventCollection.find();
-        MongoCursor<Document> cursor = eventCollection.find().iterator();
-        int count = numPendingEvents();
-        int runningCount = 0;
-        String[] eventNameArr = new String[count];
-        int i = 0;
-        while (cursor.hasNext()) { // Used MongoCursor object to iterate over docs in Events collection
-            Document testDoc = cursor.next();
-            String eventName;
-            String eventStatus = testDoc.get("eventStatus") + "";
-            //System.out.println(eventStatus);
-            if (eventStatus.equals("Pending")) { // Must use .equals, doesn't work with == comparison.
-            eventName = testDoc.get("eventName") + ""; // Converts the event Name in DB from Object to String (DB imports from MongoCursor defaults to Object)
-            eventNameArr[runningCount] = eventName;
-            ++runningCount;
+
+    public String[] getLocations() {
+        List<String> locations = new ArrayList<>();
+        MongoCursor<Document> cursor = eventCollection.aggregate(
+            Arrays.asList(
+                Aggregates.group("$location", Accumulators.first("location", "$location")), // Group by location
+                Aggregates.project(new Document("_id", 0).append("location", "$_id")) // Project to get location names
+            )
+        ).iterator();
+
+        try {
+            while (cursor.hasNext()) {
+                Document doc = cursor.next();
+                locations.add(doc.getString("location"));
             }
-            i++;
+        } finally {
+            cursor.close();
         }
-        return eventNameArr;
+
+        return locations.toArray(new String[0]);
     }
+
+    public String[] getPendingEvents() {
+        List<String> eventNames = new ArrayList<>();
+        try (MongoCursor<Document> cursor = eventCollection.find(eq("eventStatus", "Pending")).iterator()) {
+            while (cursor.hasNext()) {
+                Document event = cursor.next();
+                eventNames.add(event.getString("eventName"));
+            }
+        }
+        return eventNames.toArray(new String[0]);
+    }
+
 
     public int numPendingEvents() {
         int count = 0;

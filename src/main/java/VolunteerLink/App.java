@@ -24,6 +24,11 @@ import org.bson.types.ObjectId;
 public class App
 {
     public static void main( String[] args ) {
+
+        // Optimization checker
+        long startTime = System.nanoTime();
+
+
         // Store the MongoDB URI
         String uri = "";
 
@@ -50,7 +55,11 @@ public class App
 
             System.out.println("Connected to the database.");
 
-            System.out.println("Number of Events : " + Events.countDocuments());
+            // Event event = new Event(mongoClient, database);
+            // String[] pendingEvents = event.getPendingEvents();
+            // for (int i = 0; i < pendingEvents.length; i++) {
+            //     System.out.println(pendingEvents[i]);
+            // }
 
             // Testing section for Colin
             if (true) {
@@ -60,9 +69,9 @@ public class App
                 Event testEvent = new Event(mongoClient, database);
                 //System.out.println(testUser.getEvents());
                 //testUser.viewEventNames();
-                String[] arr = testEvent.getPendingEvents();
+                String[] arr = testEvent.getLocations();
                 for (int i = 0; i < arr.length - 1; ++i) {
-                    System.out.println("EventPending: " + i + " " + arr[i]);
+                    System.out.println("EventLocations: " + i + " " + arr[i]);
                 }
                 //testUser.viewEventNames();
             }
@@ -98,6 +107,9 @@ public class App
             // admin.denyEvent("Sample Event");
             // admin.approveEvent("Sample Event");
             // ----------------- Event Approval Test -----------------
+            long endTime = System.nanoTime();
+            long durationInMilliseconds = (endTime - startTime) / 1_000_000;
+            System.out.println("Execution time: " + durationInMilliseconds + " milliseconds");
         }
     }
 }
