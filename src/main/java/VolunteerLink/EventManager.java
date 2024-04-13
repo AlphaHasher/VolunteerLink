@@ -2,36 +2,15 @@ package VolunteerLink;
 
 import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
-import org.bson.conversions.Bson;
-
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.UpdateOptions;
-import com.mongodb.client.model.Updates;
-import com.mongodb.client.result.UpdateResult;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.text.ParseException;
-
-@SuppressWarnings("unused")
+// @SuppressWarnings("unused")
 public class EventManager {
 
-    private MongoClient mongoClient;
-    private MongoCollection<Document> userCollection;
     private MongoCollection<Document> eventCollection;
-    private MongoDatabase database;
 
-    public EventManager(MongoClient mongoClient, MongoDatabase database){
-        this.mongoClient = mongoClient;
-        this.userCollection = database.getCollection("Users");
-        this.eventCollection = database.getCollection("Events");
-        this.database = database;
+    public EventManager() {
+        this.eventCollection = Database.getInstance().getEventCollection();
     }
 
     // returns every event in the database (will need to implement a way to filter later)
@@ -71,6 +50,6 @@ public class EventManager {
     }
 
     public void deleteEvent(String id){
-        eventCollection.deleteOne(eq("id", id));
+        eventCollection.deleteOne(eq("_id", id));
     }
 }

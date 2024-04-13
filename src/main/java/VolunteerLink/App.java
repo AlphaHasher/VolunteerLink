@@ -1,59 +1,56 @@
 package VolunteerLink;
 
-// Java Imports
-// import java.io.IOException;
-// import java.io.InputStream;
-// import java.util.Properties;
-
-
 public class App
 {
     public static void main( String[] args ) {
 
         // Optimization checker
-        // long startTime = System.nanoTime();
-        // long endTime = System.nanoTime();
-        // long durationInMilliseconds = (endTime - startTime) / 1_000_000;
-        // System.out.println("Execution time: " + durationInMilliseconds + " milliseconds");
+        long startTime = System.nanoTime();
+
+        // Testing section for Colin
+        // Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending");
+        //Document testDocument = testEvent.toDocument();
+        //Events.insertOne(testDocument);
 
 
-            // Testing section for Colin
-            // Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending");
-            //Document testDocument = testEvent.toDocument();
-            //Events.insertOne(testDocument);
+        // Event testEvent = new Event();
+        // String[] arr = testEvent.getLocations();
+        // for (int i = 0; i < arr.length - 1; ++i) {
+        //     System.out.println("EventLocations: " + i + " " + arr[i]);
+        // }
+
+        // Colin testing section end
+
+        User newuser = new User();
+        String[] userData = newuser.getUser("6611f81958ee2db88bd6d9ea");
+        for (int i = 0; i < userData.length; i++) {
+            System.out.println(userData[i]);
+        }
 
 
-            Event testEvent = new Event();
-            // String[] arr = testEvent.getLocations();
-            // for (int i = 0; i < arr.length - 1; ++i) {
-            //     System.out.println("EventLocations: " + i + " " + arr[i]);
-            // }
+        // ----------------- Event Creation Test -----------------
+        // Document event = new Document("name", "Sample Event")
+        //     .append("description", "This is a sample event.")
+        //     .append("startDate", "2017-02-08T12:30:00")
+        //     .append("endDate", "2017-02-08T20:10:00")
+        //     .append("location", "Sample Location")
+        //     .append("volunteersNeeded", 10)
+        //     .append("volunteersRegistered", 0)
+        //     .append("eventStatus", "Pending");
 
-            // testEvent.setEventName("6612159eddad0fe4253600b8", "Basketball Game");
+        // eventManager.addEvent(event);
+        // ----------------- Event Creation Test -----------------
 
-            System.out.println(testEvent.getEventName("6612159eddad0fe4253600b8"));
-            // Colin testing section end
+        // ----------------- Event Deletion Test -----------------
+        // eventManager.deleteEvent("21");
+        // ----------------- Event Deletion Test -----------------
 
-            // ----------------- Event Creation Test -----------------
-            // Document event = new Document("name", "Sample Event")
-            //     .append("description", "This is a sample event.")
-            //     .append("startDate", "2017-02-08T12:30:00")
-            //     .append("endDate", "2017-02-08T20:10:00")
-            //     .append("location", "Sample Location")
-            //     .append("volunteersNeeded", 10)
-            //     .append("volunteersRegistered", 0)
-            //     .append("eventStatus", "Pending");
-
-            // eventManager.addEvent(event);
-            // ----------------- Event Creation Test -----------------
-
-            // ----------------- Event Deletion Test -----------------
-            // eventManager.deleteEvent("21");
-            // ----------------- Event Deletion Test -----------------
-
-            // ----------------- Event Approval Test -----------------
-            // admin.denyEvent("Sample Event");
-            // admin.approveEvent("Sample Event");
-            // ----------------- Event Approval Test -----------------
+        // ----------------- Event Approval Test -----------------
+        // admin.denyEvent("Sample Event");
+        // admin.approveEvent("Sample Event");
+        // ----------------- Event Approval Test -----------------
+        long endTime = System.nanoTime();
+        long durationInMilliseconds = (endTime - startTime) / 1_000_000;
+        System.out.println("Execution time: " + durationInMilliseconds + " milliseconds");
     }
 }

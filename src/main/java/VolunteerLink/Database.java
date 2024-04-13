@@ -13,7 +13,7 @@ import com.mongodb.client.MongoDatabase;
 
 public class Database {
 
-    private static Database instance;
+    private static volatile Database instance;
     private MongoClient mongoClient;
     private MongoDatabase database;
 
@@ -38,14 +38,27 @@ public class Database {
         database = mongoClient.getDatabase(DATABASE_NAME);
     }
 
+    // Most optimized?
     public static synchronized Database getInstance() {
-        if (instance == null) {
-            instance = new Database();
+        Database result = instance;
+
+        if (result == null) {
+            synchronized (Database.class) {
+                result = instance;
+
+                if (result == null) {
+                    instance = result = new Database();
+                }
+            }
         }
-        return instance;
+        return result;
     }
 
     public MongoCollection<Document> getEventCollection() {
         return database.getCollection("Events");
+    }
+
+    public MongoCollection<Document> getUserCollection() {
+        return database.getCollection("Users");
     }
 }

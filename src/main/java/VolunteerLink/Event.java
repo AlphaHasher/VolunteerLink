@@ -78,18 +78,27 @@ public class Event {
         return doc;
     }
 
-    public Event getEvent(){
-        return this;
-    }
-
-    public void setEventName(String id, String eventName) {
-        ObjectId objectId = new ObjectId(id);
-        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventName", eventName));
+    public Event getEvent(String id){
+        Document doc = getFromId(id);
+        return new Event(
+            doc.getString("eventName"),
+            doc.getString("eventDescription"),
+            doc.getString("startDate"),
+            doc.getString("endDate"),
+            doc.getString("location"),
+            doc.getInteger("volunteersNeeded"),
+            doc.getInteger("volunteersRegistered"),
+            doc.getString("eventStatus"));
     }
 
     public String getEventName(String id){
         Document doc = getFromId(id);
         return doc.getString("eventName");
+    }
+
+    public void setEventName(String id, String eventName) {
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventName", eventName));
     }
 
     public String getDescription(String id) {
