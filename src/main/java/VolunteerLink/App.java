@@ -53,6 +53,7 @@ public class App
 
             MongoCollection<Document> Events = database.getCollection("Events");
 
+
             System.out.println("Connected to the database.");
 
             // Event event = new Event(mongoClient, database);
@@ -107,9 +108,6 @@ public class App
             // admin.denyEvent("Sample Event");
             // admin.approveEvent("Sample Event");
             // ----------------- Event Approval Test -----------------
-            long endTime = System.nanoTime();
-            long durationInMilliseconds = (endTime - startTime) / 1_000_000;
-            System.out.println("Execution time: " + durationInMilliseconds + " milliseconds");
         }
     }
 }

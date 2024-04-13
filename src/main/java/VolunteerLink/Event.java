@@ -2,6 +2,7 @@ package VolunteerLink;
 
 import java.util.Date;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoClient;
@@ -72,9 +73,14 @@ public class Event {
         return this;
     }
 
-    public void setEventName(String eventName){
-        this.eventName = eventName;
+    //converting string to objectID. Should accept ObjectId type later from front end or we will need to convert for every function.
+    public void setEventName(String id, String eventName){
+        ObjectId objectId = new ObjectId(id);
+        Document filter = new Document("_id", objectId);
+        Document update = new Document("$set", new Document("eventName", eventName));
+        eventCollection.updateOne(filter, update);
     }
+
     public String getEventName(){
         return eventName;
     }
