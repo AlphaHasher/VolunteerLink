@@ -38,7 +38,6 @@ public class Database {
         database = mongoClient.getDatabase(DATABASE_NAME);
     }
 
-    // test methods
     public static synchronized Database getInstance() {
         if (instance == null) {
             instance = new Database();

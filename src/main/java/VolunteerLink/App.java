@@ -1,25 +1,10 @@
 package VolunteerLink;
 
 // Java Imports
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+// import java.io.IOException;
+// import java.io.InputStream;
+// import java.util.Properties;
 
-// MongoDB Imports
-import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.lt;
-
-import org.bson.Document;
-import org.bson.conversions.Bson;
-
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.model.Projections;
-import com.mongodb.client.model.Sorts;
-import org.bson.types.ObjectId;
 
 public class App
 {
@@ -44,17 +29,10 @@ public class App
             //     System.out.println("EventLocations: " + i + " " + arr[i]);
             // }
 
-            testEvent.setEventName("6612159eddad0fe4253600b8", "Basketball Game");
+            // testEvent.setEventName("6612159eddad0fe4253600b8", "Basketball Game");
+
+            System.out.println(testEvent.getEventName("6612159eddad0fe4253600b8"));
             // Colin testing section end
-
-            // ----------------- User get/set Priority Test -----------------
-            // System.out.println(admin.getPriority("1"));
-
-            // admin.elevatePriority("1");
-            // System.out.println(admin.getPriority("1"));
-            // ----------------- User get/set Priority Test -----------------
-
-            // System.out.println(admin.getUsers());
 
             // ----------------- Event Creation Test -----------------
             // Document event = new Document("name", "Sample Event")

@@ -72,6 +72,12 @@ public class Event {
     //     return eventsString.toString();
     // }
 
+    private Document getFromId(String id) {
+        ObjectId objectId = new ObjectId(id);
+        Document doc = eventCollection.find(Filters.eq("_id", objectId)).first();
+        return doc;
+    }
+
     public Event getEvent(){
         return this;
     }
@@ -81,73 +87,82 @@ public class Event {
         eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventName", eventName));
     }
 
-    public String getEventName(){
-        return eventName;
+    public String getEventName(String id){
+        Document doc = getFromId(id);
+        return doc.getString("eventName");
     }
 
-    public String getDescription() {
-        return eventDescription;
+    public String getDescription(String id) {
+        Document doc = getFromId(id);
+        return doc.getString("eventDescription");
     }
-    public void setDescription(String eventDescription) {
-        this.eventDescription = eventDescription;
+    public void setDescription(String id, String eventDescription) {
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventDescription", eventDescription));
     }
 
     public String getStartDate() {
-        return startDate;
+        Document doc = getFromId(id);
+        return doc.getString("startDate");
     }
     public void setStartDate(String startDate) {
-        this.startDate = startDate;
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("startDate", startDate));
     }
 
     public String getEndDate() {
-        return endDate;
+        Document doc = getFromId(id);
+        return doc.getString("endDate");
     }
     public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("endDate", endDate));
     }
 
     public int getVolunteersNeeded() {
-        return volunteersNeeded;
+        Document doc = getFromId(id);
+        return doc.getInteger("volunteersNeeded");
     }
 
     public void setVolunteersNeeded(int volunteersNeeded) {
-        this.volunteersNeeded = volunteersNeeded;
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("volunteersNeeded", volunteersNeeded));
     }
     public int getVolunteersRegistered() {
-        return volunteersRegistered;
+        Document doc = getFromId(id);
+        return doc.getInteger("volunteersRegistered");
     }
 
     public void setVolunteersRegistered(int volunteersRegistered) {
-        this.volunteersRegistered = volunteersRegistered;
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("volunteersRegistered", volunteersRegistered));
     }
     public String getEventStatus() {
-        return eventStatus;
+        Document doc = getFromId(id);
+        return doc.getString("eventStatus");
     }
 
     public void setEventStatus(String eventStatus) {
-        this.eventStatus = eventStatus;
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventStatus", eventStatus));
     }
 
     public boolean isApproved() {
-        return approved;
+        Document doc = getFromId(id);
+        return doc.getBoolean("approved");
     }
     public void setApproved(boolean approved) {
-        this.approved = approved;
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("approved", approved));
     }
 
     public String getLocation() {
-        return location;
+        Document doc = getFromId(id);
+        return doc.getString("location");
     }
     public void setLocation(String location) {
-        this.location = location;
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("location", location));
     }
 
     // Event Parsing created by Colin, may update in future to automatically sort by most recent.
@@ -156,6 +171,7 @@ public class Event {
     // Inefficient but works, perhaps there's a way to do the same function without iterating twice, which we may improve once everything's functional
     // Will update to reduce redundancy.
 
+    // PRINTS EVENT NAMES
     public void viewEventNames() { // Might want to create a cursor variable/object for the entire class to avoid redundancy. Testing needs to be done to check if the cursor "resets" each time
         int count = 0;
         Iterable<Document> documents = eventCollection.find();
@@ -168,10 +184,9 @@ public class Event {
             Object eventName = testDoc.get("eventName");
             System.out.println(eventName);
             cursor.close();
-
         }
     }
-
+    //  RETURNS AN ARRAY OF EVENT NAMES
     public String[] getEventNames() { // returns an Array of all EventNames in DB
         int count = 1;
         Iterable<Document> documents = eventCollection.find();
