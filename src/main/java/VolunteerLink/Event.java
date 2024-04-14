@@ -150,12 +150,14 @@ public class Event {
         this.location = location;
     }
 
+
+    // These methods are deprecated, leaving them here for now.
     // Event Parsing created by Colin, may update in future to automatically sort by most recent.
     // Currently sorted by most recently imported (I believe)
     // Displays/prints a list of all eventNames in DB
     // Inefficient but works, perhaps there's a way to do the same function without iterating twice, which we may improve once everything's functional
     // Will update to reduce redundancy.
-
+    /*
     public void viewEventNames() { // Might want to create a cursor variable/object for the entire class to avoid redundancy. Testing needs to be done to check if the cursor "resets" each time
         int count = 0;
         Iterable<Document> documents = eventCollection.find();
@@ -189,7 +191,8 @@ public class Event {
         }
         return eventNameArr;
     }
-    public String[] getEventDescriptions() { // returns an Array of all eventDescriptions in DB
+    /* Deprecated
+    public String[] getEventDescriptionsOld() { // returns an Array of all eventDescriptions in DB
         int count = 1;
         Iterable<Document> documents = eventCollection.find();
         MongoCursor<Document> cursor = eventCollection.find().iterator();
@@ -205,6 +208,26 @@ public class Event {
             i++;
         }
         return eventDescArr;
+    }
+    public String[] getEventDescriptions() {
+        List<String> descriptions = new ArrayList<>();
+        MongoCursor<Document> cursor = eventCollection.aggregate(
+            Arrays.asList(
+                Aggregates.group("$description", Accumulators.first("description", "$description")), // Group by description
+                Aggregates.project(new Document("_id", 0).append("description", "$_id")) // Project to get event descriptions
+            )
+        ).iterator();
+
+        try {
+            while (cursor.hasNext()) {
+                Document doc = cursor.next();
+                descriptions.add(doc.getString("description"));
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return descriptions.toArray(new String[0]);
     }
 
     public String[] getLocations() {
@@ -252,6 +275,6 @@ public class Event {
             }
         } // The cursor is automatically closed here
         return count;
-    }
+    } */
 
 }
