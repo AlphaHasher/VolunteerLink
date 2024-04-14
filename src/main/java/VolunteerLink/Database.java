@@ -3,8 +3,12 @@ package VolunteerLink;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import org.bson.Document;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
 // New imports to test aggregation/search methods
@@ -23,7 +27,7 @@ import com.mongodb.client.model.Sorts;
 
 public class Database {
 
-    private static Database instance;
+    private static volatile Database instance;
     private MongoClient mongoClient;
     private static MongoDatabase database;
 
@@ -60,12 +64,20 @@ public class Database {
         usersCollection = database.getCollection("Users");
     }
 
-    // test methods
+    // Most optimized?
     public static synchronized Database getInstance() {
-        if (instance == null) {
-            instance = new Database();
+        Database result = instance;
+
+        if (result == null) {
+            synchronized (Database.class) {
+                result = instance;
+
+                if (result == null) {
+                    instance = result = new Database();
+                }
+            }
         }
-        return instance;
+        return result;
     }
 
     

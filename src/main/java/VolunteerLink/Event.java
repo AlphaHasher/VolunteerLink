@@ -10,6 +10,9 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
+
 import static com.mongodb.client.model.Filters.eq;
 
 import java.util.List;
@@ -18,17 +21,14 @@ import java.util.Arrays;
 
 public class Event {
 
-    private MongoClient mongoClient;
     private MongoCollection<Document> eventCollection;
-    private MongoDatabase database;
-
 
     private String id; // MongoDB makes _ids automatically unique when imported to the DB
     private String eventName;
     private String eventDescription;
 
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
 
     private String location;
     private int volunteersNeeded;
@@ -36,18 +36,21 @@ public class Event {
     private String eventStatus;
     private boolean approved;
 
-    public Event(MongoClient mongoClient, MongoDatabase database) {
-        try {
-            this.mongoClient = mongoClient;
-            this.eventCollection = database.getCollection("Events");
-            this.database = database;
-        } catch (Exception e) {
-            System.err.println("Failed to initialize Event with database connection: " + e.getMessage());
-            e.printStackTrace();
-        }
+    // public Event(MongoClient mongoClient, MongoDatabase database) {
+    //     try {
+    //         this.mongoClient = mongoClient;
+    //         this.eventCollection = database.getCollection("Events");
+    //         this.database = database;
+    //     } catch (Exception e) {
+    //         System.err.println("Failed to initialize Event with database connection: " + e.getMessage());
+    //         e.printStackTrace();
+    //     }
+    // }
+    public Event() {
+        this.eventCollection = Database.getInstance().getEventCollection();
     }
 
-    public Event(String eventName, String description, Date startDate, Date endDate, String location, int volunteersNeeded, int volunteersRegistered, String eventStatus){
+    public Event(String eventName, String description, String startDate, String endDate, String location, int volunteersNeeded, int volunteersRegistered, String eventStatus){
         this.eventName = eventName;
         this.eventDescription = description;
         this.startDate = startDate;
@@ -69,85 +72,106 @@ public class Event {
     //     return eventsString.toString();
     // }
 
-    public Event getEvent(){
-        return this;
-    }
-
-    //converting string to objectID. Should accept ObjectId type later from front end or we will need to convert for every function.
-    public void setEventName(String id, String eventName){
+    private Document getFromId(String id) {
         ObjectId objectId = new ObjectId(id);
-        Document filter = new Document("_id", objectId);
-        Document update = new Document("$set", new Document("eventName", eventName));
-        eventCollection.updateOne(filter, update);
+        Document doc = eventCollection.find(Filters.eq("_id", objectId)).first();
+        return doc;
     }
 
-    public String getEventName(){
-        return eventName;
+    public Event getEvent(String id){
+        Document doc = getFromId(id);
+        return new Event(
+            doc.getString("eventName"),
+            doc.getString("eventDescription"),
+            doc.getString("startDate"),
+            doc.getString("endDate"),
+            doc.getString("location"),
+            doc.getInteger("volunteersNeeded"),
+            doc.getInteger("volunteersRegistered"),
+            doc.getString("eventStatus"));
     }
 
-    public String getDescription() {
-        return eventDescription;
-    }
-    public void setDescription(String eventDescription) {
-        this.eventDescription = eventDescription;
+    public String getEventName(String id){
+        Document doc = getFromId(id);
+        return doc.getString("eventName");
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setEventName(String id, String eventName) {
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventName", eventName));
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public String getDescription(String id) {
+        Document doc = getFromId(id);
+        return doc.getString("eventDescription");
     }
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getId() {
-        return id;
+    public void setDescription(String id, String eventDescription) {
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventDescription", eventDescription));
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getStartDate() {
+        Document doc = getFromId(id);
+        return doc.getString("startDate");
+    }
+    public void setStartDate(String startDate) {
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("startDate", startDate));
+    }
+
+    public String getEndDate() {
+        Document doc = getFromId(id);
+        return doc.getString("endDate");
+    }
+    public void setEndDate(String endDate) {
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("endDate", endDate));
     }
 
     public int getVolunteersNeeded() {
-        return volunteersNeeded;
+        Document doc = getFromId(id);
+        return doc.getInteger("volunteersNeeded");
     }
 
     public void setVolunteersNeeded(int volunteersNeeded) {
-        this.volunteersNeeded = volunteersNeeded;
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("volunteersNeeded", volunteersNeeded));
     }
     public int getVolunteersRegistered() {
-        return volunteersRegistered;
+        Document doc = getFromId(id);
+        return doc.getInteger("volunteersRegistered");
     }
 
     public void setVolunteersRegistered(int volunteersRegistered) {
-        this.volunteersRegistered = volunteersRegistered;
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("volunteersRegistered", volunteersRegistered));
     }
     public String getEventStatus() {
-        return eventStatus;
+        Document doc = getFromId(id);
+        return doc.getString("eventStatus");
     }
 
     public void setEventStatus(String eventStatus) {
-        this.eventStatus = eventStatus;
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventStatus", eventStatus));
     }
 
     public boolean isApproved() {
-        return approved;
+        Document doc = getFromId(id);
+        return doc.getBoolean("approved");
     }
     public void setApproved(boolean approved) {
-        this.approved = approved;
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("approved", approved));
     }
 
     public String getLocation() {
-        return location;
+        Document doc = getFromId(id);
+        return doc.getString("location");
     }
     public void setLocation(String location) {
-        this.location = location;
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("location", location));
     }
 
 
@@ -157,6 +181,8 @@ public class Event {
     // Displays/prints a list of all eventNames in DB
     // Inefficient but works, perhaps there's a way to do the same function without iterating twice, which we may improve once everything's functional
     // Will update to reduce redundancy.
+
+    // PRINTS EVENT NAMES
     /*
     public void viewEventNames() { // Might want to create a cursor variable/object for the entire class to avoid redundancy. Testing needs to be done to check if the cursor "resets" each time
         int count = 0;
@@ -170,10 +196,9 @@ public class Event {
             Object eventName = testDoc.get("eventName");
             System.out.println(eventName);
             cursor.close();
-
         }
     }
-
+    //  RETURNS AN ARRAY OF EVENT NAMES
     public String[] getEventNames() { // returns an Array of all EventNames in DB
         int count = 1;
         Iterable<Document> documents = eventCollection.find();
