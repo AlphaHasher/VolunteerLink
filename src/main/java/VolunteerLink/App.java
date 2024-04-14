@@ -1,4 +1,5 @@
 package VolunteerLink;
+import org.bson.types.ObjectId;
 
 public class App
 {
@@ -13,11 +14,11 @@ public class App
             
             
 
-        User newuser = new User();
+        /* User newuser = new User();
         String[] userData = newuser.getUser("6611f81958ee2db88bd6d9ea");
         for (int i = 0; i < userData.length; i++) {
             System.out.println(userData[i]);
-        }
+        }*/
 
 
         // ----------------- Event Creation Test -----------------

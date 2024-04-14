@@ -108,7 +108,7 @@ public class Database {
 
     // Returns an array of event names
     // Deprecated, but keeping as reference.
-    /*public String[] getLocations() {
+    public String[] getLocations() {
         List<String> locations = new ArrayList<>();
         MongoCursor<Document> cursor = eventCollection.aggregate(
             Arrays.asList(
@@ -128,7 +128,7 @@ public class Database {
         }
 
         return locations.toArray(new String[0]);
-    } */
+    } 
     public String[] getEventLocations() {
         List<String> eventLocations = new ArrayList<>();
         MongoCursor<Document> cursor = eventCollection.aggregate(
