@@ -302,24 +302,4 @@ public class Database {
         ObjectId objectId = new ObjectId(id);
         eventCollection.deleteOne(eq("_id", objectId));
     }
-
-    public static <T> T getFieldValueFromDocument(String collectionName, String id, String fieldName, Class<T> fieldType) {
-        MongoCollection<Document> collection = database.getCollection(collectionName);
-        ObjectId objectId = new ObjectId(id);
-        Document document = collection.find(eq("_id", objectId)).first();
-        if (document != null) {
-            return document.get(fieldName, fieldType);
-        }
-        return null;
-    }
-
-    public static <T> void updateFieldInDocument(String collectionName, String id, String fieldName, T value) {
-        MongoCollection<Document> collection = database.getCollection(collectionName);
-        ObjectId objectId = new ObjectId(id);
-        Document document = collection.find(eq("_id", objectId)).first();
-        if (document != null) {
-            document.put(fieldName, value);
-            collection.replaceOne(eq("_id", objectId), document);
-        }
-    }
 }

@@ -15,19 +15,19 @@ public class App
         long startTime = System.nanoTime();
 
         // Initialize the database instance
-        Database db = Database.getInstance();
+        // Database db = Database.getInstance();
 
         // Event ID to retrieve information from
-        String eventId = "6612159eddad0fe4253600b8";
         String collectionName = "Events";
+        String eventId = "6612159eddad0fe4253600b8";
         String fieldName = "startDate";
+        String statusField = "eventStatus";
+        String newStatus = "Ended";
 
-        // Retrieve the event name using the Database method
-        Date eventDate = db.getFieldValueFromDocument(collectionName, eventId, fieldName, Date.class);
-        System.out.println("Event Date: " + eventDate);
+        System.out.println(Utility.getFieldValueFromDocument(collectionName, eventId, fieldName, Date.class));
 
-        // set the eveentStatus to "Ended"
-        db.updateFieldInDocument(collectionName, eventId, "eventStatus", "Ended");
+        Utility.updateFieldInDocument(collectionName, eventId, statusField, newStatus);
+
 
         // testEventsPage(); // Calls method to displaying details of all events in DB
 
