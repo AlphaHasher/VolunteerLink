@@ -8,11 +8,10 @@ public class App
         // Optimization checker
         long startTime = System.nanoTime();
 
-            colinTesting(); // Calls my testing method, displaying details of all events in DB
-            
-            
-            
-            
+        Database database = Database.getInstance();
+
+        colinTesting(); // Calls my testing method, displaying details of all events in DB
+
 
         /* User newuser = new User();
         String[] userData = newuser.getUser("6611f81958ee2db88bd6d9ea");
@@ -47,7 +46,7 @@ public class App
         System.out.println("Execution time: " + durationInMilliseconds + " milliseconds");
     }
 
-    
+
 
     // Method for Colin to put his testing code to help keep main clean.
     public static void colinTesting() {
@@ -61,8 +60,8 @@ public class App
             Database database = null;
             database = database.getInstance();
 
-            
-            
+
+
             ObjectId eventId = new ObjectId();
             System.out.println(eventId.toString());
 
@@ -76,7 +75,7 @@ public class App
 
             ObjectId[] IdsArr = database.getEventIds(); // Not currently working, Error related to ObjectId data type in DB.
 
-            // This for loop will display details for every event in the system. 
+            // This for loop will display details for every event in the system.
             for (int i = 0; i < size; ++i) {
                 System.out.printf("Location: %-20s Description: %-30s Status: %-15s Name: %-15s _id: %-20s%n",
                 locationsArr[i], descriptionsArr[i], statusesArr[i], eventNamesArr[i], IdsArr[i]);
@@ -97,14 +96,14 @@ public class App
     // Prints all Open events as if on the main events page.
     public void testEventsPage() {
 
-    
+
     }
     // Prints all Pending events as if on the admin page
     public void testAdminPage() {
 
-    
+
     }
-    // Prompts user for event details as if creating in the front end. 
+    // Prompts user for event details as if creating in the front end.
     // Will need to set up Task class to test approvals
     public void createEvent() {
 

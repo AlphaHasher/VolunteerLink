@@ -5,10 +5,10 @@ import org.bson.Document;
 // import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
-import com.mongodb.client.MongoClient;
+// import com.mongodb.client.MongoClient;
 // import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+// import com.mongodb.client.MongoDatabase;
 // import com.mongodb.client.model.Filters;
 // import com.mongodb.client.model.UpdateOptions;
 // import com.mongodb.client.model.Updates;
@@ -54,7 +54,6 @@ public class User {
         User newUser = new User(email, password, firstName, lastName, role, registrationDate);
         return newUser;
     }
-    
 
     // test method, this will NOT return data that is not of the String type
     public String[] getUser(String id) {
@@ -146,11 +145,4 @@ public class User {
         userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
     }
 
-    public void selectEvent(String id){
-        // TODO
-    }
-
-    public void selectPosition(String id){
-        // TODO
-    }
 }

@@ -11,7 +11,6 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-// New imports to test aggregation/search methods
 import java.util.List;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Projections;
@@ -20,9 +19,9 @@ import com.mongodb.client.model.Aggregates;
 import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import java.util.Arrays;
-import org.bson.Document;
+// import org.bson.Document;
 import org.bson.types.ObjectId;
-import com.mongodb.client.MongoCollection; 
+// import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Sorts;
 
 public class Database {
@@ -57,7 +56,7 @@ public class Database {
         mongoClient = MongoClients.create(uri);
         database = mongoClient.getDatabase(DATABASE_NAME);
 
-        // New collection 
+        // New collection
         eventCollection = database.getCollection("Events");
         eventRolesCollection = database.getCollection("Event Roles");
         tasksCollection = database.getCollection("Tasks");
@@ -80,7 +79,7 @@ public class Database {
         return result;
     }
 
-    
+
     public MongoDatabase getDatabase() { // This method may need to be removed, all interaction with MongoDB should be done through the "Database" class, though this method is public
         return database;
     }
@@ -102,6 +101,31 @@ public class Database {
         return usersCollection;
     }
 
+    // User methods
+
+    // Work in progress
+    public String logInUser(String userName) {
+        Document filter = new Document("email", userName); // Assuming the field name for userName is "userName"
+        MongoCursor<Document> cursor = usersCollection.aggregate(
+            Arrays.asList(
+                Aggregates.match(filter), // Filter documents based on userName
+                Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field
+            )
+        ).iterator();
+
+        try {
+            if (cursor.hasNext()) {
+                Document doc = cursor.next();
+                return doc.getObjectId("_id").toString(); // Return the _id as a string
+            } else {
+                return null; // User not found
+            }
+        } finally {
+            cursor.close();
+        }
+    }
+
+    // Event methods
 
 
     // Methods to return an array of event Details
@@ -128,7 +152,7 @@ public class Database {
         }
 
         return locations.toArray(new String[0]);
-    } 
+    }
     public String[] getEventLocations() {
         List<String> eventLocations = new ArrayList<>();
         MongoCursor<Document> cursor = eventCollection.aggregate(
@@ -137,8 +161,8 @@ public class Database {
                 Aggregates.group("$_id", Accumulators.first("location", "$location")) // Group by _id
             )
         ).iterator();
-    
-        try { 
+
+        try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 String location = doc.getString("location");
@@ -147,7 +171,7 @@ public class Database {
         } finally {
             cursor.close();
         }
-    
+
         return eventLocations.toArray(new String[0]);
     }
     // Returns an array of event descriptions
@@ -159,8 +183,8 @@ public class Database {
                 Aggregates.group("$_id", Accumulators.first("eventDescription", "$eventDescription")) // Group by _id
             )
         ).iterator();
-    
-        try { 
+
+        try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 String description = doc.getString("eventDescription");
@@ -169,7 +193,7 @@ public class Database {
         } finally {
             cursor.close();
         }
-    
+
         return eventDescriptions.toArray(new String[0]);
     }
     // Returns an array of event names
@@ -181,8 +205,8 @@ public class Database {
                 Aggregates.group("$_id", Accumulators.first("eventName", "$eventName")) // Group by _id
             )
         ).iterator();
-    
-        try { 
+
+        try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 String description = doc.getString("eventName");
@@ -191,7 +215,7 @@ public class Database {
         } finally {
             cursor.close();
         }
-    
+
         return eventNames.toArray(new String[0]);
     }
     public ObjectId[] getEventIds() {
@@ -202,8 +226,8 @@ public class Database {
                 Aggregates.group("$_id") // Group by _id
             )
         ).iterator();
-    
-        try { 
+
+        try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 ObjectId id = doc.getObjectId("_id");
@@ -212,7 +236,7 @@ public class Database {
         } finally {
             cursor.close();
         }
-    
+
         return eventIds.toArray(new ObjectId[0]);
     }
     public String[] getEventStatuses() {
@@ -223,8 +247,8 @@ public class Database {
                 Aggregates.group("$_id", Accumulators.first("eventStatus", "$eventStatus")) // Group by _id
             )
         ).iterator();
-    
-        try { 
+
+        try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 String id = doc.getString("eventStatus");
@@ -233,12 +257,12 @@ public class Database {
         } finally {
             cursor.close();
         }
-    
+
         return eventStatuses.toArray(new String[0]);
     }
     // Generic method to return array of any specified field in the event collection.
     // We should use this in the future to reduce redundant code
-    public String[] getEventField(String field) { 
+    public String[] getEventField(String field) {
         List<String> eventField = new ArrayList<>();
         MongoCursor<Document> cursor = eventCollection.aggregate(
             Arrays.asList(
@@ -246,8 +270,8 @@ public class Database {
                 Aggregates.group("$_id", Accumulators.first("field", "$" + field)) // Group by _id
             )
         ).iterator();
-    
-        try { 
+
+        try {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
                 String id = doc.getString("field");
@@ -256,7 +280,7 @@ public class Database {
         } finally {
             cursor.close();
         }
-    
+
         return eventField.toArray(new String[0]);
     }
     // Returns an array of pending event's names
@@ -270,29 +294,4 @@ public class Database {
         }
         return eventNames.toArray(new String[0]);
     }
-    // Work in progress
-    public String logInUser(String userName) {
-        Document filter = new Document("email", userName); // Assuming the field name for userName is "userName"
-        MongoCursor<Document> cursor = usersCollection.aggregate(
-            Arrays.asList(
-                Aggregates.match(filter), // Filter documents based on userName
-                Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field
-            )
-        ).iterator();
-    
-        try {
-            if (cursor.hasNext()) {
-                Document doc = cursor.next();
-                return doc.getObjectId("_id").toString(); // Return the _id as a string
-            } else {
-                return null; // User not found
-            }
-        } finally {
-            cursor.close();
-        }
-    }
-
-
-
-
 }
