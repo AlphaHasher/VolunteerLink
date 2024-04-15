@@ -16,7 +16,6 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
-
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Accumulators;
@@ -299,13 +298,28 @@ public class Database {
             eventCollection.insertOne(event);
     }
 
-    public void deleteEvent(String id) {
+    public void deleteEvent(String id){
         ObjectId objectId = new ObjectId(id);
         eventCollection.deleteOne(eq("_id", objectId));
     }
 
-    public void updateEvent(String id, Document newEvent) {
+    public static <T> T getFieldValueFromDocument(String collectionName, String id, String fieldName, Class<T> fieldType) {
+        MongoCollection<Document> collection = database.getCollection(collectionName);
         ObjectId objectId = new ObjectId(id);
-        eventCollection.replaceOne(eq("_id", objectId), newEvent);
+        Document document = collection.find(eq("_id", objectId)).first();
+        if (document != null) {
+            return document.get(fieldName, fieldType);
+        }
+        return null;
+    }
+
+    public static <T> void updateFieldInDocument(String collectionName, String id, String fieldName, T value) {
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        ObjectId objectId = new ObjectId(id);
+        Document document = collection.find(eq("_id", objectId)).first();
+        if (document != null) {
+            document.put(fieldName, value);
+            collection.replaceOne(eq("_id", objectId), document);
+        }
     }
 }

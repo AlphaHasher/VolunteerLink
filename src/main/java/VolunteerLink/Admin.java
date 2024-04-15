@@ -22,7 +22,6 @@ public class Admin {
     private MongoCollection<Document> eventCollection;
     private MongoDatabase database;
 
-    // public Admin(MongoClient mongoClient, MongoDatabase database, MongoCollection<Document> collection){
     public Admin(MongoClient mongoClient, MongoDatabase database){
         this.mongoClient = mongoClient;
         this.userCollection = database.getCollection("Users");
@@ -30,8 +29,7 @@ public class Admin {
         this.database = database;
     }
 
-    // Currently requires the event name but will later need to be changed to the id of the event
-
+    // Obsolete?
     public void approveEvent(String eventId){
         Document doc = eventCollection.find(eq("_id", eventId)).first();
         Bson update = Updates.set("approved", true);

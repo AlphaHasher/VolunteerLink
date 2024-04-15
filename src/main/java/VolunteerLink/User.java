@@ -59,7 +59,7 @@ public class User {
     // ********************************************
     // *** Getters and setters for class fields ***
     // ********************************************
-    
+
     public String getEmail() {
         return email;
     }
@@ -143,41 +143,38 @@ public class User {
         return doc;
     }
 
-    public String getName(String id){
-        Document doc = getFromId(id);
-        return doc.getString("firstName") + " " + doc.getString("lastName");
-    }
+    // public String getName(String id){
+    //     Document doc = getFromId(id);
+    //     return doc.getString("firstName") + " " + doc.getString("lastName");
+    // }
 
-    public void setFirstName(String id, String first){
-        Document doc = getFromId(id);
-        doc.put("firstName", first);
-        userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
-    }
+    // public void setFirstName(String id, String first){
+    //     Document doc = getFromId(id);
+    //     doc.put("firstName", first);
+    //     userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
+    // }
 
-    public void setLastName(String id, String last){
-        Document doc = getFromId(id);
-        doc.put("lastName", last);
-        userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
-    }
+    // public void setLastName(String id, String last){
+    //     Document doc = getFromId(id);
+    //     doc.put("lastName", last);
+    //     userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
+    // }
 
-    public String getPassword(String id, String password){
-        Document doc = getFromId(id);
-        return doc.getString("password");
-    }
+    // public String getPassword(String id, String password){
+    //     Document doc = getFromId(id);
+    //     return doc.getString("password");
+    // }
 
-    public void setPassword(String id, String password){
-        Document doc = getFromId(id);
-        doc.put("password", password);
-        userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
-    }
+    // public void setPassword(String id, String password){
+    //     Document doc = getFromId(id);
+    //     doc.put("password", password);
+    //     userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
+    // }
 
-    public String getEmail(String id, String email){
-        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-            throw new IllegalArgumentException("Invalid email format.");
-        }
-        Document doc = getFromId(id);
-        return doc.getString("email");
-    }
+    // public String getEmail(String id, String email){
+    //     Document doc = getFromId(id);
+    //     return doc.getString("email");
+    // }
 
     public void setEmail(String id, String email){
         if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
@@ -188,10 +185,10 @@ public class User {
         userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
     }
 
-    public String getRole(String id){
-        Document doc = getFromId(id);
-        return doc.getString("role");
-    }
+    // public String getRole(String id){
+    //     Document doc = getFromId(id);
+    //     return doc.getString("role");
+    // }
 
     public void setRole(String id, String role) {
         try {
@@ -207,16 +204,16 @@ public class User {
         }
     }
 
-    public Date getRegistrationDate(String id){
-        Document doc = getFromId(id);
-        return doc.getDate("registrationDate");
-    }
+    // public Date getRegistrationDate(String id){
+    //     Document doc = getFromId(id);
+    //     return doc.getDate("registrationDate");
+    // }
 
-    public void setRegistrationDate(String id, Date registrationDate){
-        Document doc = getFromId(id);
-        doc.put("registrationDate", registrationDate);
-        userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
-    }
+    // public void setRegistrationDate(String id, Date registrationDate){
+    //     Document doc = getFromId(id);
+    //     doc.put("registrationDate", registrationDate);
+    //     userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
+    // }
 
     public ObjectId getEventRole_id(String id){
         Document doc = getFromId(id);

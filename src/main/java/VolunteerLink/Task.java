@@ -153,97 +153,97 @@ public class Task {
     // *** Getters and setters for database fields ***
     // ***********************************************
 
-    public String getTaskName(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("taskName");
-    }
+    // public String getTaskName(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("taskName");
+    // }
 
-    public void setTaskName(String id, String taskName) {
-        Document doc = getFromId(id);
-        doc.put("taskName", taskName);
-    }
+    // public void setTaskName(String id, String taskName) {
+    //     Document doc = getFromId(id);
+    //     doc.put("taskName", taskName);
+    // }
 
-    public String getTaskDescription(String id, String taskDescription) {
-        Document doc = getFromId(id);
-        return doc.getString("taskDescription");
-    }
+    // public String getTaskDescription(String id, String taskDescription) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("taskDescription");
+    // }
 
-    public void setTaskDescription(String id, String taskDescription) {
-        Document doc = getFromId(id);
-        doc.put("taskDescription", taskDescription);
-    }
+    // public void setTaskDescription(String id, String taskDescription) {
+    //     Document doc = getFromId(id);
+    //     doc.put("taskDescription", taskDescription);
+    // }
 
-    public String getAssignedToId(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("assignedTo_id");
-    }
+    // public String getAssignedToId(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("assignedTo_id");
+    // }
 
-    public void setAssignedToId(String id, String assignedTo_id) {
-        Document doc = getFromId(id);
-        doc.put("assignedTo_id", assignedTo_id);
-    }
+    // public void setAssignedToId(String id, String assignedTo_id) {
+    //     Document doc = getFromId(id);
+    //     doc.put("assignedTo_id", assignedTo_id);
+    // }
 
-    public String getCreatedById(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("createdBy_id");
-    }
+    // public String getCreatedById(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("createdBy_id");
+    // }
 
-    public void setCreatedById(String id, String createdBy_id) {
-        Document doc = getFromId(id);
-        doc.put("createdBy_id", createdBy_id);
-    }
+    // public void setCreatedById(String id, String createdBy_id) {
+    //     Document doc = getFromId(id);
+    //     doc.put("createdBy_id", createdBy_id);
+    // }
 
-    public String getDeadline(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("deadline");
-    }
+    // public String getDeadline(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("deadline");
+    // }
 
-    public void setDeadline(String id, String deadline) {
-        Document doc = getFromId(id);
-        doc.put("deadline", deadline);
-    }
+    // public void setDeadline(String id, String deadline) {
+    //     Document doc = getFromId(id);
+    //     doc.put("deadline", deadline);
+    // }
 
-    public String getCompletionDate(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("completionDate");
+    // public String getCompletionDate(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("completionDate");
 
-    }
+    // }
 
-    public void setCompletionDate(String id, String completionDate) {
-        Document doc = getFromId(id);
-        doc.put("completionDate", completionDate);
-    }
+    // public void setCompletionDate(String id, String completionDate) {
+    //     Document doc = getFromId(id);
+    //     doc.put("completionDate", completionDate);
+    // }
 
-    public String getTaskStatus(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("taskStatus");
+    // public String getTaskStatus(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("taskStatus");
 
-    }
+    // }
 
-    public void setTaskStatus(String id, String taskStatus) {
-        Document doc = getFromId(id);
-        doc.put("taskStatus", taskStatus);
-    }
+    // public void setTaskStatus(String id, String taskStatus) {
+    //     Document doc = getFromId(id);
+    //     doc.put("taskStatus", taskStatus);
+    // }
 
-    public int getPriority(String id) {
-        Document doc = getFromId(id);
-        return doc.getInteger("priority");
-    }
+    // public int getPriority(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getInteger("priority");
+    // }
 
-    public void setPriority(String id, int priority) {
-        Document doc = getFromId(id);
-        doc.put("priority", priority);
-    }
+    // public void setPriority(String id, int priority) {
+    //     Document doc = getFromId(id);
+    //     doc.put("priority", priority);
+    // }
 
-    public String getEventId(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("event_id");
-    }
+    // public String getEventId(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("event_id");
+    // }
 
-    public void setEventId(String id, String event_id) {
-        Document doc = getFromId(id);
-        doc.put("event_id", event_id);
-    }
+    // public void setEventId(String id, String event_id) {
+    //     Document doc = getFromId(id);
+    //     doc.put("event_id", event_id);
+    // }
 
 
     // toString method for printing

@@ -75,45 +75,45 @@ public class EventRole {
     // ***********************************************
 
 
-    public String getRoleName(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("roleName");
-    }
+    // public String getRoleName(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("roleName");
+    // }
 
-    public void setRoleName(String id, String roleName) {
-        Document doc = getFromId(id);
-        doc.put("roleName", roleName);
-    }
+    // public void setRoleName(String id, String roleName) {
+    //     Document doc = getFromId(id);
+    //     doc.put("roleName", roleName);
+    // }
 
-    public String getRoleDescription(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("roleDescription");
-    }
+    // public String getRoleDescription(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("roleDescription");
+    // }
 
-    public void setRoleDescription(String id, String roleDescription) {
-        Document doc = getFromId(id);
-        doc.put("roleDescription", roleDescription);
-    }
+    // public void setRoleDescription(String id, String roleDescription) {
+    //     Document doc = getFromId(id);
+    //     doc.put("roleDescription", roleDescription);
+    // }
 
-    public Double getHoursParticipated(String id) {
-        Document doc = getFromId(id);
-        return doc.getDouble("hoursParticipated");
-    }
+    // public Double getHoursParticipated(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getDouble("hoursParticipated");
+    // }
 
-    public void setHoursParticipated(String id, Double hoursParticipated) {
-        Document doc = getFromId(id);
-        doc.put("hoursParticipated", hoursParticipated);
-    }
+    // public void setHoursParticipated(String id, Double hoursParticipated) {
+    //     Document doc = getFromId(id);
+    //     doc.put("hoursParticipated", hoursParticipated);
+    // }
 
-    public String getEvent_id(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("event_id");
-    }
+    // public String getEvent_id(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("event_id");
+    // }
 
-    public void setEvent_id(String id, String event_id) {
-        Document doc = getFromId(id);
-        doc.put("event_id", event_id);
-    }
+    // public void setEvent_id(String id, String event_id) {
+    //     Document doc = getFromId(id);
+    //     doc.put("event_id", event_id);
+    // }
 
     // toString method for printing
     @Override

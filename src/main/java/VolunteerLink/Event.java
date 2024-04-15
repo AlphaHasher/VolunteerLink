@@ -179,70 +179,70 @@ public class Event {
             doc.getString("eventStatus"));
     }
 
-    public String getEventName(String id){
-        Document doc = getFromId(id);
-        return doc.getString("eventName");
-    }
+    // public String getEventName(String id){
+    //     Document doc = getFromId(id);
+    //     return doc.getString("eventName");
+    // }
 
-    public void setEventName(String id, String eventName) {
-        ObjectId objectId = new ObjectId(id);
-        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventName", eventName));
-    }
+    // public void setEventName(String id, String eventName) {
+    //     ObjectId objectId = new ObjectId(id);
+    //     eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventName", eventName));
+    // }
 
-    public String getDescription(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("eventDescription");
-    }
-    public void setDescription(String id, String eventDescription) {
-        ObjectId objectId = new ObjectId(id);
-        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventDescription", eventDescription));
-    }
+    // public String getDescription(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("eventDescription");
+    // }
+    // public void setDescription(String id, String eventDescription) {
+    //     ObjectId objectId = new ObjectId(id);
+    //     eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventDescription", eventDescription));
+    // }
 
-    public String getStartDate(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("startDate");
-    }
-    public void setStartDate(String id, String startDate) {
-        ObjectId objectId = new ObjectId(id);
-        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("startDate", startDate));
-    }
+    // public String getStartDate(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("startDate");
+    // }
+    // public void setStartDate(String id, String startDate) {
+    //     ObjectId objectId = new ObjectId(id);
+    //     eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("startDate", startDate));
+    // }
 
-    public String getEndDate(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("endDate");
-    }
-    public void setEndDate(String id, String endDate) {
-        ObjectId objectId = new ObjectId(id);
-        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("endDate", endDate));
-    }
+    // public String getEndDate(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("endDate");
+    // }
+    // public void setEndDate(String id, String endDate) {
+    //     ObjectId objectId = new ObjectId(id);
+    //     eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("endDate", endDate));
+    // }
 
-    public int getVolunteersNeeded(String id) {
-        Document doc = getFromId(id);
-        return doc.getInteger("volunteersNeeded");
-    }
+    // public int getVolunteersNeeded(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getInteger("volunteersNeeded");
+    // }
 
-    public void setVolunteersNeeded(String id, int volunteersNeeded) {
-        ObjectId objectId = new ObjectId(id);
-        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("volunteersNeeded", volunteersNeeded));
-    }
-    public int getVolunteersRegistered(String id) {
-        Document doc = getFromId(id);
-        return doc.getInteger("volunteersRegistered");
-    }
+    // public void setVolunteersNeeded(String id, int volunteersNeeded) {
+    //     ObjectId objectId = new ObjectId(id);
+    //     eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("volunteersNeeded", volunteersNeeded));
+    // }
+    // public int getVolunteersRegistered(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getInteger("volunteersRegistered");
+    // }
 
-    public void setVolunteersRegistered(String id, int volunteersRegistered) {
-        ObjectId objectId = new ObjectId(id);
-        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("volunteersRegistered", volunteersRegistered));
-    }
-    public String getEventStatus(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("eventStatus");
-    }
+    // public void setVolunteersRegistered(String id, int volunteersRegistered) {
+    //     ObjectId objectId = new ObjectId(id);
+    //     eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("volunteersRegistered", volunteersRegistered));
+    // }
+    // public String getEventStatus(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("eventStatus");
+    // }
 
-    public void setEventStatus(String id, String eventStatus) {
-        ObjectId objectId = new ObjectId(id);
-        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventStatus", eventStatus));
-    }
+    // public void setEventStatus(String id, String eventStatus) {
+    //     ObjectId objectId = new ObjectId(id);
+    //     eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventStatus", eventStatus));
+    // }
 
     public boolean isApproved(String id) {
         Document doc = getFromId(id);
@@ -253,14 +253,14 @@ public class Event {
         eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("approved", approved));
     }
 
-    public String getLocation(String id) {
-        Document doc = getFromId(id);
-        return doc.getString("location");
-    }
-    public void setLocation(String id, String location) {
-        ObjectId objectId = new ObjectId(id);
-        eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("location", location));
-    }
+    // public String getLocation(String id) {
+    //     Document doc = getFromId(id);
+    //     return doc.getString("location");
+    // }
+    // public void setLocation(String id, String location) {
+    //     ObjectId objectId = new ObjectId(id);
+    //     eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("location", location));
+    // }
 
 
     // These methods are deprecated, leaving them here for now.
