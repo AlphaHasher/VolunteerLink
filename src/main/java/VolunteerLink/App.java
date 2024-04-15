@@ -1,5 +1,6 @@
 package VolunteerLink;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 public class App
@@ -22,7 +23,10 @@ public class App
         //     .append("volunteersRegistered", 0)
         //     .append("eventStatus", "Pending");
 
-        // eventManager.addEvent(event);
+        // // add event to database using the addEvent method in the Database class
+        // Database database = Database.getInstance();
+        // database.addEvent(event);
+
         // ----------------- Event Creation Test -----------------
 
         // ----------------- Event Deletion Test -----------------

@@ -6,6 +6,7 @@ import java.util.Properties;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Date;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -61,7 +62,6 @@ public class Database {
         usersCollection = database.getCollection("Users");
     }
 
-    // Most optimized?
     public static synchronized Database getInstance() {
         Database result = instance;
 
@@ -291,5 +291,21 @@ public class Database {
             }
         }
         return eventNames.toArray(new String[0]);
+    }
+
+    public void addEvent(Document event){
+            event.append("approved", false);
+            event.append("whenCreated", new Date());
+            eventCollection.insertOne(event);
+    }
+
+    public void deleteEvent(String id) {
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.deleteOne(eq("_id", objectId));
+    }
+
+    public void updateEvent(String id, Document newEvent) {
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.replaceOne(eq("_id", objectId), newEvent);
     }
 }
