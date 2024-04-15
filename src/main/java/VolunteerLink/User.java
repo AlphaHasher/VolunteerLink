@@ -23,7 +23,7 @@ public class User {
     private MongoCollection<Document> userCollection;
 
     public User() {
-        this.userCollection = Database.getInstance().getUserCollection();
+        this.userCollection = Database.getInstance().getUsersCollection();
     }
 
     private String email;
