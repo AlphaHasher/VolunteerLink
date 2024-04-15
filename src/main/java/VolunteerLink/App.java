@@ -9,9 +9,7 @@ public class App
         // Optimization checker
         long startTime = System.nanoTime();
 
-        Database database = Database.getInstance();
-
-        testEventsPage(); // Calls method to displaying details of all events in DB
+        // testEventsPage(); // Calls method to displaying details of all events in DB
 
 
         /* User newuser = new User();
@@ -58,10 +56,7 @@ public class App
             //MongoDatabase MongoDB = database.getDatabase();
             //MongoDB.getCollection("Events");
             //MongoCollection<Document> eventCollection = MongoDB.getCollection("Events");
-            Database database = null;
-            database = database.getInstance();
-
-
+            Database database = Database.getInstance();
 
             ObjectId eventId = new ObjectId();
             System.out.println(eventId.toString());
@@ -74,7 +69,7 @@ public class App
 
             String[] eventNamesArr = database.getEventField("eventName");
 
-            ObjectId[] IdsArr = database.getEventIds(); 
+            ObjectId[] IdsArr = database.getEventIds();
 
             // This for loop will display details for every event in the system.
             for (int i = 0; i < size; ++i) {
@@ -112,7 +107,7 @@ public class App
 
             String[] eventNamesArr = database.getEventField("eventName");
 
-            ObjectId[] IdsArr = database.getEventIds(); 
+            ObjectId[] IdsArr = database.getEventIds();
 
             // This for loop will display details for every event in the system.
             for (int i = 0; i < size; ++i) {

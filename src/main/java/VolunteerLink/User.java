@@ -33,14 +33,16 @@ public class User {
     private String lastName;
     private String role;
     private Date registrationDate;
+    private ObjectId eventRole_id;
 
-    public User(String email, String password, String firstName, String lastName, String role, Date registrationDate){
+    public User(String email, String password, String firstName, String lastName, String role, Date registrationDate, ObjectId eventRole_id){
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
         this.registrationDate = registrationDate;
+        this.eventRole_id = eventRole_id;
     }
     // Creates new user, must have check to verify if user already exists
     // Method may not be necessary, perhaps we will just manually create users
@@ -49,10 +51,7 @@ public class User {
     }
     // Parse database for matching email and password, then return User.
     public User logInUser(String email, String password) {
-
-
-
-        User newUser = new User(email, password, firstName, lastName, role, registrationDate);
+        User newUser = new User(email, password, firstName, lastName, role, registrationDate, eventRole_id);
         return newUser;
     }
 
@@ -60,13 +59,15 @@ public class User {
     public String[] getUser(String id) {
         Document doc = getFromId(id);
         // get user data from database
-        String[] userData = new String[6];
+        String[] userData = new String[8];
         userData[0] = doc.getObjectId("_id").toString();
         userData[1] = doc.getString("email");
         userData[2] = doc.getString("password");
         userData[3] = doc.getString("firstName");
         userData[4] = doc.getString("lastName");
         userData[5] = doc.getString("role");
+        userData[6] = doc.getDate("registrationDate").toString();
+        userData[7] = doc.getObjectId("eventRole_id").toString();
         return userData;
 
     }
@@ -150,6 +151,25 @@ public class User {
     public void setRegistrationDate(String id, Date registrationDate){
         Document doc = getFromId(id);
         doc.put("registrationDate", registrationDate);
+        userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
+    }
+
+    public ObjectId getEventRole_id(String id){
+        Document doc = getFromId(id);
+        return doc.getObjectId("eventRole_id");
+    }
+
+    public void setEventRole_id(String id, ObjectId eventRole_id){
+        // adds to the eventRole_id array
+        Document doc = getFromId(id);
+        doc.put("eventRole_id", eventRole_id);
+        userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
+    }
+
+    public void deleteEventRole_id(String id, ObjectId eventRole_id){
+        // removes from the eventRole_id array
+        Document doc = getFromId(id);
+        doc.remove("eventRole_id", eventRole_id);
         userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
     }
 
