@@ -21,7 +21,6 @@ public class Event {
 
     private MongoCollection<Document> eventCollection;
 
-    private String id; // MongoDB makes _ids automatically unique when imported to the DB
     private String eventName;
     private String eventDescription;
 
@@ -48,7 +47,7 @@ public class Event {
         this.eventCollection = Database.getInstance().getEventCollection();
     }
 
-    public Event(String eventName, String description, String startDate, String endDate, String location, int volunteersNeeded, int volunteersRegistered, String eventStatus){
+    public Event(String eventName, String description, String startDate, String endDate, String location, int volunteersNeeded, int volunteersRegistered){
         this.eventName = eventName;
         this.eventDescription = description;
         this.startDate = startDate;
@@ -56,19 +55,9 @@ public class Event {
         this.location = location;
         this.volunteersNeeded = volunteersNeeded;
         this.volunteersRegistered = volunteersRegistered;
-        this.eventStatus = eventStatus;
+        this.eventStatus = "Pending";
         this.approved = false;
     }
-
-    // public String getEvents() {
-    //     StringBuilder eventsString = new StringBuilder();
-    //     Iterable<Document> documents = eventCollection.find();
-
-    //     for (Document document : documents) {
-    //         eventsString.append(document.toString()).append("\n");
-    //     }
-    //     return eventsString.toString();
-    // }
 
     private Document getFromId(String id) {
         ObjectId objectId = new ObjectId(id);
@@ -79,14 +68,6 @@ public class Event {
     // ********************************************
     // *** Getters and setters for class fields ***
     // ********************************************
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getEventName() {
         return eventName;
@@ -133,6 +114,9 @@ public class Event {
     }
 
     public void setVolunteersNeeded(int volunteersNeeded) {
+        if (volunteersNeeded <= 0) { // should we allow events with 0 volunteers needed?
+            throw new IllegalArgumentException("Invalid number of volunteers needed: " + volunteersNeeded);
+        }
         this.volunteersNeeded = volunteersNeeded;
     }
 
@@ -149,6 +133,9 @@ public class Event {
     }
 
     public void setEventStatus(String eventStatus) {
+        if (!"Pending".equals(eventStatus) && !"Denied".equals(eventStatus) && !"Scheduled".equals(eventStatus) && !"Ongoing".equals(eventStatus) && !"Ended".equals(eventStatus)){
+            throw new IllegalArgumentException("Invalid event status: " + eventStatus);
+        }
         this.eventStatus = eventStatus;
     }
 
@@ -159,8 +146,6 @@ public class Event {
     public void setApproved(boolean approved) {
         this.approved = approved;
     }
-
-
 
     // ***********************************************
     // *** Getters and setters for database fields ***
@@ -175,8 +160,7 @@ public class Event {
             doc.getString("endDate"),
             doc.getString("location"),
             doc.getInteger("volunteersNeeded"),
-            doc.getInteger("volunteersRegistered"),
-            doc.getString("eventStatus"));
+            doc.getInteger("volunteersRegistered"));
     }
 
     // public String getEventName(String id){

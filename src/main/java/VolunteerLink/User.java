@@ -100,15 +100,10 @@ public class User {
     }
 
     public void setRole(String role) {
-        try {
-            if (!"volunteer".equals(role) && !"event organizer".equals(role) && !"admin".equals(role)) {
+        if (!"volunteer".equals(role) && !"event organizer".equals(role) && !"admin".equals(role)) {
                 throw new IllegalArgumentException("Invalid role. Please enter 'volunteer', 'event organizer', or 'admin'.");
             }
             this.role = role;
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error setting role: " + e.getMessage());
-            throw e; // Rethrowing the exception after logging it
-        }
     }
 
     public Date getRegistrationDate() {
@@ -191,17 +186,12 @@ public class User {
     // }
 
     public void setRole(String id, String role) {
-        try {
-            if (!"volunteer".equals(role) && !"event organizer".equals(role) && !"admin".equals(role)) {
+        if (!"volunteer".equals(role) && !"event organizer".equals(role) && !"admin".equals(role)) {
                 throw new IllegalArgumentException("Invalid role. Please enter 'volunteer', 'event organizer', or 'admin'.");
             }
-            Document doc = getFromId(id);
-            doc.put("role", role);
-            userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
-        } catch (IllegalArgumentException e) {
-            System.err.println("Error setting role: " + e.getMessage());
-            throw e; // Rethrowing the exception after logging it
-        }
+        Document doc = getFromId(id);
+        doc.put("role", role);
+        userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
     }
 
     // public Date getRegistrationDate(String id){
