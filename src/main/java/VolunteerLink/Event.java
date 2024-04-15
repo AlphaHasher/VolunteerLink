@@ -1,6 +1,10 @@
 package VolunteerLink;
 
 // import java.util.Date;
+// import java.util.List;
+// import java.util.ArrayList;
+// import java.util.Arrays;
+
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -12,12 +16,6 @@ import com.mongodb.client.MongoCollection;
 // import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
-
-// import static com.mongodb.client.model.Filters.eq;
-
-// import java.util.List;
-// import java.util.ArrayList;
-// import java.util.Arrays;
 
 public class Event {
 

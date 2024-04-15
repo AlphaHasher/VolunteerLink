@@ -1,10 +1,10 @@
 package VolunteerLink;
 
-import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
+
+import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.MongoCollection;
 
-// @SuppressWarnings("unused")
 public class EventManager {
 
     private MongoCollection<Document> eventCollection;

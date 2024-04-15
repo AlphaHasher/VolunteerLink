@@ -1,20 +1,18 @@
 package VolunteerLink;
 
-import static com.mongodb.client.model.Filters.eq;
+// import java.util.ArrayList;
+// import java.util.List;
+
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
 import com.mongodb.client.MongoClient;
-// import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-// import com.mongodb.client.model.Filters;
 // import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
-// import com.mongodb.client.result.UpdateResult;
+import static com.mongodb.client.model.Filters.eq;
 
-// import java.util.ArrayList;
-// import java.util.List;
 
 // @SuppressWarnings("unused")
 public class Admin {
@@ -34,14 +32,14 @@ public class Admin {
 
     // Currently requires the event name but will later need to be changed to the id of the event
 
-    public void approveEvent(String event){
-        Document doc = eventCollection.find(eq("name", event)).first();
+    public void approveEvent(String eventId){
+        Document doc = eventCollection.find(eq("_id", eventId)).first();
         Bson update = Updates.set("approved", true);
         eventCollection.updateOne(doc, update);
     }
 
-    public void denyEvent(String event){
-        Document doc = eventCollection.find(eq("name", event)).first();
+    public void denyEvent(String eventId){
+        Document doc = eventCollection.find(eq("_id", eventId)).first();
         Bson update = Updates.set("approved", false);
         eventCollection.updateOne(doc, update);
     }

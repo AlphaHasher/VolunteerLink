@@ -1,77 +1,87 @@
 package VolunteerLink;
 
+import org.bson.Document;
+import org.bson.types.ObjectId;
+
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Filters;
+
 public class EventRole {
 
-    private String _id; // MongoDB ID
     private String roleName;
     private String roleDescription;
     private Double hoursParticipated;
     private String event_id; // MongoDB ID
 
+    private MongoCollection<Document> eventRolesCollection;
+
     // Default constructor
     public EventRole() {
+        this.eventRolesCollection = Database.getInstance().getEventRolesCollection();
     }
 
     // Parameterized constructor
-    public EventRole(String _id, String roleName, String roleDescription, Double hoursParticipated, String event_id) {
-        this._id = _id;
+    public EventRole(String roleName, String roleDescription, Double hoursParticipated, String event_id) {
         this.roleName = roleName;
         this.roleDescription = roleDescription;
         this.hoursParticipated = hoursParticipated;
         this.event_id = event_id;
     }
 
-    // Getter and setter for _id
-    public String getId() {
-        return _id;
+    private Document getFromId(String id) {
+        ObjectId objectId = new ObjectId(id);
+        Document doc = eventRolesCollection.find(Filters.eq("_id", objectId)).first();
+        return doc;
     }
 
-    public void setId(String _id) {
-        this._id = _id;
+    // Getter and setters
+
+
+    public String getRoleName(String id) {
+        Document doc = getFromId(id);
+        return doc.getString("roleName");
     }
 
-    // Getter and setter for roleName
-    public String getRoleName() {
-        return roleName;
+    public void setRoleName(String id, String roleName) {
+        Document doc = getFromId(id);
+        doc.put("roleName", roleName);
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public String getRoleDescription(String id) {
+        Document doc = getFromId(id);
+        return doc.getString("roleDescription");
     }
 
-    // Getter and setter for roleDescription
-    public String getRoleDescription() {
-        return roleDescription;
+    public void setRoleDescription(String id, String roleDescription) {
+        Document doc = getFromId(id);
+        doc.put("roleDescription", roleDescription);
     }
 
-    public void setRoleDescription(String roleDescription) {
-        this.roleDescription = roleDescription;
+    public Double getHoursParticipated(String id) {
+        Document doc = getFromId(id);
+        return doc.getDouble("hoursParticipated");
     }
 
-    // Getter and setter for hoursParticipated
-    public Double getHoursParticipated() {
-        return hoursParticipated;
+    public void setHoursParticipated(String id, Double hoursParticipated) {
+        Document doc = getFromId(id);
+        doc.put("hoursParticipated", hoursParticipated);
     }
 
-    public void setHoursParticipated(Double hoursParticipated) {
-        this.hoursParticipated = hoursParticipated;
+    public String getEvent_id(String id) {
+        Document doc = getFromId(id);
+        return doc.getString("event_id");
     }
 
-    // Getter and setter for event_id
-    public String getEventId() {
-        return event_id;
-    }
-
-    public void setEventId(String event_id) {
-        this.event_id = event_id;
+    public void setEvent_id(String id, String event_id) {
+        Document doc = getFromId(id);
+        doc.put("event_id", event_id);
     }
 
     // toString method for printing
     @Override
     public String toString() {
         return "EventRole{" +
-                "_id='" + _id + '\'' +
-                ", roleName='" + roleName + '\'' +
+                "roleName='" + roleName + '\'' +
                 ", roleDescription='" + roleDescription + '\'' +
                 ", hoursParticipated=" + hoursParticipated +
                 ", event_id='" + event_id + '\'' +

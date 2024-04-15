@@ -1,5 +1,9 @@
 package VolunteerLink;
 
+// import java.util.ArrayList;
+// import java.util.List;
+import java.util.Date;
+
 import org.bson.Document;
 // import static com.mongodb.client.model.Filters.eq;
 // import org.bson.conversions.Bson;
@@ -15,9 +19,6 @@ import com.mongodb.client.MongoCollection;
 // import com.mongodb.client.result.UpdateResult;
 import com.mongodb.client.model.Filters;
 
-// import java.util.ArrayList;
-// import java.util.List;
-import java.util.Date;
 
 public class User {
     private MongoCollection<Document> userCollection;
@@ -70,6 +71,7 @@ public class User {
 
     }
 
+    // Getters and setters
     private Document getFromId(String id) {
         ObjectId objectId = new ObjectId(id);
         Document doc = userCollection.find(Filters.eq("_id", objectId)).first();
@@ -81,9 +83,14 @@ public class User {
         return doc.getString("firstName") + " " + doc.getString("lastName");
     }
 
-    public void setName(String id, String first, String last){
+    public void setFirstName(String id, String first){
         Document doc = getFromId(id);
         doc.put("firstName", first);
+        userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
+    }
+
+    public void setLastName(String id, String last){
+        Document doc = getFromId(id);
         doc.put("lastName", last);
         userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
     }
@@ -116,8 +123,9 @@ public class User {
         userCollection.replaceOne(Filters.eq("_id", new ObjectId(id)), doc);
     }
 
-    public String getRole(){
-        return role;
+    public String getRole(String id){
+        Document doc = getFromId(id);
+        return doc.getString("role");
     }
 
     public void setRole(String id, String role) {
