@@ -41,6 +41,20 @@ public class User {
         this.role = role;
         this.registrationDate = registrationDate;
     }
+    // Creates new user, must have check to verify if user already exists
+    // Method may not be necessary, perhaps we will just manually create users
+    public void createUser(String email, String password) {
+
+    }
+    // Parse database for matching email and password, then return User.
+    public User logInUser(String email, String password) {
+
+
+
+        User newUser = new User(email, password, firstName, lastName, role, registrationDate);
+        return newUser;
+    }
+    
 
     // test method, this will NOT return data that is not of the String type
     public String[] getUser(String id) {
