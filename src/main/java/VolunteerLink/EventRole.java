@@ -34,7 +34,45 @@ public class EventRole {
         return doc;
     }
 
-    // Getter and setters
+    // ********************************************
+    // *** Getters and setters for class fields ***
+    // ********************************************
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getRoleDescription() {
+        return roleDescription;
+    }
+
+    public void setRoleDescription(String roleDescription) {
+        this.roleDescription = roleDescription;
+    }
+
+    public Double getHoursParticipated() {
+        return hoursParticipated;
+    }
+
+    public void setHoursParticipated(Double hoursParticipated) {
+        this.hoursParticipated = hoursParticipated;
+    }
+
+    public String getEvent_id() {
+        return event_id;
+    }
+
+    public void setEvent_id(String event_id) {
+        this.event_id = event_id;
+    }
+
+    // ***********************************************
+    // *** Getters and setters for database fields ***
+    // ***********************************************
 
 
     public String getRoleName(String id) {

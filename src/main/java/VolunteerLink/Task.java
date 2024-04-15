@@ -47,7 +47,112 @@ public class Task {
         return doc;
     }
 
-    // Getters and setters
+    // ********************************************
+    // *** Getters and setters for class fields ***
+    // ********************************************
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public String getTaskDescription() {
+        return taskDescription;
+    }
+
+    public void setTaskDescription(String taskDescription) {
+        this.taskDescription = taskDescription;
+    }
+
+    public String getAssignedTo_id() {
+        return assignedTo_id;
+    }
+
+    public void setAssignedTo_id(String assignedTo_id) {
+        this.assignedTo_id = assignedTo_id;
+    }
+
+    public String getCreatedBy_id() {
+        return createdBy_id;
+    }
+
+    public void setCreatedBy_id(String createdBy_id) {
+        this.createdBy_id = createdBy_id;
+    }
+
+    public Date getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
+
+    public Date getCompletionDate() {
+        return completionDate;
+    }
+
+    public void setCompletionDate(Date completionDate) {
+        this.completionDate = completionDate;
+    }
+
+    public String getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(String taskStatus) {
+        this.taskStatus = taskStatus;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public String getEvent_id() {
+        return event_id;
+    }
+
+    public void setEvent_id(String event_id) {
+        this.event_id = event_id;
+    }
+
+    // Database methods
+
+    // Method to add a task to the database
+    public void addTask(Document task) {
+        tasksCollection.insertOne(task);
+    }
+
+    // Method to delete a task from the database
+    public void deleteTask(String id) {
+        ObjectId objectId = new ObjectId(id);
+        tasksCollection.deleteOne(Filters.eq("_id", objectId));
+    }
+
+    // Method to update a task in the database
+    public void updateTask(String id, Document newTask) {
+        ObjectId objectId = new ObjectId(id);
+        tasksCollection.replaceOne(Filters.eq("_id", objectId), newTask);
+    }
+
+    // Method to retrieve a task from the database
+    public Document getTask(String id) {
+        ObjectId objectId = new ObjectId(id);
+        Document doc = tasksCollection.find(Filters.eq("_id", objectId)).first();
+        return doc;
+    }
+
+    // ***********************************************
+    // *** Getters and setters for database fields ***
+    // ***********************************************
+
     public String getTaskName(String id) {
         Document doc = getFromId(id);
         return doc.getString("taskName");
@@ -139,6 +244,7 @@ public class Task {
         Document doc = getFromId(id);
         doc.put("event_id", event_id);
     }
+
 
     // toString method for printing
     @Override

@@ -76,6 +76,96 @@ public class Event {
         return doc;
     }
 
+    // ********************************************
+    // *** Getters and setters for class fields ***
+    // ********************************************
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public String getEventDescription() {
+        return eventDescription;
+    }
+
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public int getVolunteersNeeded() {
+        return volunteersNeeded;
+    }
+
+    public void setVolunteersNeeded(int volunteersNeeded) {
+        this.volunteersNeeded = volunteersNeeded;
+    }
+
+    public int getVolunteersRegistered() {
+        return volunteersRegistered;
+    }
+
+    public void setVolunteersRegistered(int volunteersRegistered) {
+        this.volunteersRegistered = volunteersRegistered;
+    }
+
+    public String getEventStatus() {
+        return eventStatus;
+    }
+
+    public void setEventStatus(String eventStatus) {
+        this.eventStatus = eventStatus;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
+    }
+
+
+
+    // ***********************************************
+    // *** Getters and setters for database fields ***
+    // ***********************************************
+
     public Event getEvent(String id){
         Document doc = getFromId(id);
         return new Event(
@@ -108,66 +198,66 @@ public class Event {
         eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventDescription", eventDescription));
     }
 
-    public String getStartDate() {
+    public String getStartDate(String id) {
         Document doc = getFromId(id);
         return doc.getString("startDate");
     }
-    public void setStartDate(String startDate) {
+    public void setStartDate(String id, String startDate) {
         ObjectId objectId = new ObjectId(id);
         eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("startDate", startDate));
     }
 
-    public String getEndDate() {
+    public String getEndDate(String id) {
         Document doc = getFromId(id);
         return doc.getString("endDate");
     }
-    public void setEndDate(String endDate) {
+    public void setEndDate(String id, String endDate) {
         ObjectId objectId = new ObjectId(id);
         eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("endDate", endDate));
     }
 
-    public int getVolunteersNeeded() {
+    public int getVolunteersNeeded(String id) {
         Document doc = getFromId(id);
         return doc.getInteger("volunteersNeeded");
     }
 
-    public void setVolunteersNeeded(int volunteersNeeded) {
+    public void setVolunteersNeeded(String id, int volunteersNeeded) {
         ObjectId objectId = new ObjectId(id);
         eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("volunteersNeeded", volunteersNeeded));
     }
-    public int getVolunteersRegistered() {
+    public int getVolunteersRegistered(String id) {
         Document doc = getFromId(id);
         return doc.getInteger("volunteersRegistered");
     }
 
-    public void setVolunteersRegistered(int volunteersRegistered) {
+    public void setVolunteersRegistered(String id, int volunteersRegistered) {
         ObjectId objectId = new ObjectId(id);
         eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("volunteersRegistered", volunteersRegistered));
     }
-    public String getEventStatus() {
+    public String getEventStatus(String id) {
         Document doc = getFromId(id);
         return doc.getString("eventStatus");
     }
 
-    public void setEventStatus(String eventStatus) {
+    public void setEventStatus(String id, String eventStatus) {
         ObjectId objectId = new ObjectId(id);
         eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("eventStatus", eventStatus));
     }
 
-    public boolean isApproved() {
+    public boolean isApproved(String id) {
         Document doc = getFromId(id);
         return doc.getBoolean("approved");
     }
-    public void setApproved(boolean approved) {
+    public void setApproved(String id, boolean approved) {
         ObjectId objectId = new ObjectId(id);
         eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("approved", approved));
     }
 
-    public String getLocation() {
+    public String getLocation(String id) {
         Document doc = getFromId(id);
         return doc.getString("location");
     }
-    public void setLocation(String location) {
+    public void setLocation(String id, String location) {
         ObjectId objectId = new ObjectId(id);
         eventCollection.updateOne(Filters.eq("_id", objectId), Updates.set("location", location));
     }

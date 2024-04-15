@@ -49,30 +49,94 @@ public class User {
     public void createUser(String email, String password) {
 
     }
+
     // Parse database for matching email and password, then return User.
     public User logInUser(String email, String password) {
         User newUser = new User(email, password, firstName, lastName, role, registrationDate, eventRole_id);
         return newUser;
     }
 
-    // test method, this will NOT return data that is not of the String type
-    public String[] getUser(String id) {
-        Document doc = getFromId(id);
-        // get user data from database
-        String[] userData = new String[8];
-        userData[0] = doc.getObjectId("_id").toString();
-        userData[1] = doc.getString("email");
-        userData[2] = doc.getString("password");
-        userData[3] = doc.getString("firstName");
-        userData[4] = doc.getString("lastName");
-        userData[5] = doc.getString("role");
-        userData[6] = doc.getDate("registrationDate").toString();
-        userData[7] = doc.getObjectId("eventRole_id").toString();
-        return userData;
-
+    // ********************************************
+    // *** Getters and setters for class fields ***
+    // ********************************************
+    
+    public String getEmail() {
+        return email;
     }
 
-    // Getters and setters
+    public void setEmail(String email) {
+        if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+            throw new IllegalArgumentException("Invalid email format.");
+        }
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String first) {
+        this.firstName = first;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String last) {
+        this.lastName = last;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        try {
+            if (!"volunteer".equals(role) && !"event organizer".equals(role) && !"admin".equals(role)) {
+                throw new IllegalArgumentException("Invalid role. Please enter 'volunteer', 'event organizer', or 'admin'.");
+            }
+            this.role = role;
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error setting role: " + e.getMessage());
+            throw e; // Rethrowing the exception after logging it
+        }
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public ObjectId getEventRole_id() {
+        return eventRole_id;
+    }
+
+    public void setEventRole_id(ObjectId eventRole_id) {
+        // adds to the eventRole_id array
+        this.eventRole_id = eventRole_id;
+    }
+
+    public void deleteEventRole_id(ObjectId eventRole_id) {
+        // removes from the eventRole_id array
+        this.eventRole_id = null;
+    }
+
+    // ***********************************************
+    // *** Getters and setters for database fields ***
+    // ***********************************************
+
     private Document getFromId(String id) {
         ObjectId objectId = new ObjectId(id);
         Document doc = userCollection.find(Filters.eq("_id", objectId)).first();

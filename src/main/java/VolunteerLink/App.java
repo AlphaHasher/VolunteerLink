@@ -12,13 +12,6 @@ public class App
         // testEventsPage(); // Calls method to displaying details of all events in DB
 
 
-        /* User newuser = new User();
-        String[] userData = newuser.getUser("6611f81958ee2db88bd6d9ea");
-        for (int i = 0; i < userData.length; i++) {
-            System.out.println(userData[i]);
-        }*/
-
-
         // ----------------- Event Creation Test -----------------
         // Document event = new Document("name", "Sample Event")
         //     .append("description", "This is a sample event.")
