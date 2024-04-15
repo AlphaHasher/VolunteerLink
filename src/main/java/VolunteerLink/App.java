@@ -11,7 +11,7 @@ public class App
 
         Database database = Database.getInstance();
 
-        colinTesting(); // Calls my testing method, displaying details of all events in DB
+        testEventsPage(); // Calls method to displaying details of all events in DB
 
 
         /* User newuser = new User();
@@ -74,7 +74,7 @@ public class App
 
             String[] eventNamesArr = database.getEventField("eventName");
 
-            ObjectId[] IdsArr = database.getEventIds(); // Not currently working, Error related to ObjectId data type in DB.
+            ObjectId[] IdsArr = database.getEventIds(); 
 
             // This for loop will display details for every event in the system.
             for (int i = 0; i < size; ++i) {
@@ -95,7 +95,30 @@ public class App
 
     // Methods to test functionality of other methods, ensuring we are prepared for integration with front end
     // Prints all Open events as if on the main events page.
-    public void testEventsPage() {
+    public static void testEventsPage() {
+        Database database = null;
+            database = database.getInstance();
+
+
+
+            ObjectId eventId = new ObjectId();
+            System.out.println(eventId.toString());
+
+
+            int size = database.getEventLocations().length;
+            String[] locationsArr = database.getEventLocations();
+            String[] descriptionsArr = database.getEventDescriptions();
+            String[] statusesArr = database.getEventStatuses();
+
+            String[] eventNamesArr = database.getEventField("eventName");
+
+            ObjectId[] IdsArr = database.getEventIds(); 
+
+            // This for loop will display details for every event in the system.
+            for (int i = 0; i < size; ++i) {
+                System.out.printf("Location: %-20s Description: %-30s Status: %-15s Name: %-15s _id: %-20s%n",
+                locationsArr[i], descriptionsArr[i], statusesArr[i], eventNamesArr[i], IdsArr[i]);
+            }
 
 
     }
