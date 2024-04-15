@@ -1,0 +1,298 @@
+.background-icon {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  max-height: 100%;
+  width: 96rem;
+  object-fit: cover;
+}
+.volunteer-management-logo-icon {
+  position: absolute;
+  top: 1.875rem;
+  left: 1.875rem;
+  width: 8.75rem;
+  height: 8.75rem;
+  object-fit: cover;
+  cursor: pointer;
+  z-index: 1;
+}
+.background-parent {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  margin: 0 !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.login-bg {
+  width: 40.75rem;
+  height: 24.438rem;
+  position: relative;
+  border-radius: var(--br-5xs);
+  background-color: var(--color-darkslategray-300);
+  display: none;
+  max-width: 100%;
+}
+.sac-logo-icon {
+  height: 7.438rem;
+  width: 7.188rem;
+  position: relative;
+  object-fit: cover;
+  z-index: 2;
+}
+.sac-logo-wrapper,
+.username-field-label {
+  width: 18.813rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+.username-field-label {
+  width: 3.375rem;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  height: 1.125rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: var(--padding-8xs) 0 0;
+  box-sizing: border-box;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: var(--font-size-2xs);
+  color: var(--color-white);
+}
+.user-filed {
+  height: 1.813rem;
+  flex: 1;
+  position: relative;
+  background-color: var(--color-white);
+  min-width: 12.188rem;
+}
+.username-field {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-4xl);
+}
+.password {
+  position: relative;
+  font-size: var(--font-size-2xs);
+  font-weight: 500;
+  font-family: var(--font-inter);
+  color: var(--color-white);
+  text-align: left;
+  display: inline-block;
+  min-width: 3.25rem;
+}
+.password-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-7xs) 0 0;
+}
+.pass-field {
+  height: 1.813rem;
+  flex: 1;
+  position: relative;
+  background-color: var(--color-white);
+  min-width: 12.188rem;
+}
+.password-field,
+.username-field-parent {
+  align-self: stretch;
+  display: flex;
+  justify-content: flex-start;
+}
+.password-field {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--gap-4xl);
+}
+.username-field-parent {
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--gap-xs);
+}
+.login-bg1 {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  margin: 0 !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--color-mediumseagreen);
+}
+.login1 {
+  position: relative;
+  font-size: var(--font-size-2xs);
+  font-family: var(--font-inter);
+  color: var(--color-white);
+  text-align: left;
+  display: inline-block;
+  min-width: 1.813rem;
+  z-index: 1;
+}
+.login-button1 {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-5xs) var(--padding-xl);
+  background-color: transparent;
+  width: 18.75rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  box-sizing: border-box;
+  position: relative;
+}
+.component-1 {
+  margin: 0;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 1.125rem;
+  z-index: 2;
+}
+.help,
+.help-label,
+.manage-password {
+  position: relative;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 6.063rem;
+  z-index: 2;
+}
+.help,
+.help-label {
+  min-width: 0.25rem;
+}
+.help {
+  min-width: 1.563rem;
+}
+.help-label-parent {
+  justify-content: flex-start;
+  gap: var(--gap-8xs);
+}
+.frame-wrapper23,
+.help-label-parent,
+.manage-password-parent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.manage-password-parent {
+  justify-content: flex-start;
+  gap: var(--gap-9xs);
+}
+.frame-wrapper23 {
+  width: 18.688rem;
+  justify-content: center;
+}
+.login-bg-parent {
+  width: 40.75rem;
+  border-radius: var(--br-5xs);
+  background-color: var(--color-darkslategray-300);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: var(--padding-11xl) 11rem var(--padding-56xl) 6.188rem;
+  box-sizing: border-box;
+  gap: 1.156rem;
+  max-width: 100%;
+  z-index: 1;
+}
+.username-password-form {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  max-width: 100%;
+}
+.frame-child11 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: var(--br-8xs);
+  background-color: var(--color-mediumseagreen);
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 1;
+}
+.secret-staff-button {
+  position: absolute;
+  top: 0.813rem;
+  left: 5.375rem;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  font-family: var(--font-inter);
+  color: var(--color-white);
+  text-align: left;
+  z-index: 2;
+}
+.rectangle-group {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  width: 21.125rem;
+  height: 3rem;
+  position: relative;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.login-page {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-white);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 19.75rem var(--padding-20xl) var(--padding-25xl);
+  box-sizing: border-box;
+  gap: 14.063rem;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  font-size: var(--font-size-2xs);
+  color: var(--color-white);
+  font-family: var(--font-inter);
+}
+@media screen and (max-width: 725px) {
+  .login-bg-parent {
+    padding-left: var(--padding-30xl);
+    padding-right: 5.5rem;
+    box-sizing: border-box;
+  }
+  .login-page {
+    gap: 7rem;
+  }
+}
+@media screen and (max-width: 450px) {
+  .login-bg-parent {
+    padding: var(--padding-xl) var(--padding-xl) var(--padding-30xl);
+    box-sizing: border-box;
+  }
+  .login-page {
+    gap: var(--gap-37xl);
+  }
+}
