@@ -270,6 +270,27 @@ public class Database {
         }
         return eventNames.toArray(new String[0]);
     }
+    // Work in progress
+    public String logInUser(String userName) {
+        Document filter = new Document("email", userName); // Assuming the field name for userName is "userName"
+        MongoCursor<Document> cursor = usersCollection.aggregate(
+            Arrays.asList(
+                Aggregates.match(filter), // Filter documents based on userName
+                Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field
+            )
+        ).iterator();
+    
+        try {
+            if (cursor.hasNext()) {
+                Document doc = cursor.next();
+                return doc.getObjectId("_id").toString(); // Return the _id as a string
+            } else {
+                return null; // User not found
+            }
+        } finally {
+            cursor.close();
+        }
+    }
 
 
 
