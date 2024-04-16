@@ -2,14 +2,24 @@ package VolunteerLink;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.springframework.boot.SpringApplication;
+//import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
 
+@SpringBootApplication
+
 public class App
 {
-    public static void main( String[] args ) {
 
+    public static void main( String[] args ) {
+        SpringApplication.run(App.class, args);
         // Optimization checker
         long startTime = System.nanoTime();
 
@@ -86,5 +96,8 @@ public class App
     public void testOneEventOrganizer() {
 
     }
+
+    
+    
 
 }
