@@ -1,11 +1,10 @@
 package VolunteerLink;
 
-import VolunteerLink.Database;
-
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.util.Date;
+import java.util.List;
 
 public class App
 {
@@ -14,82 +13,42 @@ public class App
         // Optimization checker
         long startTime = System.nanoTime();
 
-        // Initialize the database instance
-        // Database db = Database.getInstance();
+        // System.out.println(Utility.getFieldValueFromDocument("Events", "661de2af56e40f5a3601da9d", "whenCreated", Date.class));
 
-        // Event ID to retrieve information from
-        String collectionName = "Events";
-        String eventId = "6612159eddad0fe4253600b8";
-        String fieldName = "startDate";
-        String statusField = "eventStatus";
-        String newStatus = "Ended";
+        // colinTesting();
+        // Utility.updateFieldInDocument("Events", "661de2af56e40f5a3601da9d", "startDate", new Date());
+        // Utility.updateFieldInDocument("Events", "6612159eddad0fe4253600b8", "eventStatus", "Pending");
 
-        System.out.println(Utility.getFieldValueFromDocument(collectionName, eventId, fieldName, Date.class));
+        // Searches for all events with a status of "Pending"
+        List<Document> pendingEvents = Utility.findDocumentsByFieldValue("Events", "eventStatus", "Pending");
+        for (Document event : pendingEvents) {
+            System.out.println(event);
+        }
 
-        Utility.updateFieldInDocument(collectionName, eventId, statusField, newStatus);
+        // System.out.println(Utility.getFieldValueFromDocument("Events", "661de2af56e40f5a3601da9d", "startDate", Date.class));
 
-
-        // testEventsPage(); // Calls method to displaying details of all events in DB
-
-        // ----------------- Event Creation Test -----------------
-        // Document event = new Document("name", "Sample Event")
-        //     .append("description", "This is a sample event.")
-        //     .append("startDate", "2017-02-08T12:30:00")
-        //     .append("endDate", "2017-02-08T20:10:00")
-        //     .append("location", "Sample Location")
-        //     .append("volunteersNeeded", 10)
-        //     .append("volunteersRegistered", 0)
-        //     .append("eventStatus", "Pending");
-
-        // // add event to database using the addEvent method in the Database class
-        // Database database = Database.getInstance();
-        // database.addEvent(event);
-
-        // ----------------- Event Creation Test -----------------
-
-        // ----------------- Event Deletion Test -----------------
-        // eventManager.deleteEvent("21");
-        // ----------------- Event Deletion Test -----------------
-
-            // ----------------- Event Approval Test -----------------
-            // admin.denyEvent("Sample Event");
-            // admin.approveEvent("Sample Event");
-            // ----------------- Event Approval Test -----------------
         long endTime = System.nanoTime();
         long durationInMilliseconds = (endTime - startTime) / 1_000_000;
         System.out.println("Execution time: " + durationInMilliseconds + " milliseconds");
     }
 
-
-
     // Method for Colin to put his testing code to help keep main clean.
     public static void colinTesting() {
             // Testing section for Colin
-            //Event testEvent = new Event("eventName", "description", "startDate", "endDate", "location", 2, 1, "Pending"); // test import
-            //Document testDocument = testEvent.toDocument();
-            //Events.insertOne(testDocument);
-            //MongoDatabase MongoDB = database.getDatabase();
-            //MongoDB.getCollection("Events");
-            //MongoCollection<Document> eventCollection = MongoDB.getCollection("Events");
-            Database database = Database.getInstance();
 
-            ObjectId eventId = new ObjectId();
-            System.out.println(eventId.toString());
+            String[] locationsArr = Utility.getEventField("Events", "location", String.class);
+            int size = locationsArr.length; // used for the loop later on
+            String[] descriptionsArr = Utility.getEventField("Events", "eventDescription", String.class);
+            Date[] startDateArr = Utility.getEventField("Events", "startDate", Date.class);
+            String[] statusesArr = Utility.getEventField("Events", "eventStatus", String.class);
+            String[] eventNamesArr = Utility.getEventField("Events", "eventName", String.class);
 
-
-            int size = database.getEventLocations().length;
-            String[] locationsArr = database.getEventLocations();
-            String[] descriptionsArr = database.getEventDescriptions();
-            String[] statusesArr = database.getEventStatuses();
-
-            String[] eventNamesArr = database.getEventField("eventName");
-
-            ObjectId[] IdsArr = database.getEventIds();
+            ObjectId[] IdsArr = Utility.getEventField("Events", "_id", ObjectId.class);
 
             // This for loop will display details for every event in the system.
             for (int i = 0; i < size; ++i) {
-                System.out.printf("Location: %-20s Description: %-30s Status: %-15s Name: %-15s _id: %-20s%n",
-                locationsArr[i], descriptionsArr[i], statusesArr[i], eventNamesArr[i], IdsArr[i]);
+                System.out.printf("Location: %-20s Description: %-15s Start Date %-15s Status: %-15s Name: %-15s _id: %-20s%n",
+                locationsArr[i], descriptionsArr[i], startDateArr[i], statusesArr[i], eventNamesArr[i], IdsArr[i]);
             }
             //System.out.println(testUser.getEvents());
             //testUser.viewEventNames();
@@ -103,35 +62,6 @@ public class App
 
     }
 
-    // Methods to test functionality of other methods, ensuring we are prepared for integration with front end
-    // Prints all Open events as if on the main events page.
-    public static void testEventsPage() {
-        Database database = null;
-            database = database.getInstance();
-
-
-
-            ObjectId eventId = new ObjectId();
-            System.out.println(eventId.toString());
-
-
-            int size = database.getEventLocations().length;
-            String[] locationsArr = database.getEventLocations();
-            String[] descriptionsArr = database.getEventDescriptions();
-            String[] statusesArr = database.getEventStatuses();
-
-            String[] eventNamesArr = database.getEventField("eventName");
-
-            ObjectId[] IdsArr = database.getEventIds();
-
-            // This for loop will display details for every event in the system.
-            for (int i = 0; i < size; ++i) {
-                System.out.printf("Location: %-20s Description: %-30s Status: %-15s Name: %-15s _id: %-20s%n",
-                locationsArr[i], descriptionsArr[i], statusesArr[i], eventNamesArr[i], IdsArr[i]);
-            }
-
-
-    }
     // Prints all Pending events as if on the admin page
     public void testAdminPage() {
 
@@ -157,10 +87,4 @@ public class App
 
     }
 
-
-
-
-
 }
-
-

@@ -33,4 +33,4 @@
 
 
 // Looks like this entire class is deprecated since all its functions
-// have been moved to the Database class. We'll see.
+// have been moved to the Database/Utility class. We'll see.

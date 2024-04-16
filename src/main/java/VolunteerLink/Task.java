@@ -41,11 +41,11 @@ public class Task {
         this.event_id = event_id;
     }
 
-    private Document getFromId(String id) {
-        ObjectId objectId = new ObjectId(id);
-        Document doc = tasksCollection.find(Filters.eq("_id", objectId)).first();
-        return doc;
-    }
+    // private Document getFromId(String id) {
+    //     ObjectId objectId = new ObjectId(id);
+    //     Document doc = tasksCollection.find(Filters.eq("_id", objectId)).first();
+    //     return doc;
+    // }
 
     // ********************************************
     // *** Getters and setters for class fields ***

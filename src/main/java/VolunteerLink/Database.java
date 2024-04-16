@@ -124,173 +124,30 @@ public class Database {
 
     // Event methods
 
+    //  *** Keeping for the sake of the example of how to use the aggregation framework ***
 
-    // Methods to return an array of event Details
+    // public String[] getEventStatuses() {
+    //     List<String> eventStatuses = new ArrayList<>();
+    //     MongoCursor<Document> cursor = eventCollection.aggregate(
+    //         Arrays.asList(
+    //             Aggregates.sort(Sorts.ascending("_id")), // Sort by _id in ascending order
+    //             Aggregates.group("$_id", Accumulators.first("eventStatus", "$eventStatus")) // Group by _id
+    //         )
+    //     ).iterator();
 
-    // Returns an array of event names
-    // Deprecated, but keeping as reference.
-    public String[] getLocations() {
-        List<String> locations = new ArrayList<>();
-        MongoCursor<Document> cursor = eventCollection.aggregate(
-            Arrays.asList(
-                Aggregates.sort(Sorts.ascending("_id")),
-                Aggregates.group("$location", Accumulators.first("location", "$location")) // Group by location
-                , Aggregates.project(new Document("_id", 0).append("location", "$_id")) // Project to get location names
-            )
-        ).iterator();
+    //     try {
+    //         while (cursor.hasNext()) {
+    //             Document doc = cursor.next();
+    //             String id = doc.getString("eventStatus");
+    //             eventStatuses.add(id);
+    //         }
+    //     } finally {
+    //         cursor.close();
+    //     }
 
-        try {
-            while (cursor.hasNext()) {
-                Document doc = cursor.next();
-                locations.add(doc.getString("location"));
-            }
-        } finally {
-            cursor.close();
-        }
+    //     return eventStatuses.toArray(new String[0]);
+    // }
 
-        return locations.toArray(new String[0]);
-    }
-    public String[] getEventLocations() {
-        List<String> eventLocations = new ArrayList<>();
-        MongoCursor<Document> cursor = eventCollection.aggregate(
-            Arrays.asList(
-                Aggregates.sort(Sorts.ascending("_id")), // Sort by _id in ascending order
-                Aggregates.group("$_id", Accumulators.first("location", "$location")) // Group by _id
-            )
-        ).iterator();
-
-        try {
-            while (cursor.hasNext()) {
-                Document doc = cursor.next();
-                String location = doc.getString("location");
-                eventLocations.add(location);
-            }
-        } finally {
-            cursor.close();
-        }
-
-        return eventLocations.toArray(new String[0]);
-    }
-    // Returns an array of event descriptions
-    public String[] getEventDescriptions() {
-        List<String> eventDescriptions = new ArrayList<>();
-        MongoCursor<Document> cursor = eventCollection.aggregate(
-            Arrays.asList(
-                Aggregates.sort(Sorts.ascending("_id")), // Sort by _id in ascending order
-                Aggregates.group("$_id", Accumulators.first("eventDescription", "$eventDescription")) // Group by _id
-            )
-        ).iterator();
-
-        try {
-            while (cursor.hasNext()) {
-                Document doc = cursor.next();
-                String description = doc.getString("eventDescription");
-                eventDescriptions.add(description);
-            }
-        } finally {
-            cursor.close();
-        }
-
-        return eventDescriptions.toArray(new String[0]);
-    }
-    // Returns an array of event names
-    public String[] getEventNames() {
-        List<String> eventNames = new ArrayList<>();
-        MongoCursor<Document> cursor = eventCollection.aggregate(
-            Arrays.asList(
-                Aggregates.sort(Sorts.ascending("_id")), // Sort by _id in ascending order
-                Aggregates.group("$_id", Accumulators.first("eventName", "$eventName")) // Group by _id
-            )
-        ).iterator();
-
-        try {
-            while (cursor.hasNext()) {
-                Document doc = cursor.next();
-                String description = doc.getString("eventName");
-                eventNames.add(description);
-            }
-        } finally {
-            cursor.close();
-        }
-
-        return eventNames.toArray(new String[0]);
-    }
-    public ObjectId[] getEventIds() {
-        List<ObjectId> eventIds = new ArrayList<>();
-        MongoCursor<Document> cursor = eventCollection.aggregate(
-            Arrays.asList(
-                Aggregates.sort(Sorts.ascending("_id")), // Sort by _id in ascending order
-                Aggregates.group("$_id") // Group by _id
-            )
-        ).iterator();
-
-        try {
-            while (cursor.hasNext()) {
-                Document doc = cursor.next();
-                ObjectId id = doc.getObjectId("_id");
-                eventIds.add(id);
-            }
-        } finally {
-            cursor.close();
-        }
-
-        return eventIds.toArray(new ObjectId[0]);
-    }
-    public String[] getEventStatuses() {
-        List<String> eventStatuses = new ArrayList<>();
-        MongoCursor<Document> cursor = eventCollection.aggregate(
-            Arrays.asList(
-                Aggregates.sort(Sorts.ascending("_id")), // Sort by _id in ascending order
-                Aggregates.group("$_id", Accumulators.first("eventStatus", "$eventStatus")) // Group by _id
-            )
-        ).iterator();
-
-        try {
-            while (cursor.hasNext()) {
-                Document doc = cursor.next();
-                String id = doc.getString("eventStatus");
-                eventStatuses.add(id);
-            }
-        } finally {
-            cursor.close();
-        }
-
-        return eventStatuses.toArray(new String[0]);
-    }
-    // Generic method to return array of any specified field in the event collection.
-    // We should use this in the future to reduce redundant code
-    public String[] getEventField(String field) {
-        List<String> eventField = new ArrayList<>();
-        MongoCursor<Document> cursor = eventCollection.aggregate(
-            Arrays.asList(
-                Aggregates.sort(Sorts.ascending("_id")), // Sort by _id in ascending order
-                Aggregates.group("$_id", Accumulators.first("field", "$" + field)) // Group by _id
-            )
-        ).iterator();
-
-        try {
-            while (cursor.hasNext()) {
-                Document doc = cursor.next();
-                String id = doc.getString("field");
-                eventField.add(id);
-            }
-        } finally {
-            cursor.close();
-        }
-
-        return eventField.toArray(new String[0]);
-    }
-    // Returns an array of pending event's names
-    public String[] getPendingEvents() {
-        List<String> eventNames = new ArrayList<>();
-        try (MongoCursor<Document> cursor = eventCollection.find(eq("eventStatus", "Pending")).iterator()) {
-            while (cursor.hasNext()) {
-                Document event = cursor.next();
-                eventNames.add(event.getString("eventName"));
-            }
-        }
-        return eventNames.toArray(new String[0]);
-    }
 
     public void addEvent(Document event){
             event.append("approved", false);
