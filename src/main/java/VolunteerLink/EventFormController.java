@@ -47,18 +47,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 
+//have to designate classes as controllers to work with front end.
+//EventManager has been changed to EventFormController
+//Method below used in side project and needs to be updated to accept all relevant Event data.
 @Controller
 public class EventFormController {
 
-    
 
+    //Defines Type of mapping and endpoint
     @PostMapping("/submitEvent")
+
+    //needs to be updated to work with all parameters
     public String submitEvent(@RequestParam("eventName") String eventName, @RequestParam("location") String location, @RequestParam("eventDescription") String eventDescription, @RequestParam("startDate") String startDate) {
         // Process the form data
-        Event event;
-        
-        Database db = Database.getInstance();
-         // Save the event to the database
+       //Event event = new Event(eventName, eventDescription, location, startDate);
+       // System.out.println(event.toString());
+        //Database db = Database.getInstance();
+       // db.addEvent(event); // Save the event to the database
         return "redirect:/success"; // Redirect to a success page
     }
     

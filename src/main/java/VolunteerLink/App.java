@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 import java.util.List;
 
+//Designates as SpringBoot Application
 @SpringBootApplication
 
 public class App
 {
 
     public static void main( String[] args ) {
+        //runs SpringBoot
         SpringApplication.run(App.class, args);
         // Optimization checker
         long startTime = System.nanoTime();
