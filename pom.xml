@@ -44,15 +44,7 @@
       <dependency>
           <groupId>org.mongodb</groupId>
           <artifactId>mongodb-driver-sync</artifactId>
-          <version>5.0.1</version>
-          <scope>compile</scope> <!-- Added scope -->
-      </dependency>
-      <!-- Logging -->
-      <dependency>
-          <groupId>ch.qos.logback</groupId>
-          <artifactId>logback-classic</artifactId>
-          <version>1.2.11</version>
-          <scope>compile</scope> <!-- Added scope -->
+          <scope>compile</scope>
       </dependency>
       <!-- Test dependencies -->
       <dependency>
@@ -68,7 +60,7 @@
           <scope>test</scope>
       </dependency>
   </dependencies>
-  
+
 
     <build>
         <plugins>
