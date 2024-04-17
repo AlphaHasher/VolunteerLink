@@ -48,7 +48,7 @@ public class Event {
     //     this.eventCollection = Database.getInstance().getEventCollection();
     // }
 
-    public Event(String eventName, String description, String startDate, String endDate, String location, int volunteersNeeded, int volunteersRegistered){
+    public Event(String eventName, String description, String location, String endDate, String startDate, int volunteersNeeded, int volunteersRegistered){
         this.eventName = eventName;
         this.eventDescription = description;
         this.startDate = startDate;
@@ -152,9 +152,9 @@ public class Event {
         Document doc = new Document();
         doc.append("eventName", this.eventName)
            .append("eventDescription", this.eventDescription)
+           .append("location", this.location)
            .append("startDate", this.startDate)
            .append("endDate", this.endDate)
-           .append("location", this.location)
            .append("volunteersNeeded", this.volunteersNeeded)
            .append("volunteersRegistered", this.volunteersRegistered)
            .append("eventStatus", this.eventStatus)
