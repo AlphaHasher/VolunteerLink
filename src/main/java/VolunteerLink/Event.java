@@ -126,4 +126,16 @@ public class Event {
     public void setVolunteersRegistered(int volunteersRegistered) {
         this.volunteersRegistered = volunteersRegistered;
     }
+
+    public Document toDocument() {
+        Document doc = new Document();
+        doc.append("eventName", this.eventName)
+           .append("eventDescription", this.eventDescription)
+           .append("location", this.location)
+           .append("startDate", this.startDate)
+           .append("endDate", this.endDate)
+           .append("volunteersNeeded", this.volunteersNeeded)
+           .append("volunteersRegistered", this.volunteersRegistered);
+        return doc;
+    }
 }
