@@ -30,8 +30,8 @@ public class Event {
     private String location;
     private int volunteersNeeded;
     private int volunteersRegistered;
-    private String eventStatus;
-    private boolean approved;
+
+    private String[] Event;
 
     // public Event(MongoClient mongoClient, MongoDatabase database) {
     //     try {
@@ -56,8 +56,6 @@ public class Event {
         this.location = location;
         this.volunteersNeeded = volunteersNeeded;
         this.volunteersRegistered = volunteersRegistered;
-        this.eventStatus = "Pending";
-        this.approved = false;
     }
 
     // private Document getFromId(String id) {
@@ -127,38 +125,5 @@ public class Event {
 
     public void setVolunteersRegistered(int volunteersRegistered) {
         this.volunteersRegistered = volunteersRegistered;
-    }
-
-    public String getEventStatus() {
-        return eventStatus;
-    }
-
-    public void setEventStatus(String eventStatus) {
-        if (!"Pending".equals(eventStatus) && !"Denied".equals(eventStatus) && !"Scheduled".equals(eventStatus) && !"Ongoing".equals(eventStatus) && !"Ended".equals(eventStatus)){
-            throw new IllegalArgumentException("Invalid event status: " + eventStatus);
-        }
-        this.eventStatus = eventStatus;
-    }
-
-    public boolean isApproved() {
-        return approved;
-    }
-
-    public void setApproved(boolean approved) {
-        this.approved = approved;
-    }
-    //please don't delete until we have an addEvents function that accepts Events as an argument. 
-    public Document toDocument() {
-        Document doc = new Document();
-        doc.append("eventName", this.eventName)
-           .append("eventDescription", this.eventDescription)
-           .append("location", this.location)
-           .append("startDate", this.startDate)
-           .append("endDate", this.endDate)
-           .append("volunteersNeeded", this.volunteersNeeded)
-           .append("volunteersRegistered", this.volunteersRegistered)
-           .append("eventStatus", this.eventStatus)
-           .append("approved", this.approved);
-        return doc;
     }
 }

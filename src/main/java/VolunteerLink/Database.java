@@ -150,9 +150,10 @@ public class Database {
 
 
     public void addEvent(Document event){
-            event.append("approved", false);
-            event.append("whenCreated", new Date());
-            eventCollection.insertOne(event);
+        event.append("eventStatus", "Pending"); // Pending, Denied, Scheduled, Ongoing, Ended
+        event.append("approved", false);
+        event.append("whenCreated", new Date());
+        eventCollection.insertOne(event);
     }
 
     public void deleteEvent(String id){

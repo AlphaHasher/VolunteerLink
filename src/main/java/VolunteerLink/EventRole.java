@@ -1,5 +1,7 @@
 package VolunteerLink;
 
+import org.bson.types.ObjectId;
+
 // import org.bson.Document;
 // import org.bson.types.ObjectId;
 
@@ -10,8 +12,11 @@ public class EventRole {
 
     private String roleName;
     private String roleDescription;
-    private Double hoursParticipated;
-    private String event_id; // MongoDB ID
+    private ObjectId eventRole_id;
+    private ObjectId [] assignedUsers;
+    private int numberAssigned;
+    private String roleStatus;
+
 
     // private MongoCollection<Document> eventRolesCollection;
 
@@ -21,11 +26,13 @@ public class EventRole {
     // }
 
     // Parameterized constructor
-    public EventRole(String roleName, String roleDescription, Double hoursParticipated, String event_id) {
+    public EventRole(String roleName, String roleDescription, ObjectId eventRole_id, ObjectId [] assignedUsers, int numberAssigned, String roleStatus) {
         this.roleName = roleName;
         this.roleDescription = roleDescription;
-        this.hoursParticipated = hoursParticipated;
-        this.event_id = event_id;
+        this.eventRole_id = eventRole_id;
+        this.assignedUsers = assignedUsers;
+        this.numberAssigned = numberAssigned;
+        this.roleStatus = roleStatus;
     }
 
     // private Document getFromId(String id) {
@@ -50,19 +57,35 @@ public class EventRole {
         this.roleDescription = roleDescription;
     }
 
-    public Double getHoursParticipated() {
-        return hoursParticipated;
+    public ObjectId getEventRole_id() {
+        return eventRole_id;
     }
 
-    public void setHoursParticipated(Double hoursParticipated) {
-        this.hoursParticipated = hoursParticipated;
+    public void setEventRole_id(ObjectId eventRole_id) {
+        this.eventRole_id = eventRole_id;
     }
 
-    public String getEvent_id() {
-        return event_id;
+    public ObjectId[] getAssignedUsers() {
+        return assignedUsers;
     }
 
-    public void setEvent_id(String event_id) {
-        this.event_id = event_id;
+    public void setAssignedUsers(ObjectId[] assignedUsers) {
+        this.assignedUsers = assignedUsers;
+    }
+
+    public int getNumberAssigned() {
+        return numberAssigned;
+    }
+
+    public void setNumberAssigned(int numberAssigned) {
+        this.numberAssigned = numberAssigned;
+    }
+
+    public String getRoleStatus() {
+        return roleStatus;
+    }
+
+    public void setRoleStatus(String roleStatus) {
+        this.roleStatus = roleStatus;
     }
 }
