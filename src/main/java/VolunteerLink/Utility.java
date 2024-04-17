@@ -84,6 +84,14 @@ public class Utility {
         return matchingDocuments;
     }
 
+    // Written to be able to add to field arrays (ie, tags, eventRoles, etc.)
+    public static void addToFieldInDocument(String collectionName, String id, String fieldName, String value) {
+        MongoDatabase database = Database.getInstance().getDatabase();
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        ObjectId objectId = new ObjectId(id);
+        collection.updateOne(eq("_id", objectId), new Document("$push", new Document(fieldName, value)));
+    }
+
     public static void convertToDate() {
         // Depending on how we implement the date (how we get it from the user)
         // We will need to convert it to a Date object to store in the database
