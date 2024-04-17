@@ -5,7 +5,7 @@ package VolunteerLink;
 // import java.util.ArrayList;
 // import java.util.Arrays;
 
-// import org.bson.Document;
+import org.bson.Document;
 // import org.bson.types.ObjectId;
 
 // import com.mongodb.client.MongoCursor;
@@ -146,5 +146,19 @@ public class Event {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+    //please don't delete until we have an addEvents function that accepts Events as an argument. 
+    public Document toDocument() {
+        Document doc = new Document();
+        doc.append("eventName", this.eventName)
+           .append("eventDescription", this.eventDescription)
+           .append("startDate", this.startDate)
+           .append("endDate", this.endDate)
+           .append("location", this.location)
+           .append("volunteersNeeded", this.volunteersNeeded)
+           .append("volunteersRegistered", this.volunteersRegistered)
+           .append("eventStatus", this.eventStatus)
+           .append("approved", this.approved);
+        return doc;
     }
 }

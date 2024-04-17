@@ -58,13 +58,16 @@ public class EventFormController {
     @PostMapping("/submitEvent")
 
     //needs to be updated to work with all parameters
-    public String submitEvent(@RequestParam("eventName") String eventName, @RequestParam("location") String location, @RequestParam("eventDescription") String eventDescription, @RequestParam("startDate") String startDate) {
-        // Process the form data
-       //Event event = new Event(eventName, eventDescription, location, startDate);
-       // System.out.println(event.toString());
-        //Database db = Database.getInstance();
-       // db.addEvent(event); // Save the event to the database
-        return "redirect:/success"; // Redirect to a success page
+    public String submitEvent(@RequestParam("eventName") String eventName, @RequestParam("location") String location, 
+    @RequestParam("eventDescription") String eventDescription, @RequestParam("startDate") String startDate,
+    @RequestParam("endDate") String endDate, @RequestParam("volunteersNeeded") int volunteersNeeded) {
+
+        //Need to redirect back to "Events" page after submission to show user that event has been added.
+        Event event = new Event(eventName, eventDescription, location, startDate, endDate, volunteersNeeded, 0);
+        System.out.println(event.toString());//take out after testing
+        Database db = Database.getInstance();
+        db.addEvent(event.toDocument()); // Save the event to the database
+        return "redirect:/events"; // Redirect to a success page
     }
     
 }
