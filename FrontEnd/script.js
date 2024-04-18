@@ -25,3 +25,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+//Validation and Submission
+function validateForm() {
+    let isValid = true;
+    const inputs = document.querySelectorAll('#myForm input[required]');
+
+    // Validate each required input
+    inputs.forEach(input => {
+        if (!input.value.trim()) {
+            console.error(`Validation failed: ${input.name} is required.`);
+            input.classList.add('error');
+            isValid = false;
+        } else {
+            input.classList.remove('error');
+        }
+    });
+
+    return isValid;
+}
+
