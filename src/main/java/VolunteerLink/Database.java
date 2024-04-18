@@ -29,7 +29,6 @@ public class Database {
     // New variables to support collection aggregation through the Database class
     private static MongoCollection<Document> eventCollection;
     private static MongoCollection<Document> eventRolesCollection;
-    private static MongoCollection<Document> tasksCollection;
     private static MongoCollection<Document> usersCollection;
 
     private Database() {
@@ -53,7 +52,6 @@ public class Database {
         // New collection
         eventCollection = database.getCollection("Events");
         eventRolesCollection = database.getCollection("Event Roles");
-        tasksCollection = database.getCollection("Tasks");
         usersCollection = database.getCollection("Users");
     }
 
@@ -84,10 +82,6 @@ public class Database {
     public MongoCollection<Document> getEventRolesCollection() {
         getInstance();
         return eventRolesCollection;
-    }
-    public MongoCollection<Document> getTasksCollection() {
-        getInstance();
-        return tasksCollection;
     }
     public MongoCollection<Document> getUsersCollection() {
         getInstance();
@@ -163,5 +157,14 @@ public class Database {
 
         // Delete all Event Roles associated with the event
         eventRolesCollection.deleteMany(eq("eventId", id));
+    }
+
+    public void addEventRole(Document eventRole){
+        eventRolesCollection.insertOne(eventRole);
+    }
+
+    public void deleteEventRole(String id){
+        ObjectId objectId = new ObjectId(id);
+        eventRolesCollection.deleteOne(eq("_id", objectId));
     }
 }
