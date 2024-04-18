@@ -44,4 +44,18 @@ function validateForm() {
 
     return isValid;
 }
+// Handle form submission
+const form = document.querySelector('#myForm');
+if (form) {
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (validateForm()) {
+            const formData = new FormData(this);
+            console.log('Form Data:', Object.fromEntries(formData));
+            alert('Form submitted successfully!');
+        } else {
+            alert('Please fill in all required fields.');
+        }
+    });
+}
 
