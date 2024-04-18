@@ -59,3 +59,26 @@ if (form) {
     });
 }
 
+// Data Fetching and Handling
+function fetchData() {
+    // Simulate a fetch operation with a delay
+    return new Promise((resolve, reject) => {
+        setTimeout(() => resolve({ data: "Simulated fetch data" }), 2000);
+    });
+}
+
+// Handle data fetching on button click
+const fetchDataButton = document.querySelector('#fetchDataButton');
+if (fetchDataButton) {
+    fetchDataButton.addEventListener('click', async function () {
+        console.log('Fetching data...');
+        try {
+            const data = await fetchData();
+            console.log('Data fetched:', data);
+            document.querySelector('#fetchResult').textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+            console.error('Failed to fetch data:', error);
+            alert('Failed to fetch data.');
+        }
+    });
+}
