@@ -95,6 +95,15 @@ public class Database {
         usersCollection.insertOne(user);
     }
 
+    // Delete a user
+    public void deleteUser(String id) {
+        ObjectId objectId = new ObjectId(id);
+        usersCollection.deleteOne(eq("_id", objectId));
+
+        // Delete all id's of the user from assignedUsers fields in eventRolesCollection
+        eventRolesCollection.updateMany(eq("assignedUsers", objectId), new Document("$pull", new Document("assignedUsers", objectId)));
+    }
+
     // Work in progress
     public String logInUser(String userName) {
         Document filter = new Document("email", userName); // Assuming the field name for userName is "userName"
@@ -157,6 +166,9 @@ public class Database {
 
         // Delete all Event Roles associated with the event
         eventRolesCollection.deleteMany(eq("eventId", id));
+
+        // Delete all event role id's from users in their eventRole_id field
+        usersCollection.updateMany(eq("eventRole_id", id), new Document("$unset", new Document("eventRole_id", "")));
     }
 
     public void addEventRole(Document eventRole){
@@ -165,6 +177,56 @@ public class Database {
 
     public void deleteEventRole(String id){
         ObjectId objectId = new ObjectId(id);
+
+        // get the number of assigned users and number needed for the event role to update the event collection
+        Document eventRoleDoc = eventRolesCollection.find(eq("_id", objectId)).first();
+        int numberAssigned = eventRoleDoc.getInteger("numberAssigned");
+        int numberNeeded = eventRoleDoc.getInteger("numberNeeded");
+        ObjectId eventId = eventRoleDoc.getObjectId("eventId");
+
         eventRolesCollection.deleteOne(eq("_id", objectId));
+
+        // decrement volunteersRegistered in eventCollection
+        eventCollection.updateOne(eq("_id", eventId), new Document("$inc", new Document("volunteersRegistered", -numberAssigned)));
+        // decrement volunteersNeeded in eventCollection
+        eventCollection.updateOne(eq("_id", eventId), new Document("$inc", new Document("volunteersNeeded", numberNeeded)));
+
+        // Delete all id's of the event role from assignedRoles fields in usersCollection
+        usersCollection.updateMany(eq("eventRole_id", objectId), new Document("$unset", new Document("eventRole_id", "")));
+
+    }
+
+    public void registerForEventRole(ObjectId userId, ObjectId eventRoleId){
+        eventRolesCollection.updateOne(eq("_id", eventRoleId), new Document("$push", new Document("assignedUsers", userId)));
+
+        // increment numberAssigned in eventRolesCollection
+        eventRolesCollection.updateOne(eq("_id", eventRoleId), new Document("$inc", new Document("numberAssigned", 1)));
+        // decrement numberNeeded in eventRolesCollection
+        eventRolesCollection.updateOne(eq("_id", eventRoleId), new Document("$inc", new Document("numberNeeded", -1)));
+
+        // increment volunteersRegistered in eventCollection
+        eventCollection.updateOne(eq("_id", eventRoleId), new Document("$inc", new Document("volunteersRegistered", 1)));
+        // decrement volunteersNeeded in eventCollection
+        eventCollection.updateOne(eq("_id", eventRoleId), new Document("$inc", new Document("volunteersNeeded", -1)));
+
+        // add eventRole_id in usersCollection
+        usersCollection.updateOne(eq("_id", userId), new Document("$set", new Document("eventRole_id", eventRoleId)));
+    }
+
+    public void unregisterForEventRole(ObjectId userId, ObjectId eventRoleId){
+        eventRolesCollection.updateOne(eq("_id", eventRoleId), new Document("$pull", new Document("assignedUsers", userId)));
+
+        // decrement numberAssigned in eventRolesCollection
+        eventRolesCollection.updateOne(eq("_id", eventRoleId), new Document("$inc", new Document("numberAssigned", -1)));
+        // increment numberNeeded in eventRolesCollection
+        eventRolesCollection.updateOne(eq("_id", eventRoleId), new Document("$inc", new Document("numberNeeded", 1)));
+
+        // decrement volunteersRegistered in eventCollection
+        eventCollection.updateOne(eq("_id", eventRoleId), new Document("$inc", new Document("volunteersRegistered", -1)));
+        // increment volunteersNeeded in eventCollection
+        eventCollection.updateOne(eq("_id", eventRoleId), new Document("$inc", new Document("volunteersNeeded", 1)));
+
+        // remove eventRole_id in usersCollection
+        usersCollection.updateOne(eq("_id", userId), new Document("$unset", new Document("eventRole_id", "")));
     }
 }

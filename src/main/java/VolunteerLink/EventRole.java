@@ -13,6 +13,7 @@ public class EventRole {
     private ObjectId eventRole_id;
     private ObjectId [] assignedUsers;
     private int numberAssigned;
+    private int numberNeeded;
     private String roleStatus;
 
 
@@ -24,12 +25,12 @@ public class EventRole {
     // }
 
     // Parameterized constructor
-    public EventRole(String roleName, String roleDescription, ObjectId eventRole_id, ObjectId [] assignedUsers, int numberAssigned, String roleStatus) {
+    public EventRole(String roleName, String roleDescription, ObjectId eventRole_id, ObjectId [] assignedUsers, int numberAssigned, int numberNeeded, String roleStatus) {
         this.roleName = roleName;
         this.roleDescription = roleDescription;
         this.eventRole_id = eventRole_id;
         this.assignedUsers = assignedUsers;
-        this.numberAssigned = numberAssigned;
+        this.numberNeeded = numberNeeded;
         this.roleStatus = roleStatus;
     }
 
@@ -79,6 +80,14 @@ public class EventRole {
         this.numberAssigned = numberAssigned;
     }
 
+    public int getNumberNeeded() {
+        return numberNeeded;
+    }
+
+    public void setNumberNeeded(int numberNeeded) {
+        this.numberNeeded = numberNeeded;
+    }
+
     public String getRoleStatus() {
         return roleStatus;
     }
@@ -92,7 +101,8 @@ public class EventRole {
             .append("roleDescription", roleDescription)
             .append("eventRole_id", eventRole_id)
             .append("assignedUsers", assignedUsers)
-            .append("numberAssigned", numberAssigned)
+            .append("numberAssigned", 0) // initially there are no assigned users
+            .append("numberNeeded", numberNeeded)
             .append("roleStatus", roleStatus);
         return doc;
     }
