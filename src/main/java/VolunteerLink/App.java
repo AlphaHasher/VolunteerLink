@@ -5,13 +5,13 @@ import org.bson.types.ObjectId;
 import org.springframework.boot.SpringApplication;
 //import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+// import org.springframework.context.annotation.ComponentScan;
+// import org.springframework.web.bind.annotation.GetMapping;
+// import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
-import java.util.List;
+// import java.util.List;
 
 //Designates as SpringBoot Application
 @SpringBootApplication
@@ -20,22 +20,23 @@ public class App
 {
 
     public static void main( String[] args ) {
-        //runs SpringBoot
-        SpringApplication.run(App.class, args);
         // Optimization checker
         long startTime = System.nanoTime();
+
+        // runs SpringBoot
+        SpringApplication.run(App.class, args);
+
 
         // System.out.println(Utility.getFieldValueFromDocument("Events", "661de2af56e40f5a3601da9d", "whenCreated", Date.class));
 
         // colinTesting();
         // Utility.updateFieldInDocument("Events", "661de2af56e40f5a3601da9d", "startDate", new Date());
-        // Utility.updateFieldInDocument("Events", "6612159eddad0fe4253600b8", "eventStatus", "Pending");
 
         // Searches for all events with a status of "Pending"
-        List<Document> pendingEvents = Utility.findDocumentsByFieldValue("Events", "eventStatus", "Pending");
-        for (Document event : pendingEvents) {
-            System.out.println(event);
-        }
+        // List<Document> pendingEvents = Utility.findDocumentsByFieldValue("Events", "eventStatus", "Pending");
+        // for (Document event : pendingEvents) {
+        //     System.out.println(event);
+        // }
 
         // System.out.println(Utility.getFieldValueFromDocument("Events", "661de2af56e40f5a3601da9d", "startDate", Date.class));
 
@@ -98,8 +99,5 @@ public class App
     public void testOneEventOrganizer() {
 
     }
-
-    
-    
 
 }

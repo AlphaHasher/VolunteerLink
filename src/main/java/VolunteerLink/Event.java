@@ -31,22 +31,7 @@ public class Event {
     private int volunteersNeeded;
     private int volunteersRegistered;
 
-    private String[] Event;
-
-    // public Event(MongoClient mongoClient, MongoDatabase database) {
-    //     try {
-    //         this.mongoClient = mongoClient;
-    //         this.eventCollection = database.getCollection("Events");
-    //         this.database = database;
-    //     } catch (Exception e) {
-    //         System.err.println("Failed to initialize Event with database connection: " + e.getMessage());
-    //         e.printStackTrace();
-    //     }
-    // }
-
-    // public Event() {
-    //     this.eventCollection = Database.getInstance().getEventCollection();
-    // }
+    // private String[] Event;
 
     public Event(String eventName, String description, String location, String endDate, String startDate, int volunteersNeeded, int volunteersRegistered){
         this.eventName = eventName;

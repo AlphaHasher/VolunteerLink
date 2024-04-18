@@ -3,9 +3,7 @@ package VolunteerLink;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Date;
 
 import org.bson.Document;
@@ -15,10 +13,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Sorts;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Projections;
-import com.mongodb.client.model.Accumulators;
 import com.mongodb.client.model.Aggregates;
 import static com.mongodb.client.model.Filters.eq;
 
@@ -100,6 +96,11 @@ public class Database {
 
     // User methods
 
+    // Create a new user
+    public void createUser(Document user) {
+        usersCollection.insertOne(user);
+    }
+
     // Work in progress
     public String logInUser(String userName) {
         Document filter = new Document("email", userName); // Assuming the field name for userName is "userName"
@@ -159,5 +160,8 @@ public class Database {
     public void deleteEvent(String id){
         ObjectId objectId = new ObjectId(id);
         eventCollection.deleteOne(eq("_id", objectId));
+
+        // Delete all Event Roles associated with the event
+        eventRolesCollection.deleteMany(eq("eventId", id));
     }
 }

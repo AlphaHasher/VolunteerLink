@@ -1,17 +1,17 @@
 package VolunteerLink;
 
-import java.util.Date;
+// import java.util.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
+// import java.util.Arrays;
 import java.util.List;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Accumulators;
-import com.mongodb.client.model.Aggregates;
+// import com.mongodb.client.model.Accumulators;
+// import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Sorts;
+// import com.mongodb.client.model.Sorts;
 import static com.mongodb.client.model.Filters.eq;
 
 import org.bson.Document;
@@ -19,7 +19,7 @@ import org.bson.types.ObjectId;
 
 public class Utility {
 
-    // Generic method to get field value from a document in the specified collection
+    // Generic method to get field value from a single document
     public static <T> T getFieldValueFromDocument(String collectionName, String id, String fieldName, Class<T> fieldType) {
         MongoDatabase database = Database.getInstance().getDatabase();
         MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -31,7 +31,7 @@ public class Utility {
         return null;
     }
 
-    // Method to update a field in a document in the specified collection
+    // Method to update any field in a single document
     public static void updateFieldInDocument(String collectionName, String id, String fieldName, Object newValue) {
         MongoDatabase database = Database.getInstance().getDatabase();
         MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -39,7 +39,7 @@ public class Utility {
         collection.updateOne(eq("_id", objectId), new Document("$set", new Document(fieldName, newValue)));
     }
 
-    // Method to update a field in a document in the specified collection
+    // Generic method to get any field in ALL documents in a specified collection (i.e. can get eventName's from all events) - returns an array of the specified type
     public static <T> T[] getEventField(String collectionName, String field, Class<T> fieldType) {
         MongoDatabase database = Database.getInstance().getDatabase();
         MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -65,7 +65,7 @@ public class Utility {
         return eventField.toArray(array);
     }
 
-    // Method to get all documents in the specified collection given a field name and value
+    // Method to get all documents in the specified collection given a field name and value (i.e. get all events with a status of "Pending")
     public static List<Document> findDocumentsByFieldValue(String collectionName, String fieldName, Object fieldValue) {
         MongoDatabase database = Database.getInstance().getDatabase();
         MongoCollection<Document> collection = database.getCollection(collectionName);
@@ -84,12 +84,20 @@ public class Utility {
         return matchingDocuments;
     }
 
-    // Written to be able to add to field arrays (ie, tags, eventRoles, etc.)
-    public static void addToFieldInDocument(String collectionName, String id, String fieldName, String value) {
+    // Method to add to field arrays (ie, tags, eventRoles, etc.) - Only works for String fields
+    public static void addToArrayField (String collectionName, String id, String fieldName, String value) {
         MongoDatabase database = Database.getInstance().getDatabase();
         MongoCollection<Document> collection = database.getCollection(collectionName);
         ObjectId objectId = new ObjectId(id);
         collection.updateOne(eq("_id", objectId), new Document("$push", new Document(fieldName, value)));
+    }
+
+    // Method to remove from field arrays (ie, tags, eventRoles, etc.) - Only works for String fields
+    public static void removeFromArrayField (String collectionName, String id, String fieldName, String value) {
+        MongoDatabase database = Database.getInstance().getDatabase();
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        ObjectId objectId = new ObjectId(id);
+        collection.updateOne(eq("_id", objectId), new Document("$pull", new Document(fieldName, value)));
     }
 
     public static void convertToDate() {

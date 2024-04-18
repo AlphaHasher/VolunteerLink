@@ -1,9 +1,7 @@
 package VolunteerLink;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
-
-// import org.bson.Document;
-// import org.bson.types.ObjectId;
 
 // import com.mongodb.client.MongoCollection;
 // import com.mongodb.client.model.Filters;
@@ -87,5 +85,15 @@ public class EventRole {
 
     public void setRoleStatus(String roleStatus) {
         this.roleStatus = roleStatus;
+    }
+
+    public Document toDocument() {
+        Document doc = new Document("roleName", roleName)
+            .append("roleDescription", roleDescription)
+            .append("eventRole_id", eventRole_id)
+            .append("assignedUsers", assignedUsers)
+            .append("numberAssigned", numberAssigned)
+            .append("roleStatus", roleStatus);
+        return doc;
     }
 }
