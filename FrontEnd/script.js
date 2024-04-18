@@ -16,4 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
             console.warn('Target section not found:', target);
         }
     }
-    
+    // Attach event listeners to navigation buttons
+    navButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            switchSection(this);
+        });
+    });
+});
