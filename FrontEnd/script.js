@@ -82,3 +82,19 @@ if (fetchDataButton) {
         }
     });
 }
+// Slider Interaction
+const slider = document.querySelector('#mySlider');
+if (slider) {
+    slider.addEventListener('input', function () {
+        const valueDisplay = document.querySelector('#sliderValue');
+        valueDisplay.textContent = this.value;
+    });
+}
+
+// Popup Close Functionality
+const popupCloseButtons = document.querySelectorAll('.popup-close');
+popupCloseButtons.forEach(button => {
+    button.addEventListener('click', function () {
+        this.parentElement.style.display = 'none';
+    });
+});
