@@ -31,7 +31,7 @@ public class EventFormController {
         System.out.println(event.toString());//take out after testing
         Database db = Database.getInstance();
         db.addEvent(event.toDocument()); // Save the event to the database
-        return "redirect:/events"; // Redirect to a page that displays events
+        return "redirect:/index.html"; // Redirect to a page that displays events
     }
 
 }
