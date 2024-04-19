@@ -21,16 +21,13 @@ public class EventFormController {
     //Defines Type of mapping and endpoint
     @PostMapping("/submitEvent")
 
-
     public String submitEvent(@RequestParam("eventName") String eventName, @RequestParam("location") String location,
     @RequestParam("eventDescription") String eventDescription, @RequestParam("startDate") String startDate,
     @RequestParam("endDate") String endDate, @RequestParam("volunteersNeeded") int volunteersNeeded) {
 
-        //Need to redirect back to "Events" page after submission to show user that event has been added.
+        //Needs to redirect back to index page after submission to show user that event has been added.
         Event event = new Event(eventName, location, eventDescription, startDate, endDate, volunteersNeeded, 0);
-        System.out.println(event.toString());//take out after testing
-        Database db = Database.getInstance();
-        db.addEvent(event.toDocument()); // Save the event to the database
+        Database.getInstance().addEvent(event.toDocument()); // Save the event to the database
         return "redirect:/index.html"; // Redirect to a page that displays events
     }
 
