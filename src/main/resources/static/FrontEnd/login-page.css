@@ -67,12 +67,14 @@
   font-size: var(--font-size-2xs);
   color: var(--color-white);
 }
-.user-filed {
+.user-field {
   height: 1.813rem;
   flex: 1;
   position: relative;
   background-color: var(--color-white);
   min-width: 12.188rem;
+  border: none;
+  border-radius: 0.25rem;
 }
 .username-field {
   align-self: stretch;
@@ -116,6 +118,8 @@
   position: relative;
   background-color: var(--color-white);
   min-width: 12.188rem;
+  border: none;
+  border-radius: 0.25rem;
 }
 .password-field,
 .username-field-parent {
