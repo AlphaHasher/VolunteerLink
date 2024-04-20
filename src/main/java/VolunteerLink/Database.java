@@ -24,30 +24,30 @@ public class Database {
     private MongoClient mongoClient;
     private static MongoDatabase database;
 
-    private static final String DATABASE_NAME = "VolunteerLink";
-
     // New variables to support collection aggregation through the Database class
     private static MongoCollection<Document> eventCollection;
     private static MongoCollection<Document> eventRolesCollection;
     private static MongoCollection<Document> usersCollection;
 
-    private Database() {
-        String uri;
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+    private static String getKey(String key){
+        try (InputStream input = Database.class.getClassLoader().getResourceAsStream("config.properties")) {
             Properties prop = new Properties();
             if (input == null) {
-                System.out.println("Sorry, unable to find config.properties\nVerify that the config.properties file is in the VolunteerLink/src/main/java folder.");
-                return;
+                System.out.println("Sorry, unable to find config.properties\nVerify that the config.properties file is in the VolunteerLink/src/main/java/resources folder.");
+                return null;
             }
             prop.load(input);
-            uri = prop.getProperty("MongoDBKey");
+            key = prop.getProperty(key);
+            return key;
         } catch (IOException ex) {
             ex.printStackTrace();
-            return;
+            return null;
         }
+    }
 
-        mongoClient = MongoClients.create(uri);
-        database = mongoClient.getDatabase(DATABASE_NAME);
+    private Database() {
+        mongoClient = MongoClients.create(getKey("MongoDBKey"));
+        database = mongoClient.getDatabase(getKey("DATABASE_NAME"));
 
         // New collection
         eventCollection = database.getCollection("Events");
