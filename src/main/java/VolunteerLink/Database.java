@@ -221,6 +221,7 @@ public class Database {
         updateUserCollection(userId, eventRoleId, false);
     }
 
+    // This method updates the event role's assignedUsers, numberAssigned, and numberNeeded fields when a user registers/unregisters for an event role
     private void updateEventRoles(ObjectId eventRoleId, int delta, ObjectId userId) {
         eventRolesCollection.updateOne(eq("_id", eventRoleId), Updates.combine(
             Updates.push("assignedUsers", delta > 0 ? userId : null),
@@ -230,6 +231,7 @@ public class Database {
         ));
     }
 
+    // This method updates the event's volunteersRegistered and volunteersNeeded fields when a user registers/unregisters for an event role
     private void updateEventCollection(ObjectId eventId, int numberAssignedDelta, int numberNeededDelta) {
         eventCollection.updateOne(eq("_id", eventId), Updates.combine(
             Updates.inc("volunteersRegistered", numberAssignedDelta),
@@ -237,6 +239,7 @@ public class Database {
         ));
     }
 
+    // This method updates the user's eventRole_id field when they register/unregister for an event role
     private void updateUserCollection(ObjectId userId, ObjectId eventRoleId, boolean isRegistering) {
         if (isRegistering) {
             usersCollection.updateOne(eq("_id", userId), Updates.set("eventRole_id", eventRoleId));
