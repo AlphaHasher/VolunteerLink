@@ -29,7 +29,7 @@ public class App
 
         // System.out.println(Utility.getFieldValueFromDocument("Events", "661de2af56e40f5a3601da9d", "whenCreated", Date.class));
 
-        // colinTesting();
+        colinTesting();
         // Utility.updateFieldInDocument("Events", "661de2af56e40f5a3601da9d", "startDate", new Date());
 
         // Searches for all events with a status of "Pending"
