@@ -143,14 +143,18 @@ window.populateRandomData = function() {
     // Add a few random roles
     const roleNames = ["Volunteer", "Organizer", "Helper", "Coordinator", "Assistant", "Leader", "Supporter", "Team Member", "Facilitator"];
     const roleDescriptions = ["Assist in managing participants", "Lead a team of volunteers", "Help with setup and cleanup"];
-    const numRoles = Math.floor(Math.random() * 3) + 1;  // Between 1 and 3 roles
 
+    // Generate 3 random roles
+    const numRoles = Math.floor(Math.random() * 3) + 1;
     for (let i = 0; i < numRoles; i++) {
-        addRole(); // Function to add role fields
-        let roleDivs = document.querySelectorAll('.role');
-        let lastRole = roleDivs[roleDivs.length - 1];
-        lastRole.querySelector('input[type="text"]').value = roleNames[i % roleNames.length];
-        lastRole.querySelector('textarea').value = roleDescriptions[i % roleDescriptions.length];
-        lastRole.querySelector('input[type="number"]').value = Math.floor(Math.random() * 5) + 1;
+        const newRoleDiv = document.createElement('div');
+        newRoleDiv.className = 'form-group role';
+        newRoleDiv.innerHTML = `
+            <input type="text" name="roleNames" placeholder="Role Name" required value="${roleNames[Math.floor(Math.random() * roleNames.length)]}">
+            <textarea name="roleDescriptions" placeholder="Role Description" required>${roleDescriptions[Math.floor(Math.random() * roleDescriptions.length)]}</textarea>
+            <input type="number" name="numbersNeeded" placeholder="Number of Volunteers" required min="1" value="${Math.floor(Math.random() * 5) + 1}">
+            <button type="button" class="btn btn-danger" onclick="removeRole(this)">Delete Role</button>
+        `;
+        document.getElementById('roleContainer').appendChild(newRoleDiv);
     }
 };
