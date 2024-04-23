@@ -1,6 +1,9 @@
 package VolunteerLink;
 
-// import java.util.Date;
+import java.util.Date;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
+
 // import java.util.List;
 // import java.util.ArrayList;
 // import java.util.Arrays;
@@ -24,8 +27,8 @@ public class Event {
     private String eventName;
     private String eventDescription;
 
-    private String startDate;
-    private String endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     private String location;
     private int volunteersNeeded;
@@ -33,7 +36,7 @@ public class Event {
 
     // private String[] Event;
 
-    public Event(String eventName, String description, String location, String endDate, String startDate, int volunteersNeeded, int volunteersRegistered){
+    public Event(String eventName, String description, String location, LocalDateTime startDate, LocalDateTime endDate, int volunteersNeeded, int volunteersRegistered){
         this.eventName = eventName;
         this.eventDescription = description;
         this.startDate = startDate;
@@ -69,19 +72,19 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public String getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 

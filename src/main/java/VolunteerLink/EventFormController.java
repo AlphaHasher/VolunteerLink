@@ -1,5 +1,9 @@
 package VolunteerLink;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
+
 // import javax.swing.text.Document;
 
 // FormController.java
@@ -21,17 +25,22 @@ public class EventFormController {
     //Defines Type of mapping and endpoint
     @PostMapping("/submitEvent")
 
+    public String submitEvent(@RequestParam("eventName") String eventName,
+                          @RequestParam("location") String location,
+                          @RequestParam("eventDescription") String eventDescription,
+                          @RequestParam("startDate") String startDate,
+                          @RequestParam("startTime") String startTime,
+                          @RequestParam("endDate") String endDate,
+                          @RequestParam("endTime") String endTime,
+                          @RequestParam("volunteersNeeded") int volunteersNeeded) {
 
-    public String submitEvent(@RequestParam("eventName") String eventName, @RequestParam("location") String location,
-    @RequestParam("eventDescription") String eventDescription, @RequestParam("startDate") String startDate,
-    @RequestParam("endDate") String endDate, @RequestParam("volunteersNeeded") int volunteersNeeded) {
+    LocalDateTime startDateTime = LocalDateTime.of(LocalDate.parse(startDate), LocalTime.parse(startTime));
+    LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(endDate), LocalTime.parse(endTime));
 
-        //Need to redirect back to "Events" page after submission to show user that event has been added.
-        Event event = new Event(eventName, location, eventDescription, startDate, endDate, volunteersNeeded, 0);
-        System.out.println(event.toString());//take out after testing
-        Database db = Database.getInstance();
-        db.addEvent(event.toDocument()); // Save the event to the database
-        return "redirect:/events"; // Redirect to a page that displays events
+    //Needs to redirect back to index page after submission to show user that event has been added.
+    Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, volunteersNeeded, 0);
+    Database.getInstance().addEvent(event.toDocument()); // Save the event to the database
+    return "redirect:/index.html"; // Redirect to a page that displays events
     }
 
 }
