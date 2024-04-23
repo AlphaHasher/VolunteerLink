@@ -77,6 +77,8 @@
         </section>
     <div class="container">
         <form id="eventForm" action="http://localhost:8080/submitEvent" method="post">
+            <button type="button" class="btn btn-info" onclick="populateRandomData()">Populate Random Data</button>
+        <form id="eventForm" action="http://localhost:8080/submitEvent" method="post">
             <div class="form-group">
                 <label for="eventName">Event Name:</label>
                 <input type="text" id="eventName" name="eventName" required>
@@ -97,7 +99,6 @@
                 <label for="startTime">Start Time:</label>
                 <input type="time" id="startTime" name="startTime" required step="60">
             </div>
-
             <div class="form-group">
                 <label for="endDate">End Date:</label>
                 <input type="date" id="endDate" name="endDate" required>
@@ -106,22 +107,10 @@
                 <label for="endTime">End Time:</label>
                 <input type="time" id="endTime" name="endTime" required step="60">
             </div>
-            <div class="form-group">
-                <label for="volunteersNeeded">Volunteers Needed:</label>
-                <select id="volunteersNeeded" name="volunteersNeeded">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <!-- Add more options as needed -->
-                </select>
+            <div id="roleContainer"></div>
+            <button type="button" class="btn btn-primary" onclick="addRole()">Add New Role</button>
             </div>
+            <script src="script.js"></script>
             <button type="submit">Submit</button>
         </form>
     </div>

@@ -3,6 +3,9 @@ package VolunteerLink;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import java.util.List;
+import java.util.Arrays;
+
 // import com.mongodb.client.MongoCollection;
 // import com.mongodb.client.model.Filters;
 
@@ -11,7 +14,7 @@ public class EventRole {
     private String roleName;
     private String roleDescription;
     private ObjectId eventRole_id;
-    private ObjectId [] assignedUsers;
+    private List<ObjectId> assignedUsers;
     private int numberAssigned;
     private int numberNeeded;
     private String roleStatus;
@@ -25,7 +28,7 @@ public class EventRole {
     // }
 
     // Parameterized constructor
-    public EventRole(String roleName, String roleDescription, ObjectId eventRole_id, ObjectId [] assignedUsers, int numberAssigned, int numberNeeded, String roleStatus) {
+    public EventRole(String roleName, String roleDescription, ObjectId eventRole_id, List<ObjectId> assignedUsers, int numberNeeded, String roleStatus) {
         this.roleName = roleName;
         this.roleDescription = roleDescription;
         this.eventRole_id = eventRole_id;
@@ -65,11 +68,11 @@ public class EventRole {
     }
 
     public ObjectId[] getAssignedUsers() {
-        return assignedUsers;
+        return assignedUsers.toArray(new ObjectId[assignedUsers.size()]);
     }
 
     public void setAssignedUsers(ObjectId[] assignedUsers) {
-        this.assignedUsers = assignedUsers;
+        this.assignedUsers = Arrays.asList(assignedUsers);
     }
 
     public int getNumberAssigned() {

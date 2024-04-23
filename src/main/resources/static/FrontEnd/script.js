@@ -98,3 +98,59 @@ popupCloseButtons.forEach(button => {
         this.parentElement.style.display = 'none';
     });
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const roleContainer = document.getElementById('roleContainer');
+
+    window.addRole = function() {
+        const newRoleDiv = document.createElement('div');
+        newRoleDiv.className = 'form-group role';
+        newRoleDiv.innerHTML = `
+            <input type="text" name="roleNames" placeholder="Role Name" required>
+            <textarea name="roleDescriptions" placeholder="Role Description" required></textarea>
+            <input type="number" name="numbersNeeded" placeholder="Number of Volunteers" required min="1">
+            <button type="button" class="btn btn-danger" onclick="removeRole(this)">Delete Role</button>
+        `;
+        roleContainer.appendChild(newRoleDiv);
+    };
+
+    window.removeRole = function(button) {
+        button.parentNode.remove();
+    };
+
+    // Initialize with one role input
+    addRole();
+});
+
+window.populateRandomData = function() {
+    const eventNames = ["Community Cleanup", "Charity Run", "Book Donation Drive", "Blood Drive", "Food Bank", "Fundraiser", "Pet Adoption", "Recycling Program", "Soup Kitchen"];
+    const descriptions = ["Help clean up the local park.", "Participate in a 5k run for charity.", "Donate books for local schools.", "Donate blood to save lives.", "Help sort and pack food donations.", "Raise funds for a good cause.", "Adopt a pet from a local shelter.", "Recycle to protect the environment.", "Serve meals to the homeless."];
+    const locations = ["Central Park", "Riverbank Plaza", "Downtown Library", "Community Center", "Red Cross Center", "City Hall", "Animal Shelter", "Recycling Center"];
+
+    // Set random values for standard fields
+    document.getElementById('eventName').value = eventNames[Math.floor(Math.random() * eventNames.length)];
+    document.getElementById('description').value = descriptions[Math.floor(Math.random() * descriptions.length)];
+    document.getElementById('location').value = locations[Math.floor(Math.random() * locations.length)];
+    document.getElementById('startDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('endDate').value = new Date(new Date().getTime() + (86400000 * 7)).toISOString().split('T')[0];  // 1 week later
+    document.getElementById('startTime').value = "09:00";
+    document.getElementById('endTime').value = "15:00";
+
+    // Clear existing roles
+    document.querySelectorAll('.role').forEach(role => role.remove());
+
+    // Add a few random roles
+    const roleNames = ["Volunteer", "Organizer", "Helper", "Coordinator", "Assistant", "Leader", "Supporter", "Team Member", "Facilitator"];
+    const roleDescriptions = ["Assist in managing participants", "Lead a team of volunteers", "Help with setup and cleanup"];
+    const numRoles = Math.floor(Math.random() * 3) + 1;  // Between 1 and 3 roles
+
+    for (let i = 0; i < numRoles; i++) {
+        addRole(); // Function to add role fields
+        let roleDivs = document.querySelectorAll('.role');
+        let lastRole = roleDivs[roleDivs.length - 1];
+        lastRole.querySelector('input[type="text"]').value = roleNames[i % roleNames.length];
+        lastRole.querySelector('textarea').value = roleDescriptions[i % roleDescriptions.length];
+        lastRole.querySelector('input[type="number"]').value = Math.floor(Math.random() * 5) + 1;
+    }
+};
