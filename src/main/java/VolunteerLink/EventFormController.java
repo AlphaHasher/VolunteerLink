@@ -38,7 +38,7 @@ public class EventFormController {
     LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(endDate), LocalTime.parse(endTime));
 
     //Needs to redirect back to index page after submission to show user that event has been added.
-    Event event = new Event(eventName, location, eventDescription, startDateTime, endDateTime, volunteersNeeded, 0);
+    Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, volunteersNeeded, 0);
     Database.getInstance().addEvent(event.toDocument()); // Save the event to the database
     return "redirect:/index.html"; // Redirect to a page that displays events
     }

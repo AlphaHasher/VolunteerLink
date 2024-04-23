@@ -36,7 +36,7 @@ public class Event {
 
     // private String[] Event;
 
-    public Event(String eventName, String description, String location, LocalDateTime endDate, LocalDateTime startDate, int volunteersNeeded, int volunteersRegistered){
+    public Event(String eventName, String description, String location, LocalDateTime startDate, LocalDateTime endDate, int volunteersNeeded, int volunteersRegistered){
         this.eventName = eventName;
         this.eventDescription = description;
         this.startDate = startDate;
