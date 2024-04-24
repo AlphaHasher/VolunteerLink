@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
     <title>Volunteer Link</title>
     <link rel="stylesheet" href="./global.css" />
     <link rel="stylesheet" href="./index-test.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    />
-  </head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+</head>
 <body>
     <div class="events-page">
         <header class="nav-bar1">
@@ -21,7 +18,7 @@
             alt=""
             src="./public/sac-state-logo@2x.png"
           />
-  
+
           <nav class="branching-logic">
             <nav class="apply-group">
               <h3 class="apply1">APPLY</h3>
@@ -46,64 +43,65 @@
     <div class="event-list" id="event-list"></div>
 
     <script>
-        // Function to fetch events from backend and display them
-       // Function to fetch events from backend, sort them by start date, and display them
-async function fetchAndDisplayEvents() {
-    try {
-        const response = await fetch('/events');
-        let events = await response.json();
+      // Function to fetch events from backend and display them
+      async function fetchAndDisplayEvents() {
+          try {
+              const response = await fetch('/events');
+              let events = await response.json();
 
-        // Sort events by start date
-        events.sort((a, b) => {
-            const startDateA = new Date(a.startDate);
-            const startDateB = new Date(b.startDate);
-            return startDateA - startDateB;
-        });
+              // Sort events by start date
+              events.sort((a, b) => {
+                  const startDateA = new Date(a.startDate);
+                  const startDateB = new Date(b.startDate);
+                  return startDateA - startDateB;
+              });
 
-        // Clear previous list items
-        const eventList = document.getElementById('event-list');
-        eventList.innerHTML = '';
+              // Clear previous list items
+              const eventList = document.getElementById('event-list');
+              eventList.innerHTML = '';
 
-        // Display each event in the sorted list
-        events.forEach(event => {
-            const eventName = event.eventName;
-            const eventDescription = event.eventDescription;
-            const startDate = event.startDate ? new Date(event.startDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
-            const startTime = event.startDate ? `${new Date(event.startDate).getHours()}:${String(new Date(event.startDate).getMinutes()).padStart(2, '0')}:${String(new Date(event.startDate).getSeconds()).padStart(2, '0')}` : null;
-            const endDate = event.endDate ? new Date(event.endDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
-            const endTime = event.endDate ? `${new Date(event.endDate).getHours()}:${String(new Date(event.endDate).getMinutes()).padStart(2, '0')}:${String(new Date(event.endDate).getSeconds()).padStart(2, '0')}` : null; 
-            const volunteersNeeded = event.volunteersNeeded;
-                    
-            const eventLink = document.createElement('div'); // Change to div instead of a tag
-            eventLink.classList.add('event-link');
-            eventLink.addEventListener('click', () => {
-                // Redirect to the event details page when the box is clicked
-                window.location.href = `/event?id=${event.id}`;
-            });
+              // Display each event in the sorted list
+              events.forEach(event => {
+                  const eventName = event.eventName;
+                  const eventDescription = event.eventDescription;
+                  const startDate = event.startDate ? new Date(event.startDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
+                  const startTime = event.startDate ? `${new Date(event.startDate).getHours()}:${String(new Date(event.startDate).getMinutes()).padStart(2, '0')}` : null;
+                  const endDate = event.endDate ? new Date(event.endDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
+                  const endTime = event.endDate ? `${new Date(event.endDate).getHours()}:${String(new Date(event.endDate).getMinutes()).padStart(2, '0')}` : null;
+                  const volunteersNeeded = event.volunteersNeeded;
 
-            // Create the event box
-            const eventBox = document.createElement('div');
-            eventBox.classList.add('event-box');
-            eventBox.innerHTML = `
-                <div class="event-name">${eventName}</div>
-                <div class="event-description">${eventDescription}</div>
-                <div class="event-date">Start Date: ${startDate} | Start Time: ${startTime} | End Date: ${endDate} | End Time: ${endTime}</div>
-                <div class="volunteers-needed">Volunteers Needed: ${volunteersNeeded}</div>`;
+                  const eventBox = document.createElement('div');
+                  eventBox.classList.add('event-box');
+                  eventBox.innerHTML = `
+                      <div class="event-name">${eventName}</div>
+                      <div class="event-description">${eventDescription}</div>
+                      <div class="event-date">Start Date: ${startDate} | Start Time: ${startTime} | End Date: ${endDate} | End Time: ${endTime}</div>
+                      <div class="volunteers-needed">Volunteers Needed: ${volunteersNeeded}</div>
+                  `;
 
-            // Append the event box to the event link
-            eventLink.appendChild(eventBox);
+                  // Check and add tags if they exist
+                  if(event.tags && event.tags.length > 0) {
+                      const tagsDiv = document.createElement('div');
+                      tagsDiv.classList.add('event-tags');
+                      event.tags.forEach(tag => {
+                          const tagSpan = document.createElement('span');
+                          tagSpan.classList.add('event-tag');
+                          tagSpan.textContent = tag;
+                          tagsDiv.appendChild(tagSpan);
+                      });
+                      eventBox.appendChild(tagsDiv);
+                  }
 
-            // Append the event link to the event list
-            eventList.appendChild(eventLink);
-        });
-    } catch (error) {
-        console.error('Error fetching events:', error);
-    }
-}
+                  eventList.appendChild(eventBox);
+              });
+          } catch (error) {
+              console.error('Error fetching events:', error);
+          }
+      }
 
-// Call the function when the page loads
-fetchAndDisplayEvents();
+      // Call the function when the page loads
+      fetchAndDisplayEvents();
+  </script>
 
-    </script>
 </body>
 </html>

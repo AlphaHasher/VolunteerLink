@@ -124,18 +124,36 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 window.populateRandomData = function() {
-    const eventNames = ["Community Cleanup", "Charity Run", "Book Donation Drive", "Blood Drive", "Food Bank", "Fundraiser", "Pet Adoption", "Recycling Program", "Soup Kitchen"];
+    const eventNames = ["Community Cleanup", "Charity Run", "Book Donation Drive", "Blood Drive", "Food Bank Fundraiser", "Pet Adoption Day", "Recycling Program", "Soup Kitchen Volunteer"];
     const descriptions = ["Help clean up the local park.", "Participate in a 5k run for charity.", "Donate books for local schools.", "Donate blood to save lives.", "Help sort and pack food donations.", "Raise funds for a good cause.", "Adopt a pet from a local shelter.", "Recycle to protect the environment.", "Serve meals to the homeless."];
-    const locations = ["Central Park", "Riverbank Plaza", "Downtown Library", "Community Center", "Red Cross Center", "City Hall", "Animal Shelter", "Recycling Center"];
+    const locations = ["Central Park", "Riverbank Plaza", "Downtown Library", "Community Center", "Red Cross Center", "City Hall", "Animal Shelter", "Recycling Center", "Homeless Shelter"];
+    const tags = ["Community", "Charity", "Donation", "Health", "Food", "Fundraiser", "Pets", "Environment", "Volunteering"];
 
     // Set random values for standard fields
     document.getElementById('eventName').value = eventNames[Math.floor(Math.random() * eventNames.length)];
     document.getElementById('description').value = descriptions[Math.floor(Math.random() * descriptions.length)];
     document.getElementById('location').value = locations[Math.floor(Math.random() * locations.length)];
     document.getElementById('startDate').value = new Date().toISOString().split('T')[0];
-    document.getElementById('endDate').value = new Date(new Date().getTime() + (86400000 * 7)).toISOString().split('T')[0];  // 1 week later
+    document.getElementById('endDate').value = new Date(new Date().getTime() + (86400000 * 7)).toISOString().split('T')[0]; // 1 week later
     document.getElementById('startTime').value = "09:00";
-    document.getElementById('endTime').value = "15:00";
+    document.getElementById('endTime').value = "17:00";
+
+    const tagsContainer = document.getElementById('tagsContainer');
+    tagsContainer.innerHTML = ''; // Clear existing tags
+
+    // Generate random tags
+    const numberOfTags = Math.floor(Math.random() * (tags.length - 1)) + 1;
+    for (let i = 0; i < numberOfTags; i++) {
+        const tagIndex = Math.floor(Math.random() * tags.length);
+        const tagValue = tags[tagIndex];
+        addTag(tagValue);
+        tags.splice(tagIndex, 1); // Remove the added tag from the array to avoid duplicates
+    }
+
+    updateHiddenTags(); // Update hidden input for tags
+
+    // Update hidden input for tags
+    document.getElementById('hiddenTags').value = Array.from(tagsContainer.children).map(tagSpan => tagSpan.textContent).join(',');
 
     // Clear existing roles
     document.querySelectorAll('.role').forEach(role => role.remove());
@@ -153,8 +171,82 @@ window.populateRandomData = function() {
             <input type="text" name="roleNames" placeholder="Role Name" required value="${roleNames[Math.floor(Math.random() * roleNames.length)]}">
             <textarea name="roleDescriptions" placeholder="Role Description" required>${roleDescriptions[Math.floor(Math.random() * roleDescriptions.length)]}</textarea>
             <input type="number" name="numbersNeeded" placeholder="Number of Volunteers" required min="1" value="${Math.floor(Math.random() * 5) + 1}">
-            <button type="button" class="btn btn-danger" onclick="removeRole(this)">Delete Role</button>
-        `;
+            <button type="button" class="btn btn-danger" onclick="removeRole(this)">Delete Role</button>`;
         document.getElementById('roleContainer').appendChild(newRoleDiv);
     }
 };
+
+window.addTag = function(tagValue) {
+    const tagsContainer = document.getElementById('tagsContainer');
+
+    // Create tag element
+    const tagSpan = document.createElement('span');
+    tagSpan.className = 'tag-item';
+
+    // Create text node for tag
+    const text = document.createTextNode(tagValue);
+    tagSpan.appendChild(text);
+
+    // Create remove button for tag
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = 'X';
+    removeBtn.className = 'remove-tag-btn';
+    removeBtn.addEventListener('click', function() {
+        tagsContainer.removeChild(tagSpan);
+        updateHiddenTags();
+    });
+
+    // Append text and remove button to the tag span
+    tagSpan.appendChild(removeBtn);
+    tagsContainer.appendChild(tagSpan);
+};
+
+function updateHiddenTags() {
+    const tagsContainer = document.getElementById('tagsContainer');
+    const tags = Array.from(tagsContainer.children).map(tagSpan => tagSpan.firstChild.textContent);
+    document.getElementById('hiddenTags').value = tags.join(',');
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var tags = [];
+
+    function updateTagsInput() {
+        document.getElementById('hiddenTags').value = tags.join(',');
+    }
+
+    document.getElementById('addTagBtn').addEventListener('click', function() {
+        var tagInput = document.getElementById('tagInput');
+        var tagValue = tagInput.value.trim();
+
+        if(tagValue && tags.indexOf(tagValue) === -1) {
+            tags.push(tagValue);
+            updateTagsInput();
+
+            // Create tag element
+            var tagSpan = document.createElement('span');
+            tagSpan.textContent = tagValue;
+            tagSpan.className = 'tag-item';
+
+            // Create remove button for tag
+            var removeBtn = document.createElement('button');
+            removeBtn.textContent = 'X';
+            removeBtn.addEventListener('click', function() {
+                var tagIndex = tags.indexOf(tagValue);
+                if(tagIndex !== -1) {
+                    tags.splice(tagIndex, 1);
+                    updateTagsInput();
+                    tagSpan.parentNode.removeChild(tagSpan);
+                }
+            });
+
+            // Append tag and remove button to the tags container
+            tagSpan.appendChild(removeBtn);
+            document.getElementById('tagsContainer').appendChild(tagSpan);
+
+            // Clear the input
+            tagInput.value = '';
+            tagInput.focus();
+        }
+    });
+});
