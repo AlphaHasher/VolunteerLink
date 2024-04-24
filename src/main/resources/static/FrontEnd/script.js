@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Failed to update the event status. Please try again.');
         });
     }
- 
+
     renderEvents();
 });
     const sections = document.querySelectorAll('section');
@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
             switchSection(this);
         });
     });
-});
 
 //Validation and Submission
 function validateForm() {

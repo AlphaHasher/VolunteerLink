@@ -149,24 +149,27 @@ public class Event {
     //feel free to improve or format this
     public static Event convertDocumentToEvent(Document doc) {
         Event event = new Event();
-    event.setEventName(doc.getString("eventName"));
-    event.setEventDescription(doc.getString("eventDescription"));
-    event.setLocation(doc.getString("location"));
+        event.setEventName(doc.getString("eventName"));
+        event.setEventDescription(doc.getString("eventDescription"));
+        event.setLocation(doc.getString("location"));
 
-    Integer volunteersNeeded = doc.getInteger("volunteersNeeded");
-    event.setVolunteersNeeded(volunteersNeeded != null ? volunteersNeeded.intValue() : 0);
+        Integer volunteersNeeded = doc.getInteger("volunteersNeeded");
+        event.setVolunteersNeeded(volunteersNeeded != null ? volunteersNeeded.intValue() : 0);
 
-    Integer volunteersRegistered = doc.getInteger("volunteersRegistered");
-    event.setVolunteersRegistered(volunteersRegistered != null ? volunteersRegistered.intValue() : 0);
+        Integer volunteersRegistered = doc.getInteger("volunteersRegistered");
+        event.setVolunteersRegistered(volunteersRegistered != null ? volunteersRegistered.intValue() : 0);
 
-    // Convert startDate from java.util.Date to java.time.LocalDateTime
-    Date startDate = doc.getDate("startDate");
-    event.setStartDate(LocalDateTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault()));
+        // Convert startDate from java.util.Date to java.time.LocalDateTime
+        Date startDate = doc.getDate("startDate");
+        event.setStartDate(LocalDateTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault()));
 
-    // Convert endDate from java.util.Date to java.time.LocalDateTime
-    Date endDate = doc.getDate("endDate");
-    event.setEndDate(LocalDateTime.ofInstant(endDate.toInstant(), ZoneId.systemDefault()));
+        // Convert endDate from java.util.Date to java.time.LocalDateTime
+        Date endDate = doc.getDate("endDate");
+        event.setEndDate(LocalDateTime.ofInstant(endDate.toInstant(), ZoneId.systemDefault()));
 
-    return event;
+        List<String> tags = (List<String>) doc.get("tags");
+        event.tags = tags;
+
+        return event;
     }
 }
