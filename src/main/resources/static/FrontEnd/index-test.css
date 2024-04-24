@@ -1,0 +1,157 @@
+/* global.css */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+  }
+  
+  /* index.css */
+  .events-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .nav-bar1 {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 1000;
+    background-color: #fff;
+  }
+  
+  .nav-bar-background1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0.9;
+    z-index: -1;
+  }
+  
+  .sac-state-logo1 {
+    height: 40px;
+  }
+  
+  .branching-logic {
+    display: flex;
+  }
+  
+  .apply-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .apply1,
+  .experience1,
+  .give1 {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .input-provider {
+    margin-top: 100px;
+    text-align: center;
+  }
+  
+  .spotlight-element1 {
+    position: relative;
+  }
+  
+  .spotlight-background1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.8;
+    z-index: -1;
+  }
+  
+  .volunteer-link1 {
+    color: #fff;
+  }
+  
+  .condition-checker {
+    margin-top: 20px;
+  }
+  
+  .login-button {
+    background-color: #00f;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .login {
+    margin: 0;
+  }
+  
+  .event-list {
+    width: 100%;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .event-box {
+    width: 80%;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .event-name {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .event-description {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .event-date {
+    font-size: 16px;
+  }
+  .event-box {
+  background-color: #f4f4f4;
+  border: 1px solid #037a43;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.event-name {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+.event-description {
+  margin-bottom: 10px;
+}
+
+.event-date {
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.volunteers-needed {
+  font-weight: bold;
+  color: #0a9b46; /* red color for emphasis */
+}
+
+  

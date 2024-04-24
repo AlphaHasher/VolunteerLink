@@ -6,7 +6,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 // import javax.swing.text.Document;
 
@@ -19,7 +22,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 // import org.springframework.web.bind.annotation.GetMapping;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 //have to designate classes as controllers to work with front end.
@@ -31,7 +37,6 @@ public class EventFormController {
 
     //Defines Type of mapping and endpoint
     @PostMapping("/submitEvent")
-
     public String submitEvent(
         @RequestParam("eventName") String eventName,
         @RequestParam("location") String location,
@@ -61,7 +66,22 @@ public class EventFormController {
         }
         Utility.updateFieldInDocument("Events", event_id.toString(), "totalVolunteersNeeded", totalVolunteersNeeded);
 
-        return "redirect:/FrontEnd/index.html"; // currently redirects to index page
+        return "redirect:/FrontEnd/index-test.html"; // currently redirects to index-test page
     }
+
+
+    @GetMapping("/events")
+    public ResponseEntity<List<Event>> getEvents() {
+        List<Event> events = new ArrayList<>();
+        FindIterable<Document> eventDocuments = Database.getInstance().getEventCollection().find();
+
+        for (Document doc : eventDocuments) {
+            Event event = Event.convertDocumentToEvent(doc); // Implement this method to convert Document to Event
+            events.add(event);
+        }
+
+        return ResponseEntity.ok(events);
+    }
+    
 
 }

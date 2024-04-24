@@ -2,6 +2,7 @@ package VolunteerLink;
 
 import java.util.Date;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.LocalDateTime;
 
 // import java.util.List;
@@ -45,6 +46,7 @@ public class Event {
         this.volunteersNeeded = volunteersNeeded;
         this.volunteersRegistered = volunteersRegistered;
     }
+    public Event(){};
 
     // private Document getFromId(String id) {
     //     ObjectId objectId = new ObjectId(id);
@@ -101,7 +103,7 @@ public class Event {
     }
 
     public void setVolunteersNeeded(int volunteersNeeded) {
-        if (volunteersNeeded <= 0) { // should we allow events with 0 volunteers needed?
+        if (volunteersNeeded < 0) { // should we allow events with 0 volunteers needed?
             throw new IllegalArgumentException("Invalid number of volunteers needed: " + volunteersNeeded);
         }
         this.volunteersNeeded = volunteersNeeded;
@@ -125,5 +127,29 @@ public class Event {
            .append("volunteersNeeded", this.volunteersNeeded)
            .append("volunteersRegistered", this.volunteersRegistered);
         return doc;
+    }
+
+    //feel free to improve or format this
+    public static Event convertDocumentToEvent(Document doc) {
+        Event event = new Event();
+    event.setEventName(doc.getString("eventName"));
+    event.setEventDescription(doc.getString("eventDescription"));
+    event.setLocation(doc.getString("location"));
+
+    Integer volunteersNeeded = doc.getInteger("volunteersNeeded");
+    event.setVolunteersNeeded(volunteersNeeded != null ? volunteersNeeded.intValue() : 0);
+
+    Integer volunteersRegistered = doc.getInteger("volunteersRegistered");
+    event.setVolunteersRegistered(volunteersRegistered != null ? volunteersRegistered.intValue() : 0);
+    
+    // Convert startDate from java.util.Date to java.time.LocalDateTime
+    Date startDate = doc.getDate("startDate");
+    event.setStartDate(LocalDateTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault()));
+
+    // Convert endDate from java.util.Date to java.time.LocalDateTime
+    Date endDate = doc.getDate("endDate");
+    event.setEndDate(LocalDateTime.ofInstant(endDate.toInstant(), ZoneId.systemDefault()));
+
+    return event;
     }
 }
