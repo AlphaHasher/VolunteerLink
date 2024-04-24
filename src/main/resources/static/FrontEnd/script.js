@@ -1,5 +1,27 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Select all sections and navigation buttons
+
+    const event = [
+        {date: 'Apr 3, 9:30 - 10:30am', day: 'Wednesday', description: 'Food Drive: Delivering food to those in need', id: 1 },
+        { date: 'Apr 3, 10am - 1pm', day: 'Wednesday', description: 'Creek Clean Up: Help clean up the trash at American River', id: 2 },
+        { date: 'Apr 6, 12pm - 4pm', day: 'Saturday', description: 'Park Clean Up: Help clean up local parks near Sac State', id: 3 }
+    ];
+    function renderEvents() {
+        const eventsContainer = document.querySelector('.info-bar-group');
+        eventsContainer.innerHTML = ''; // Clear existing content
+        events.forEach(event => {
+            const eventElement = document.createElement('div');
+            eventElement.className = 'event-item';
+            eventElement.innerHTML = `
+                <div class="event-date">${event.date}</div>
+                <div class="event-day">${event.day}</div>
+                <div class="event-description">${event.description}</div>
+                <button class="accept" onclick="handleAccept(${event.id})">Accept</button>
+                <button class="decline" onclick="handleDecline(${event.id})">Decline</button>
+            `;
+            eventsContainer.appendChild(eventElement);
+        });
+    }
     const sections = document.querySelectorAll('section');
     const navButtons = document.querySelectorAll('.nav-button');
 
