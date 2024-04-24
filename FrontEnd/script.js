@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
         { date: 'Apr 3, 10am - 1pm', day: 'Wednesday', description: 'Creek Clean Up: Help clean up the trash at American River', id: 2 },
         { date: 'Apr 6, 12pm - 4pm', day: 'Saturday', description: 'Park Clean Up: Help clean up local parks near Sac State', id: 3 }
     ];
-    
     function renderEvents() {
         const eventsContainer = document.querySelector('.info-bar-group');
         eventsContainer.innerHTML = ''; // Clear existing content
