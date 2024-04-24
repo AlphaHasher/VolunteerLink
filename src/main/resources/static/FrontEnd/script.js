@@ -22,6 +22,37 @@ document.addEventListener('DOMContentLoaded', function () {
             eventsContainer.appendChild(eventElement);
         });
     }
+
+    window.handleAccept = function(eventId) {
+        updateEventStatus(eventId, 'accept');
+    };
+
+    window.handleDecline = function(eventId) {
+        updateEventStatus(eventId, 'decline');
+    };
+    function updateEventStatus(eventId, action) {
+        // Simulating a fetch request to the server
+        fetch(`https://example.com/api/events/${eventId}/${action}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status: action })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            alert(`You have ${action}ed the event.`);
+            // Optionally, you can remove or update the event item in the DOM here.
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Failed to update the event status. Please try again.');
+        });
+    }
+ 
+    renderEvents();
+});
     const sections = document.querySelectorAll('section');
     const navButtons = document.querySelectorAll('.nav-button');
 
