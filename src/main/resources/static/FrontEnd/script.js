@@ -1,5 +1,58 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Select all sections and navigation buttons
+
+    const event = [
+        {date: 'Apr 3, 9:30 - 10:30am', day: 'Wednesday', description: 'Food Drive: Delivering food to those in need', id: 1 },
+        { date: 'Apr 3, 10am - 1pm', day: 'Wednesday', description: 'Creek Clean Up: Help clean up the trash at American River', id: 2 },
+        { date: 'Apr 6, 12pm - 4pm', day: 'Saturday', description: 'Park Clean Up: Help clean up local parks near Sac State', id: 3 }
+    ];
+    function renderEvents() {
+        const eventsContainer = document.querySelector('.info-bar-group');
+        eventsContainer.innerHTML = ''; // Clear existing content
+        events.forEach(event => {
+            const eventElement = document.createElement('div');
+            eventElement.className = 'event-item';
+            eventElement.innerHTML = `
+                <div class="event-date">${event.date}</div>
+                <div class="event-day">${event.day}</div>
+                <div class="event-description">${event.description}</div>
+                <button class="accept" onclick="handleAccept(${event.id})">Accept</button>
+                <button class="decline" onclick="handleDecline(${event.id})">Decline</button>
+            `;
+            eventsContainer.appendChild(eventElement);
+        });
+    }
+
+    window.handleAccept = function(eventId) {
+        updateEventStatus(eventId, 'accept');
+    };
+
+    window.handleDecline = function(eventId) {
+        updateEventStatus(eventId, 'decline');
+    };
+    function updateEventStatus(eventId, action) {
+        // Simulating a fetch request to the server
+        fetch(`https://example.com/api/events/${eventId}/${action}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ status: action })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            alert(`You have ${action}ed the event.`);
+            // Optionally, you can remove or update the event item in the DOM here.
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Failed to update the event status. Please try again.');
+        });
+    }
+ 
+    renderEvents();
+});
     const sections = document.querySelectorAll('section');
     const navButtons = document.querySelectorAll('.nav-button');
 
