@@ -128,3 +128,36 @@ body {
   --br-9xs: 4px;
   --br-5xs: 8px;
 }
+.tags-input-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tag-input {
+  flex-grow: 1;
+  margin-bottom: 8px; /* Space below the input for the tags to be displayed */
+}
+
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tags-container span {
+  display: flex;
+  align-items: center;
+  background-color: #ced4da;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.tags-container span button {
+  background-color: transparent;
+  border: none;
+  color: #495057;
+  cursor: pointer;
+  margin-left: 4px;
+}

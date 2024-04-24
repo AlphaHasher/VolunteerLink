@@ -47,11 +47,13 @@ public class EventFormController {
         @RequestParam("endTime") String endTime,
         @RequestParam("roleNames") List<String> roleNames,
         @RequestParam("roleDescriptions") List<String> roleDescriptions,
-        @RequestParam("numbersNeeded") List<Integer> numbersNeeded) {
+        @RequestParam("numbersNeeded") List<Integer> numbersNeeded,
+        @RequestParam("tags") List<String> tags) {
 
         LocalDateTime startDateTime = LocalDateTime.of(LocalDate.parse(startDate), LocalTime.parse(startTime));
         LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(endDate), LocalTime.parse(endTime));
-        Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, 0, 0);
+
+        Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, 0, 0, tags );
         Database.getInstance().getEventCollection().insertOne(event.toDocument());
 
         // search for the event we just created to get the event_id
@@ -64,7 +66,7 @@ public class EventFormController {
             Database.getInstance().getEventRolesCollection().insertOne(role.toDocument());
             totalVolunteersNeeded += numbersNeeded.get(i);
         }
-        Utility.updateFieldInDocument("Events", event_id.toString(), "totalVolunteersNeeded", totalVolunteersNeeded);
+        Utility.updateFieldInDocument("Events", event_id.toString(), "volunteersNeeded", totalVolunteersNeeded);
 
         return "redirect:/FrontEnd/index-test.html"; // currently redirects to index-test page
     }
@@ -82,6 +84,6 @@ public class EventFormController {
 
         return ResponseEntity.ok(events);
     }
-    
+
 
 }

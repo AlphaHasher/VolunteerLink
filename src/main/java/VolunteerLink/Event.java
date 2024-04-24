@@ -4,6 +4,7 @@ import java.util.Date;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.LocalDateTime;
+import java.util.List;
 
 // import java.util.List;
 // import java.util.ArrayList;
@@ -35,9 +36,11 @@ public class Event {
     private int volunteersNeeded;
     private int volunteersRegistered;
 
+    private List<String> tags;
+
     // private String[] Event;
 
-    public Event(String eventName, String description, String location, LocalDateTime startDate, LocalDateTime endDate, int volunteersNeeded, int volunteersRegistered){
+    public Event(String eventName, String description, String location, LocalDateTime startDate, LocalDateTime endDate, int volunteersNeeded, int volunteersRegistered, List<String> tags) {
         this.eventName = eventName;
         this.eventDescription = description;
         this.startDate = startDate;
@@ -45,6 +48,7 @@ public class Event {
         this.location = location;
         this.volunteersNeeded = volunteersNeeded;
         this.volunteersRegistered = volunteersRegistered;
+        this.tags = tags;
     }
     public Event(){};
 
@@ -117,6 +121,18 @@ public class Event {
         this.volunteersRegistered = volunteersRegistered;
     }
 
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag);
+    }
+
+    public void removeTag(String tag) {
+        tags.remove(tag);
+    }
+
     public Document toDocument() {
         Document doc = new Document();
         doc.append("eventName", this.eventName)
@@ -125,7 +141,8 @@ public class Event {
            .append("startDate", this.startDate)
            .append("endDate", this.endDate)
            .append("volunteersNeeded", this.volunteersNeeded)
-           .append("volunteersRegistered", this.volunteersRegistered);
+           .append("volunteersRegistered", this.volunteersRegistered)
+           .append("tags", this.tags);
         return doc;
     }
 
@@ -141,7 +158,7 @@ public class Event {
 
     Integer volunteersRegistered = doc.getInteger("volunteersRegistered");
     event.setVolunteersRegistered(volunteersRegistered != null ? volunteersRegistered.intValue() : 0);
-    
+
     // Convert startDate from java.util.Date to java.time.LocalDateTime
     Date startDate = doc.getDate("startDate");
     event.setStartDate(LocalDateTime.ofInstant(startDate.toInstant(), ZoneId.systemDefault()));
