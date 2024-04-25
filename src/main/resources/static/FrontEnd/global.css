@@ -147,7 +147,7 @@ body {
   margin-bottom: 20px;
 }
 
-.btn-add-tag {
+.addTagBtn {
   border-radius: 0 4px 4px 0;
   padding: 0 15px;
   height: 38px;
@@ -155,14 +155,15 @@ body {
   background-color: #007bff;
   color: white;
   box-shadow: none;
-  margin-bottom: 15px;
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
-.btn-add-tag:hover {
+.addTagBtn:hover {
   background-color: #0056b3;
 }
 
-.btn-add-tag:active {
+.addTagBtn:active {
   background-color: #004080;
 }
 
