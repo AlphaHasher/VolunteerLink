@@ -112,10 +112,10 @@
                 <input type="time" id="endTime" name="endTime" required step="60">
             </div>
             <div class="form-group">
-                <label for="tags">tags:</label>
-                <div class="tags-input-container">
+                <label for="tags">Tags:</label>
+                <div class="tag-input-group">
                     <input type="text" id="tagInput" class="tag-input" placeholder="Add a tag" />
-                    <button type="button" id="addTagBtn" class="btn btn-primary">Add Tag</button>
+                    <button type="button" id="btn-add-tag" class="btn btn-primary">Add Tag</button>
                 </div>
                 <div id="tagsContainer" class="tags-container">
                     <!-- Tags will be added here dynamically -->
@@ -123,10 +123,18 @@
                 <!-- Hidden input to store the array of tags to be sent with the form submission -->
                 <input type="hidden" id="hiddenTags" name="tags" />
             </div>
-            <div id="roleContainer"></div>
-            <button type="button" class="btn btn-primary" onclick="addRole()">Add New Role</button>
+
+            <div class="form-group role-group">
+                <div id="roleNotification" style="color: red; display: none;">Please add at least one event role before submitting.</div>
+                <button type="button" id="btn-add-new-role" class="btn btn-primary" onclick="addRole()">Add New Role</button>
+                <div id="roleContainer"></div>
             </div>
+
             <script src="script.js"></script>
+            <div style="margin-top: 15px;"> <!-- Added div for spacing -->
+                <div id="roleContainer"></div>
+            </div>
+
             <button type="submit">Submit</button>
         </form>
     </div>

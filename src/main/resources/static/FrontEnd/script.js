@@ -305,3 +305,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+document.getElementById('eventForm').onsubmit = function(event) {
+    var rolesContainer = document.getElementById('roleContainer');
+    if (rolesContainer.children.length === 0) {
+        document.getElementById('roleNotification').style.display = 'block';
+        event.preventDefault(); // Prevent form submission
+    }
+};

@@ -128,15 +128,16 @@ body {
   --br-9xs: 4px;
   --br-5xs: 8px;
 }
-.tags-input-container {
+.tag-input-group {
   display: flex;
   align-items: center;
-  gap: 8px;
+  margin-bottom: 15px;
 }
 
 .tag-input {
   flex-grow: 1;
-  margin-bottom: 8px; /* Space below the input for the tags to be displayed */
+  border-radius: 4px 0 0 4px;
+  border-right: none;
 }
 
 .tags-container {
@@ -144,6 +145,29 @@ body {
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 20px;
+}
+
+.btn-add-tag {
+  border-radius: 0 4px 4px 0;
+  padding: 0 15px;
+  height: 38px;
+  border: 1px solid #ccc;
+  background-color: #007bff;
+  color: white;
+  box-shadow: none;
+  margin-bottom: 15px;
+}
+
+.btn-add-tag:hover {
+  background-color: #0056b3;
+}
+
+.btn-add-tag:active {
+  background-color: #004080;
+}
+
+.btn-add-new-role {
+  margin-top: 15px; /* adjust the value as needed */
 }
 
 .tags-container span {

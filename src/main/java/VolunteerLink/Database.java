@@ -142,31 +142,6 @@ public class Database {
 
     // Event methods
 
-    //  *** Keeping for the sake of the example of how to use the aggregation framework ***
-
-    // public String[] getEventStatuses() {
-    //     List<String> eventStatuses = new ArrayList<>();
-    //     MongoCursor<Document> cursor = eventCollection.aggregate(
-    //         Arrays.asList(
-    //             Aggregates.sort(Sorts.ascending("_id")), // Sort by _id in ascending order
-    //             Aggregates.group("$_id", Accumulators.first("eventStatus", "$eventStatus")) // Group by _id
-    //         )
-    //     ).iterator();
-
-    //     try {
-    //         while (cursor.hasNext()) {
-    //             Document doc = cursor.next();
-    //             String id = doc.getString("eventStatus");
-    //             eventStatuses.add(id);
-    //         }
-    //     } finally {
-    //         cursor.close();
-    //     }
-
-    //     return eventStatuses.toArray(new String[0]);
-    // }
-
-
     public void addEvent(Document event){
         event.append("eventStatus", "Pending"); // Pending, Denied, Scheduled, Ongoing, Ended
         event.append("approved", false);
