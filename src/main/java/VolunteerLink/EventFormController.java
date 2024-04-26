@@ -68,7 +68,8 @@ public class EventFormController {
         }
         Utility.updateFieldInDocument("Events", event_id.toString(), "volunteersNeeded", totalVolunteersNeeded);
 
-        return "redirect:/FrontEnd/index-test.html"; // currently redirects to index-test page
+        return "redirect:/FrontEnd/index.html"; // currently redirects to index-test page
+        //Changed it to redirect to index.html since that will be the front page
     }
 
 

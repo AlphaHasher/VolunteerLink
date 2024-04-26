@@ -10,7 +10,14 @@ body {
     flex-direction: column;
     align-items: center;
   }
+/* Reduce padding and align checkboxes */
+.sac-state-calendars-parent .data-validation input[type="checkbox"] {
+  margin-top: 0; /* Reduce top margin */
+}
 
+.sac-state-calendars-parent .data-validation input[type="checkbox"] + div {
+  text-align: right; /* Align checkboxes to the right */
+}
   .nav-bar1 {
     width: 100%;
     position: fixed;
@@ -95,13 +102,30 @@ body {
   .login {
     margin: 0;
   }
-
+/*
+  #event-list {
+    position: relative;
+    left: 50px;
+    /*top: -50px;*/
+  }
+  
+  .event-box {
+    position: absolute;
+    /* Adjust these values as needed */
+    top: -50px;
+    left: 50px;
+    
+  }
+*/
   .event-list {
     width: 100%;
     margin-top: 50px;
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    right: 600px;
+    position: relative;
+    top: 600px;
     align-items: center;
+
   }
 
   .event-box {
@@ -111,8 +135,13 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
+    /*display: flex;
+    flex-direction: column;
+    Commented these 2 lines out for testing index html page
+    Sorry if this breaks any other pages*/
+    
   }
-
+*/ 
   .event-name {
     font-size: 24px;
     font-weight: bold;
