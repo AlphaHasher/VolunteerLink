@@ -102,21 +102,8 @@ body {
   .login {
     margin: 0;
   }
-/*
-  #event-list {
-    position: relative;
-    left: 50px;
-    /*top: -50px;*/
-  }
   
-  .event-box {
-    position: absolute;
-    /* Adjust these values as needed */
-    top: -50px;
-    left: 50px;
-    
-  }
-*/
+  /*
   .event-list {
     width: 100%;
     margin-top: 50px;
@@ -127,7 +114,8 @@ body {
     align-items: center;
 
   }
-
+  */
+  /*
   .event-box {
     width: 80%;
     padding: 20px;
@@ -138,10 +126,11 @@ body {
     /*display: flex;
     flex-direction: column;
     Commented these 2 lines out for testing index html page
-    Sorry if this breaks any other pages*/
+    Sorry if this breaks any other pages
     
   }
-*/ 
+  */
+  
   .event-name {
     font-size: 24px;
     font-weight: bold;
