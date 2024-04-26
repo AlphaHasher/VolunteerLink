@@ -56,7 +56,7 @@ public class EventFormController {
     private ObjectId saveEvent(Event event) {
         Database.getInstance().getEventCollection().insertOne(event.toDocument());
         return Database.getInstance().getEventCollection().find(Filters.eq("eventName", event.getEventName())).first().getObjectId("_id");
-        // !!! Need a better way to return the ID of the event we just created because there is a change that the event name is not unique
+        // !!! Need a better way to return the ID of the event we just created because there is a chance that the event name is not unique
     }
 
     private void saveRoles(ObjectId event_id, List<String> roleNames, List<String> roleDescriptions, List<Integer> numbersNeeded) {
