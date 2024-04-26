@@ -32,6 +32,15 @@ public class User {
         this.eventRole_id = eventRole_id;
     }
 
+    //Just for adding user to db....registration date is only needed when signing up for event?
+    public User(String email,String password,String firstName,String lastName,String role){
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+    }
+
     // Parse database for matching email and password, then return User.
     // Is this still needed if we already have the login method in the Database class?
     public User logInUser(String email, String password) {
@@ -109,6 +118,16 @@ public class User {
     public void deleteEventRole_id(ObjectId eventRole_id) {
         // removes from the eventRole_id array
         this.eventRole_id = null;
+    }
+
+    public Document toDocument() {
+        Document user = new Document();
+        user.append("email", this.email)
+           .append("password", this.password)
+           .append("firstName", this.firstName)
+           .append("lastName", this.lastName)
+           .append("role", this.role);
+        return user;
     }
 
     // ***********************************************
