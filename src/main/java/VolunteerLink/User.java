@@ -1,50 +1,35 @@
 package VolunteerLink;
 
 import java.util.Date;
+import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import com.mongodb.client.MongoCollection;
-
 public class User {
-    private MongoCollection<Document> userCollection;
-
-    public User() {
-        this.userCollection = Database.getInstance().getUsersCollection();
-    }
 
     private String email;
     private String password;
     private String firstName;
     private String lastName;
     private String role;
-    private Date registrationDate;
-    private ObjectId eventRole_id;
+    private Date accountCreationDate;
+    private List<ObjectId> eventRole_id;
 
-    public User(String email, String password, String firstName, String lastName, String role, Date registrationDate, ObjectId eventRole_id){
+    public User(String email, String password, String firstName, String lastName, String role, Date accountCreationDate, List<ObjectId> eventRole_id){
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
-        this.registrationDate = registrationDate;
+        this.accountCreationDate = accountCreationDate; // not needed maybe?
         this.eventRole_id = eventRole_id;
-    }
-
-    //Just for adding user to db....registration date is only needed when signing up for event?
-    public User(String email,String password,String firstName,String lastName,String role){
-        this.email = email;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.role = role;
     }
 
     // Parse database for matching email and password, then return User.
     // Is this still needed if we already have the login method in the Database class?
     public User logInUser(String email, String password) {
-        User newUser = new User(email, password, firstName, lastName, role, registrationDate, eventRole_id);
+        User newUser = new User(email, password, firstName, lastName, role, accountCreationDate, eventRole_id);
         return newUser;
     }
 
@@ -98,19 +83,19 @@ public class User {
             this.role = role;
     }
 
-    public Date getRegistrationDate() {
-        return registrationDate;
+    public Date getaccountCreationDate() {
+        return accountCreationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
+    public void setaccountCreationDate(Date accountCreationDate) {
+        this.accountCreationDate = accountCreationDate;
     }
 
-    public ObjectId getEventRole_id() {
+    public List<ObjectId> getEventRole_id() {
         return eventRole_id;
     }
 
-    public void setEventRole_id(ObjectId eventRole_id) {
+    public void setEventRole_id(List<ObjectId> eventRole_id) {
         // adds to the eventRole_id array
         this.eventRole_id = eventRole_id;
     }
@@ -126,17 +111,9 @@ public class User {
            .append("password", this.password)
            .append("firstName", this.firstName)
            .append("lastName", this.lastName)
-           .append("role", this.role);
+           .append("role", this.role)
+           .append("accountCreationDate", this.accountCreationDate)
+           .append("eventRole_id", this.eventRole_id);
         return user;
     }
-
-    // ***********************************************
-    // *** Getters and setters for database fields ***
-    // ***********************************************
-
-    // private Document getFromId(String id) {
-    //     ObjectId objectId = new ObjectId(id);
-    //     Document doc = userCollection.find(Filters.eq("_id", objectId)).first();
-    //     return doc;
-    // }
 }

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,6 +56,7 @@ public class EventFormController {
     private ObjectId saveEvent(Event event) {
         Database.getInstance().getEventCollection().insertOne(event.toDocument());
         return Database.getInstance().getEventCollection().find(Filters.eq("eventName", event.getEventName())).first().getObjectId("_id");
+        // !!! Need a better way to return the ID of the event we just created because there is a change that the event name is not unique
     }
 
     private void saveRoles(ObjectId event_id, List<String> roleNames, List<String> roleDescriptions, List<Integer> numbersNeeded) {

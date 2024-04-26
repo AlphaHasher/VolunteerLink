@@ -91,11 +91,6 @@ public class Database {
 
     // User methods
 
-    // Create a new user
-    public void createUser(Document user) {
-        usersCollection.insertOne(user);
-    }
-
     // Delete a user
     public void deleteUser(String id) {
         ObjectId objectId = new ObjectId(id);
@@ -118,7 +113,7 @@ public class Database {
         }
     }
 
-    // Work in progress
+    // No clue what this is supposed to do, and I wrote this code...
     public String logInUser(String userName) {
         Document filter = new Document("email", userName); // Assuming the field name for userName is "userName"
         MongoCursor<Document> cursor = usersCollection.aggregate(
