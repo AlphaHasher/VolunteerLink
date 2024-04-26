@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+
 // import java.util.List;
 // import java.util.ArrayList;
 // import java.util.Arrays;
@@ -32,6 +33,7 @@ public class Event {
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private Date eventCreationDate;
 
     private String location;
     private int volunteersNeeded;
@@ -39,7 +41,7 @@ public class Event {
 
     private List<String> tags;
 
-    public Event(String eventName, String description, String location, LocalDateTime startDate, LocalDateTime endDate, int volunteersNeeded, int volunteersRegistered, List<String> tags) {
+    public Event(String eventName, String description, String location, LocalDateTime startDate, LocalDateTime endDate, int volunteersNeeded, int volunteersRegistered, List<String> tags, Date eventCreationDate) {
         this.eventName = eventName;
         this.eventDescription = description;
         this.startDate = startDate;
@@ -48,8 +50,9 @@ public class Event {
         this.volunteersNeeded = volunteersNeeded;
         this.volunteersRegistered = volunteersRegistered;
         this.tags = tags;
+        this.eventCreationDate = eventCreationDate;
     }
-    
+
     public Event(){};
 
     public String getEventName() {
@@ -127,6 +130,18 @@ public class Event {
         tags.remove(tag);
     }
 
+    public void clearTags() {
+        tags.clear();
+    }
+
+    public void setEventCreationDate(Date eventCreationDate) {
+        this.eventCreationDate = eventCreationDate;
+    }
+
+    public Date getEventCreationDate() {
+        return eventCreationDate;
+    }
+
     public Document toDocument() {
         Document doc = new Document();
         doc.append("eventName", this.eventName)
@@ -136,7 +151,8 @@ public class Event {
            .append("endDate", this.endDate)
            .append("volunteersNeeded", this.volunteersNeeded)
            .append("volunteersRegistered", this.volunteersRegistered)
-           .append("tags", this.tags);
+           .append("tags", this.tags)
+           .append("eventCreationDate", this.eventCreationDate);
         return doc;
     }
 
@@ -154,6 +170,7 @@ public class Event {
         event.setStartDate(convertDate(doc.getDate("startDate")));
         event.setEndDate(convertDate(doc.getDate("endDate")));
         event.setTags(doc.getList("tags", String.class));
+        event.setEventCreationDate(doc.getDate("eventCreationDate"));
 
         return event;
     }
@@ -162,6 +179,7 @@ public class Event {
         return Optional.ofNullable(doc.getInteger(key)).orElse(0);
     }
 
+    // May not need.
     private static LocalDateTime convertDate(Date date) {
         return date != null ? LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()) : null;
     }

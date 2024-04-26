@@ -3,6 +3,7 @@ package VolunteerLink;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -36,10 +37,13 @@ public class EventFormController {
         if (roleNames == null || roleNames.isEmpty()) {
             return "errorPage";
         }
+
+        Date eventCreationDate = new Date();
+
         try {
             LocalDateTime startDateTime = parseDateTime(startDate, startTime);
             LocalDateTime endDateTime = parseDateTime(endDate, endTime);
-            Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, 0, 0, tags);
+            Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, 0, 0, tags, eventCreationDate);
             ObjectId event_id = saveEvent(event);
             saveRoles(event_id, roleNames, roleDescriptions, numbersNeeded);
             return "redirect:/FrontEnd/index-test.html";
@@ -55,8 +59,7 @@ public class EventFormController {
 
     private ObjectId saveEvent(Event event) {
         Database.getInstance().getEventCollection().insertOne(event.toDocument());
-        return Database.getInstance().getEventCollection().find(Filters.eq("eventName", event.getEventName())).first().getObjectId("_id");
-        // !!! Need a better way to return the ID of the event we just created because there is a chance that the event name is not unique
+        return Database.getInstance().getEventCollection().find(Filters.eq("eventCreationDate", event.getEventCreationDate())).first().getObjectId("_id");
     }
 
     private void saveRoles(ObjectId event_id, List<String> roleNames, List<String> roleDescriptions, List<Integer> numbersNeeded) {

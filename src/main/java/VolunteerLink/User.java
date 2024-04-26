@@ -22,7 +22,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
-        this.accountCreationDate = accountCreationDate; // not needed maybe?
+        this.accountCreationDate = accountCreationDate;
         this.eventRole_id = eventRole_id;
     }
 
@@ -116,4 +116,23 @@ public class User {
            .append("eventRole_id", this.eventRole_id);
         return user;
     }
+
+    public static User convertDocoumentToUesr(Document doc){
+        if (doc == null) {
+            throw new IllegalArgumentException("Document cannot be null");
+        }
+
+        User user = new User(
+            doc.getString("email"),
+            doc.getString("password"),
+            doc.getString("firstName"),
+            doc.getString("lastName"),
+            doc.getString("role"),
+            doc.getDate("accountCreationDate"),
+            (List<ObjectId>) doc.get("eventRole_id")
+        );
+
+        return user;
+    }
+
 }

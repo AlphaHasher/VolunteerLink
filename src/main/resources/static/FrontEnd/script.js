@@ -53,53 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderEvents();
 });
-    const loginForm = document.getElementById('loginForm'); // This is the form element itself.
-    const username = document.getElementById('username'); // Input field for the user's username.
-    const password = document.getElementById('password'); // Input field for the user's password.
-    const errorMessage = document.getElementById('error-message'); // This is where error messages will be displayed.
-    const togglePasswordVisibility = document.getElementById('toggle-password-visibility'); // Button to toggle the password visibility.
-
     const sections = document.querySelectorAll('section');
     const navButtons = document.querySelectorAll('.nav-button');
-    // A function designed to validate the input fields within the form.
-    function validateForm(event) {
-        // Prevent the form from being submitted until the data has been validated.
-        event.preventDefault();
-
-        // Check if the username or password fields are empty. The trim() method removes any whitespace from both ends of a string.
-        if (username.value.trim() === '' || password.value.trim() === '') {
-            // If either field is empty, display an error message.
-            errorMessage.textContent = 'Both username and password are required.';
-            errorMessage.style.display = 'block'; // Make the error message visible.
-        } else {
-            // If both fields have valid inputs, allow form submission and hide any error message.
-            errorMessage.style.display = 'none'; // Hide the error message.
-            loginForm.submit(); // Manually submit the form data.
-        }
-    }
-
-    // intercept the submit event.
-    
-    loginForm.addEventListener('submit', validateForm);
-
-    // Function  the password input field.
-    function togglePassword() {
-        // Check the password input.
-        if (password.type === 'password') {
-            
-            password.type = 'text';
-            togglePasswordVisibility.textContent = 'Hide Password'; 
-        } else {
-            // change it back to 'password' to hide it.
-            password.type = 'password';
-            togglePasswordVisibility.textContent = 'Show Password'; // Update the button text accordingly.
-        }
-    }
-
-    
-    // When clicked, this button will call the togglePassword function.
-    togglePasswordVisibility.addEventListener('click', togglePassword);
-
 
     // Function to switch visibility of sections
     function switchSection(activeButton) {
