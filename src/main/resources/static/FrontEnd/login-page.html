@@ -3,38 +3,70 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
-    <link rel="icon" type="image/x-icon" href="./public/volunteer-management-logo@2x.png" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./public/volunteer-management-logo@2x.png"
+    />
     <title>Volunteer Link Login</title>
     <link rel="stylesheet" href="./global.css" />
     <link rel="stylesheet" href="./login-page.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
   </head>
   <body>
     <div class="login-page">
       <main class="background-parent">
         <img class="background-icon" alt="" src="./public/background@2x.png" />
 
-        <img class="volunteer-management-logo-icon" loading="lazy" alt="" src="./public/volunteer-management-logo@2x.png" id="volunteerManagementLogoImage" />
+        <img
+          class="volunteer-management-logo-icon"
+          loading="lazy"
+          alt=""
+          src="./public/volunteer-management-logo@2x.png"
+          id="volunteerManagementLogoImage"
+        />
       </main>
       <div class="username-password-form">
         <div class="login-bg-parent">
           <div class="login-bg"></div>
           <div class="sac-logo-wrapper">
-            <img class="sac-logo-icon" loading="lazy" alt="" src="./public/sac-logo@2x.png" />
+            <img
+              class="sac-logo-icon"
+              loading="lazy"
+              alt=""
+              src="./public/sac-logo@2x.png"
+            />
           </div>
-          <div th:if="${param.error}" style="color: red;">Invalid username and password.</div>
-          <div th:if="${param.logout}" style="color: green;">You have been logged out.</div>
+          <div th:if="${param.error}" style="color: red">
+            Invalid username and password.
+          </div>
+          <div th:if="${param.logout}" style="color: green">
+            You have been logged out.
+          </div>
           <form class="component-1" th:action="@{/login-page}" method="post">
             <div class="username-field-parent">
               <div class="username-field">
                 <label for="username" class="username">Username</label>
-                <input type="text" id="username" name="username" class="user-field" />
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  class="user-field"
+                />
               </div>
               <div class="password-field">
                 <div class="password-wrapper">
                   <label for="password" class="password">Password</label>
                 </div>
-                <input type="password" id="password" name="password" class="pass-field" />
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="pass-field"
+                />
               </div>
             </div>
             <button class="login-button1">
@@ -55,23 +87,21 @@
           </div>
         </div>
       </div>
-      <button class="rectangle-group">
-        <div class="frame-child11" id="rectangle"></div>
-        <div class="secret-staff-button">Staff Login Portal</div>
-      </button>
     </div>
 
     <script>
-      var volunteerManagementLogoImage = document.getElementById("volunteerManagementLogoImage");
+      var volunteerManagementLogoImage = document.getElementById(
+        "volunteerManagementLogoImage"
+      );
       if (volunteerManagementLogoImage) {
-        volunteerManagementLogoImage.addEventListener("click", function(e) {
+        volunteerManagementLogoImage.addEventListener("click", function (e) {
           window.location.href = "./events-page.html";
         });
       }
 
       var rectangle = document.getElementById("rectangle");
       if (rectangle) {
-        rectangle.addEventListener("click", function(e) {
+        rectangle.addEventListener("click", function (e) {
           window.location.href = "./admin-page.html";
         });
       }

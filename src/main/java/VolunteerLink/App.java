@@ -14,7 +14,7 @@ import java.util.Date;
 // import java.util.List;
 
 //Designates as SpringBoot Application
-@SpringBootApplication
+//@SpringBootApplication
 
 public class App
 {
@@ -24,12 +24,14 @@ public class App
         long startTime = System.nanoTime();
 
         // runs SpringBoot
-        SpringApplication.run(App.class, args);
+        //SpringApplication.run(App.class, args);
+
+        
 
 
         // System.out.println(Utility.getFieldValueFromDocument("Events", "661de2af56e40f5a3601da9d", "whenCreated", Date.class));
 
-        // colinTesting();
+        colinTesting();
         // Utility.updateFieldInDocument("Events", "661de2af56e40f5a3601da9d", "startDate", new Date());
 
         // Searches for all events with a status of "Pending"
@@ -60,16 +62,16 @@ public class App
 
             // This for loop will display details for every event in the system.
             for (int i = 0; i < size; ++i) {
-                System.out.printf("Location: %-20s Description: %-15s Start Date %-15s Status: %-15s Name: %-15s _id: %-20s%n",
+                System.out.printf("Location: %-20s Description: %15s Start Date %-15s Status: %-15s Name: %-15s _id: %-20s%n",
                 locationsArr[i], descriptionsArr[i], startDateArr[i], statusesArr[i], eventNamesArr[i], IdsArr[i]);
             }
-            //System.out.println(testUser.getEvents());
-            //testUser.viewEventNames();
-            /* String[] arr = testEvent.getLocations();
-            for (int i = 0; i < arr.length - 1; ++i) {
-                System.out.println("EventLocations: " + i + " " + arr[i]);
-            }*/
-            //testUser.viewEventNames();
+            
+            User testUser = new User();
+            String email = "eorganizer@csus.edu";
+            String password = "event12345";
+            String userID = testUser.logIn(email, password).toString();
+            System.out.println("User ID for " + email + " is " + userID);
+            System.out.println();
 
             // Colin testing section end
 
