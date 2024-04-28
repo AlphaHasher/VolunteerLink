@@ -1,3 +1,7 @@
+h1 {
+  text-align: left;
+}
+
 .nav-bar-background1 {
   height: 7.5rem;
   width: 90rem;
@@ -1184,6 +1188,29 @@
   font-size: var(--font-size-xs);
   flex-shrink: 0;
   cursor: pointer;
+}
+
+#event-list-header{
+  position: relative;
+  left:5000px;
+
+}
+#event-list {
+  position: relative;
+  top: -530px;
+  /*left: 50px;*/
+  /*top: -50px;*/
+}
+
+.event-box {
+  position: absolute;
+  /* Adjust these values as needed */
+  top: 900px;
+  left: 50px;
+  width: 400px;
+  aspect-ratio: 5 / 1;
+  margin-bottom: 800px !important;
+  /* You can also use other positioning properties like bottom and right */
 }
 .arc-arbor,
 .circle-core {

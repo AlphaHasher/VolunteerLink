@@ -2,6 +2,7 @@ package VolunteerLink;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -18,17 +19,14 @@ import java.util.ArrayList;
 
 
 public class User {
-    private MongoCollection<Document> userCollection;
-
-
 
     private String email;
     private String password;
     private String firstName;
     private String lastName;
     private String role;
-    private Date registrationDate;
-    private ObjectId[] eventRole_id;
+    private Date accountCreationDate;
+    private List<ObjectId> eventRole_id;
 
     // Creates User Object from pre-existing user in the DB
     public User(String userName, String password) {
@@ -44,20 +42,20 @@ public class User {
     }
 
     // TODO: Update constructor to update database if user doesn't already exist 
-    public User(String email, String password, String firstName, String lastName, String role, Date registrationDate, ObjectId[] eventRole_id){
+    public User(String email, String password, String firstName, String lastName, String role, Date accountCreationDate, List<ObjectId>[] eventRole_id){
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
-        this.registrationDate = registrationDate;
+        this.accountCreationDate = accountCreationDate;
         this.eventRole_id = eventRole_id;
     }
 
     // Parse database for matching email and password, then return User.
     // Is this still needed if we already have the login method in the Database class?
-    /* public User logInUser(String email, String password) {
-        User newUser = new User(email, password, firstName, lastName, role, registrationDate, eventRole_id);
+    public User logInUser(String email, String password) {
+        User newUser = new User(email, password, firstName, lastName, role, accountCreationDate, eventRole_id);
         return newUser;
     }*/
 
@@ -111,15 +109,15 @@ public class User {
             this.role = role;
     }
 
-    public Date getRegistrationDate() {
-        return registrationDate;
+    public Date getaccountCreationDate() {
+        return accountCreationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
+    public void setaccountCreationDate(Date accountCreationDate) {
+        this.accountCreationDate = accountCreationDate;
     }
 
-    public ObjectId[] getEventRole_id() {
+    public List<ObjectId> getEventRole_id() {
         return eventRole_id;
     }
 
@@ -178,7 +176,7 @@ public class User {
                     role = doc.getString("role");
                     registrationDate = doc.getDate("registrationDate");
 
-                    List<ObjectId> list = doc.getList("eventRole_id", ObjectId.class);
+                    List<List<ObjectId>> list = doc.getList("eventRole_id", ObjectId.class);
                     int size = list.size();
                     eventRole_id = list.toArray(new ObjectId[size]);
                     doc.get("eventRole_id", ObjectId.class);
@@ -197,7 +195,7 @@ public class User {
     }
 
     
-    public void setEventRole_id(ObjectId[] eventRole_id) {
+    public void setEventRole_id(List<ObjectId> eventRole_id)
         // adds to the eventRole_id array
         this.eventRole_id = eventRole_id;
     }
@@ -207,13 +205,34 @@ public class User {
         this.eventRole_id = null;
     }
 
-    // ***********************************************
-    // *** Getters and setters for database fields ***
-    // ***********************************************
+    public Document toDocument() {
+        Document user = new Document();
+        user.append("email", this.email)
+           .append("password", this.password)
+           .append("firstName", this.firstName)
+           .append("lastName", this.lastName)
+           .append("role", this.role)
+           .append("accountCreationDate", this.accountCreationDate)
+           .append("eventRole_id", this.eventRole_id);
+        return user;
+    }
 
-    // private Document getFromId(String id) {
-    //     ObjectId objectId = new ObjectId(id);
-    //     Document doc = userCollection.find(Filters.eq("_id", objectId)).first();
-    //     return doc;
-    // }
+    public static User convertDocoumentToUesr(Document doc){
+        if (doc == null) {
+            throw new IllegalArgumentException("Document cannot be null");
+        }
+
+        User user = new User(
+            doc.getString("email"),
+            doc.getString("password"),
+            doc.getString("firstName"),
+            doc.getString("lastName"),
+            doc.getString("role"),
+            doc.getDate("accountCreationDate"),
+            (List<ObjectId>) doc.get("eventRole_id")
+        );
+
+        return user;
+    }
+
 }

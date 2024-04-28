@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account</title>
+    <title>Volunteer Link</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./public/volunteer-management-logo@2x.png"
+    />
     <link rel="stylesheet" href="./global.css" />
     <link rel="stylesheet" href="./admin-page.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-color: #f8f9fa;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            padding-top: 50px;
         }
 
         .container {
@@ -79,11 +84,7 @@
             </div>
         </section>
     <div class="container">
-        <form id="createAccountForm" action="/create-account" method="post">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
+        <form id="createAccountForm" action="http://localhost:8080/register" method="post">
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
@@ -97,10 +98,19 @@
                 <input type="password" id="confirmPassword" name="confirmPassword" required>
             </div>
             <div class="form-group">
-                <label>
-                    <input type="checkbox" id="volunteer" name="volunteer">
-                    Sign me up as a volunteer
-                </label>
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select id="role" name="role" required>
+                    <option value="volunteer">Volunteer</option>
+                    <option value="event organizer">Event Organizer</option>
+                </select>
             </div>
             <button type="submit">Sign me up!</button>
         </form>
