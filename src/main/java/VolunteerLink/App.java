@@ -8,13 +8,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // import org.springframework.context.annotation.ComponentScan;
 // import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 // import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 // import java.util.List;
 
 //Designates as SpringBoot Application
-//@SpringBootApplication
+@SpringBootApplication
 
 public class App
 {
@@ -24,7 +27,9 @@ public class App
         long startTime = System.nanoTime();
 
         // runs SpringBoot
-        //SpringApplication.run(App.class, args);
+        /*ConfigurableApplicationContext context = */SpringApplication.run(App.class, args);
+        
+
 
         
 
@@ -45,6 +50,13 @@ public class App
         long endTime = System.nanoTime();
         long durationInMilliseconds = (endTime - startTime) / 1_000_000;
         System.out.println("Execution time: " + durationInMilliseconds + " milliseconds");
+
+
+        // Section automatically
+
+        // Code to exit springboot application
+        //int exitCode = 0;
+        //SpringApplication.exit(context, () -> exitCode);
     }
 
     // Method for Colin to put his testing code to help keep main clean.
