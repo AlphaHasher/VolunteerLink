@@ -27,6 +27,7 @@ public class User {
     private String role;
     private Date accountCreationDate;
     private List<ObjectId> eventRole_id;
+    private MongoCollection<Document> userCollection;
 
     // Creates User Object from pre-existing user in the DB
     public User(String userName, String password) {
@@ -42,7 +43,7 @@ public class User {
     }
 
     // TODO: Update constructor to update database if user doesn't already exist 
-    public User(String email, String password, String firstName, String lastName, String role, Date accountCreationDate, List<ObjectId>[] eventRole_id){
+    public User(String email, String password, String firstName, String lastName, String role, Date accountCreationDate, List<ObjectId> eventRole_id){
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -57,7 +58,7 @@ public class User {
     public User logInUser(String email, String password) {
         User newUser = new User(email, password, firstName, lastName, role, accountCreationDate, eventRole_id);
         return newUser;
-    }*/
+    }
 
     // ********************************************
     // *** Getters and setters for class fields ***
@@ -174,11 +175,10 @@ public class User {
                     firstName = doc.getString("firstName");
                     lastName = doc.getString("lastName");
                     role = doc.getString("role");
-                    registrationDate = doc.getDate("registrationDate");
+                    accountCreationDate = doc.getDate("accountCreationDate");
 
-                    List<List<ObjectId>> list = doc.getList("eventRole_id", ObjectId.class);
-                    int size = list.size();
-                    eventRole_id = list.toArray(new ObjectId[size]);
+                    eventRole_id = doc.getList("eventRole_id", ObjectId.class);
+
                     doc.get("eventRole_id", ObjectId.class);
                 }
                 else {
