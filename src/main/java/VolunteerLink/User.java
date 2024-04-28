@@ -30,6 +30,9 @@ public class User {
     private MongoCollection<Document> userCollection;
 
     // Creates User Object from pre-existing user in the DB
+    public User() {
+        this.userCollection = Database.getInstance().getUsersCollection();
+    }
     public User(String userName, String password) {
         
         this.userCollection = Database.getInstance().getUsersCollection();
@@ -195,7 +198,7 @@ public class User {
     }
 
     
-    public void setEventRole_id(List<ObjectId> eventRole_id)
+    public void setEventRole_id(List<ObjectId> eventRole_id) {
         // adds to the eventRole_id array
         this.eventRole_id = eventRole_id;
     }
