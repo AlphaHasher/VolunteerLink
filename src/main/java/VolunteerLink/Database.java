@@ -91,11 +91,6 @@ public class Database {
 
     // User methods
 
-    // Create a new user
-    public void createUser(Document user) {
-        usersCollection.insertOne(user);
-    }
-
     // Delete a user
     public void deleteUser(String id) {
         ObjectId objectId = new ObjectId(id);
@@ -118,10 +113,11 @@ public class Database {
         }
     }
 
-    // Work in progress
+    // No clue what this is supposed to do, and I wrote this code...
     public String logInUser(String userName) {
-        Document filter = new Document("email", userName); // Assuming the field name for userName is "userName"
+        Document filter = new Document("email", userName); // Assuming the field name for userName is "email"
         MongoCursor<Document> cursor = usersCollection.aggregate(
+        
             Arrays.asList(
                 Aggregates.match(filter), // Filter documents based on userName
                 Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field
@@ -131,6 +127,7 @@ public class Database {
         try {
             if (cursor.hasNext()) {
                 Document doc = cursor.next();
+                
                 return doc.getObjectId("_id").toString(); // Return the _id as a string
             } else {
                 return null; // User not found
@@ -141,31 +138,6 @@ public class Database {
     }
 
     // Event methods
-
-    //  *** Keeping for the sake of the example of how to use the aggregation framework ***
-
-    // public String[] getEventStatuses() {
-    //     List<String> eventStatuses = new ArrayList<>();
-    //     MongoCursor<Document> cursor = eventCollection.aggregate(
-    //         Arrays.asList(
-    //             Aggregates.sort(Sorts.ascending("_id")), // Sort by _id in ascending order
-    //             Aggregates.group("$_id", Accumulators.first("eventStatus", "$eventStatus")) // Group by _id
-    //         )
-    //     ).iterator();
-
-    //     try {
-    //         while (cursor.hasNext()) {
-    //             Document doc = cursor.next();
-    //             String id = doc.getString("eventStatus");
-    //             eventStatuses.add(id);
-    //         }
-    //     } finally {
-    //         cursor.close();
-    //     }
-
-    //     return eventStatuses.toArray(new String[0]);
-    // }
-
 
     public void addEvent(Document event){
         event.append("eventStatus", "Pending"); // Pending, Denied, Scheduled, Ongoing, Ended

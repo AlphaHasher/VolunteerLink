@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Failed to update the event status. Please try again.');
         });
     }
- 
+
     renderEvents();
 });
     const sections = document.querySelectorAll('section');
@@ -77,7 +77,6 @@ document.addEventListener('DOMContentLoaded', function () {
             switchSection(this);
         });
     });
-});
 
 //Validation and Submission
 function validateForm() {
@@ -203,7 +202,9 @@ window.populateRandomData = function() {
         tags.splice(tagIndex, 1); // Remove the added tag from the array to avoid duplicates
     }
 
-    updateHiddenTags(); // Update hidden input for tags
+    setTimeout(() => {
+        updateHiddenTags();
+    }, 0);
 
     // Update hidden input for tags
     document.getElementById('hiddenTags').value = Array.from(tagsContainer.children).map(tagSpan => tagSpan.textContent).join(',');
@@ -237,8 +238,8 @@ window.addTag = function(tagValue) {
     tagSpan.className = 'tag-item';
 
     // Create text node for tag
-    const text = document.createTextNode(tagValue);
-    tagSpan.appendChild(text);
+    const textNode = document.createTextNode(tagValue);
+    tagSpan.appendChild(textNode);
 
     // Create remove button for tag
     const removeBtn = document.createElement('button');
@@ -246,17 +247,18 @@ window.addTag = function(tagValue) {
     removeBtn.className = 'remove-tag-btn';
     removeBtn.addEventListener('click', function() {
         tagsContainer.removeChild(tagSpan);
-        updateHiddenTags();
+        updateHiddenTags(); // Ensure this updates correctly without the 'X'
     });
 
-    // Append text and remove button to the tag span
+    // Append text node and remove button to the tag span
     tagSpan.appendChild(removeBtn);
     tagsContainer.appendChild(tagSpan);
 };
 
+
 function updateHiddenTags() {
     const tagsContainer = document.getElementById('tagsContainer');
-    const tags = Array.from(tagsContainer.children).map(tagSpan => tagSpan.firstChild.textContent);
+    const tags = Array.from(tagsContainer.querySelectorAll('.tag-item')).map(tagSpan => tagSpan.firstChild.textContent.trim());
     document.getElementById('hiddenTags').value = tags.join(',');
 }
 
@@ -303,3 +305,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+document.getElementById('eventForm').onsubmit = function(event) {
+    var rolesContainer = document.getElementById('roleContainer');
+    if (rolesContainer.children.length === 0) {
+        document.getElementById('roleNotification').style.display = 'block';
+        event.preventDefault(); // Prevent form submission
+    }
+};
