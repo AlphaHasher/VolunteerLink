@@ -45,14 +45,14 @@
   z-index: 2;
 }
 .sac-logo-wrapper,
-.username-field-label {
+.email-field-label {
   width: 18.813rem;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: center;
 }
-.username-field-label {
+.email-field-label {
   width: 3.375rem;
   border: 0;
   outline: 0;
@@ -76,7 +76,7 @@
   border: none;
   border-radius: 0.25rem;
 }
-.username-field {
+.email-field {
   align-self: stretch;
   display: flex;
   flex-direction: row;
@@ -85,7 +85,7 @@
   justify-content: flex-start;
   gap: var(--gap-4xl);
 }
-.username {
+.email {
   position: relative;
   font-size: var(--font-size-2xs);
   font-weight: 500;
@@ -122,7 +122,7 @@
   border-radius: 0.25rem;
 }
 .password-field,
-.username-field-parent {
+.email-field-parent {
   align-self: stretch;
   display: flex;
   justify-content: flex-start;
@@ -133,7 +133,7 @@
   align-items: flex-start;
   gap: var(--gap-4xl);
 }
-.username-field-parent {
+.email-field-parent {
   flex-direction: column;
   align-items: flex-end;
   gap: var(--gap-xs);
@@ -256,7 +256,7 @@ a:active {
   max-width: 100%;
   z-index: 1;
 }
-.username-password-form {
+.email-password-form {
   align-self: stretch;
   display: flex;
   flex-direction: row;

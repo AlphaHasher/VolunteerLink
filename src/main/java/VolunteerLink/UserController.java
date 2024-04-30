@@ -1,13 +1,25 @@
 package VolunteerLink;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
+import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.mongodb.client.MongoCollection;
+
+import jakarta.servlet.http.HttpSession;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.stereotype.Controller;
+import com.mongodb.client.model.Filters;
+import org.springframework.ui.Model;
+import java.util.Map;
 //import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.RestController;
 
@@ -41,4 +53,52 @@ public class UserController {
             return "errorPage";
         }
     }
+
+    @PostMapping("/login")
+    public String login(@RequestParam("email") String email,
+                        @RequestParam("password") String password,
+                        HttpSession session) {
+        MongoCollection<Document> usersCollection = Database.getInstance().getUsersCollection();
+        Document userDoc = usersCollection.find(Filters.eq("email", email)).first();
+
+        if (userDoc != null && userDoc.getString("password").equals(password)) {
+            session.setAttribute("userId", userDoc.getObjectId("_id").toString());
+            // return "redirect:/FrontEnd/index.html";
+            return "redirect:/FrontEnd/Form.html";
+        } else {
+            return "redirect:/FrontEnd/login-page.html"; // for now this will simply redirect back to the login page
+        }
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/FrontEnd/login-page.html";
+    }
+
+    @GetMapping("/user")
+    public String getUser(Model model, HttpSession session) {
+        String userId = (String) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/FrontEnd/login-page.html";
+        }
+
+        MongoCollection<Document> usersCollection = Database.getInstance().getUsersCollection();
+        Document userDoc = usersCollection.find(Filters.eq("_id", new ObjectId(userId))).first();
+
+        if (userDoc == null) {
+            return "redirect:/FrontEnd/login-page.html";
+        }
+
+        return userDoc.toJson();
+    }
+
+    @GetMapping("/sessionId")
+    @ResponseBody
+    public Map<String, Object> getSessionData(HttpSession session) {
+        Map<String, Object> sessionData = new HashMap<>();
+        sessionData.put("userId", session.getAttribute("userId"));
+        return sessionData;
+    }
+
 }

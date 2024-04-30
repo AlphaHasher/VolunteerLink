@@ -114,12 +114,12 @@ public class Database {
     }
 
     // No clue what this is supposed to do, and I wrote this code...
-    public String logInUser(String userName) {
-        Document filter = new Document("email", userName); // Assuming the field name for userName is "email"
+    public String logInUser(String email) {
+        Document filter = new Document("email", email); // Assuming the field name for email is "email"
         MongoCursor<Document> cursor = usersCollection.aggregate(
 
             Arrays.asList(
-                Aggregates.match(filter), // Filter documents based on userName
+                Aggregates.match(filter), // Filter documents based on email
                 Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field
             )
         ).iterator();

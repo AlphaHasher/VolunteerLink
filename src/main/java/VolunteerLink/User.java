@@ -29,10 +29,10 @@ public class User {
     public User() {
         this.userCollection = Database.getInstance().getUsersCollection();
     }
-    public User(String userName, String password) {
+    public User(String email, String password) {
 
         this.userCollection = Database.getInstance().getUsersCollection();
-        ObjectId userId = logIn(userName, password);
+        ObjectId userId = logIn(email, password);
         if (userId == null) {
             return;
         }
@@ -122,13 +122,13 @@ public class User {
 
 
 
-    // Returns the _id for a matching username and password.
-    public ObjectId logIn(String userName, String password) {
-        Document filter = new Document("email", userName); // Assuming the field name is "email"
+    // Returns the _id for a matching email and password.
+    public ObjectId logIn(String email, String password) {
+        Document filter = new Document("email", email); // Assuming the field name is "email"
         MongoCursor<Document> cursor = userCollection.aggregate(
 
             Arrays.asList(
-                Aggregates.match(filter) // Filter documents based on userName
+                Aggregates.match(filter) // Filter documents based on email
                 //Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field // Removed, prevented comparison to validate correct pass
             )
         ).iterator();
@@ -160,7 +160,7 @@ public class User {
         MongoCursor<Document> cursor = userCollection.aggregate(
 
             Arrays.asList(
-                Aggregates.match(filter) // Filter documents based on userName
+                Aggregates.match(filter) // Filter documents based on email
                 //Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field // Removed, prevented comparison to validate correct pass
             )
         ).iterator();

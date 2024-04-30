@@ -30,6 +30,7 @@ public class Event {
 
     private String eventName;
     private String eventDescription;
+    private String createdBy;
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -41,7 +42,7 @@ public class Event {
 
     private List<String> tags;
 
-    public Event(String eventName, String description, String location, LocalDateTime startDate, LocalDateTime endDate, int volunteersNeeded, int volunteersRegistered, List<String> tags, Date eventCreationDate) {
+    public Event(String eventName, String description, String location, LocalDateTime startDate, LocalDateTime endDate, int volunteersNeeded, int volunteersRegistered, List<String> tags, Date eventCreationDate, String createdBy) {
         this.eventName = eventName;
         this.eventDescription = description;
         this.startDate = startDate;
@@ -51,6 +52,7 @@ public class Event {
         this.volunteersRegistered = volunteersRegistered;
         this.tags = tags;
         this.eventCreationDate = eventCreationDate;
+        this.createdBy = createdBy;
     }
 
     public Event(){};
@@ -142,6 +144,14 @@ public class Event {
         return eventCreationDate;
     }
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
     public Document toDocument() {
         Document doc = new Document();
         doc.append("eventName", this.eventName)
@@ -152,7 +162,8 @@ public class Event {
            .append("volunteersNeeded", this.volunteersNeeded)
            .append("volunteersRegistered", this.volunteersRegistered)
            .append("tags", this.tags)
-           .append("eventCreationDate", this.eventCreationDate);
+           .append("eventCreationDate", this.eventCreationDate)
+           .append("createdBy", this.createdBy);
         return doc;
     }
 
@@ -171,7 +182,6 @@ public class Event {
         event.setEndDate(convertDate(doc.getDate("endDate")));
         event.setTags(doc.getList("tags", String.class));
         event.setEventCreationDate(doc.getDate("eventCreationDate"));
-
         return event;
     }
 

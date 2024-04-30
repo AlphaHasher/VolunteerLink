@@ -34,7 +34,7 @@
 	// public UserDetailsService userDetailsService() {
 	// 	UserDetails user =
 	// 		 User.withDefaultPasswordEncoder() // Deprecated?
-	// 			.username("user")
+	// 			.email("user")
 	// 			.password("password")
 	// 			.roles("USER")
 	// 			.build();

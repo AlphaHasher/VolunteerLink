@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -24,16 +27,17 @@ public class EventFormController {
 
     @PostMapping("/submitEvent")
     public String submitEvent(@RequestParam("eventName") String eventName,
-                              @RequestParam("location") String location,
-                              @RequestParam("eventDescription") String eventDescription,
-                              @RequestParam("startDate") String startDate,
-                              @RequestParam("startTime") String startTime,
-                              @RequestParam("endDate") String endDate,
-                              @RequestParam("endTime") String endTime,
-                              @RequestParam("roleNames") List<String> roleNames,
-                              @RequestParam("roleDescriptions") List<String> roleDescriptions,
-                              @RequestParam("numbersNeeded") List<Integer> numbersNeeded,
-                              @RequestParam("tags") List<String> tags) {
+                            @RequestParam("location") String location,
+                            @RequestParam("eventDescription") String eventDescription,
+                            @RequestParam("startDate") String startDate,
+                            @RequestParam("startTime") String startTime,
+                            @RequestParam("endDate") String endDate,
+                            @RequestParam("endTime") String endTime,
+                            @RequestParam("roleNames") List<String> roleNames,
+                            @RequestParam("roleDescriptions") List<String> roleDescriptions,
+                            @RequestParam("numbersNeeded") List<Integer> numbersNeeded,
+                            @RequestParam("tags") List<String> tags,
+                            HttpSession session) {
         if (roleNames == null || roleNames.isEmpty()) {
             return "errorPage";
         }
@@ -43,10 +47,14 @@ public class EventFormController {
         try {
             LocalDateTime startDateTime = parseDateTime(startDate, startTime);
             LocalDateTime endDateTime = parseDateTime(endDate, endTime);
-            Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, 0, 0, tags, eventCreationDate);
+
+            String createdBy = (String) session.getAttribute("userId");
+
+
+            Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, 0, 0, tags, eventCreationDate, createdBy);
             ObjectId event_id = saveEvent(event);
             saveRoles(event_id, roleNames, roleDescriptions, numbersNeeded);
-            return "redirect:/FrontEnd/index-test.html";
+            return "redirect:/FrontEnd/index.html";
         } catch (Exception e) {
             return "errorPage";
         }
@@ -84,6 +92,5 @@ public class EventFormController {
 
         return ResponseEntity.ok(events);
     }
-
 
 }

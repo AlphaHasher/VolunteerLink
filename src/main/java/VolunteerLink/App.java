@@ -78,12 +78,12 @@ public class App
                 locationsArr[i], descriptionsArr[i], startDateArr[i], statusesArr[i], eventNamesArr[i], IdsArr[i]);
             }
 
-            User testUser = new User();
-            String email = "eorganizer@csus.edu";
-            String password = "event12345";
-            String userID = testUser.logIn(email, password).toString();
-            System.out.println("User ID for " + email + " is " + userID);
-            System.out.println();
+            // User testUser = new User();
+            // String email = "eorganizer@csus.edu";
+            // String password = "event12345";
+            // String userID = testUser.logIn(email, password).toString();
+            // System.out.println("User ID for " + email + " is " + userID);
+            // System.out.println();
 
             // Colin testing section end
 
