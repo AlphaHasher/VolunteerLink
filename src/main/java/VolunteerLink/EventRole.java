@@ -19,15 +19,6 @@ public class EventRole {
     private int numberNeeded;
     private String roleStatus;
 
-
-    // private MongoCollection<Document> eventRolesCollection;
-
-    // Default constructor
-    // public EventRole() {
-    //     this.eventRolesCollection = Database.getInstance().getEventRolesCollection();
-    // }
-
-    // Parameterized constructor
     public EventRole(String roleName, String roleDescription, ObjectId eventRole_id, List<ObjectId> assignedUsers, int numberNeeded, String roleStatus) {
         this.roleName = roleName;
         this.roleDescription = roleDescription;
@@ -36,12 +27,6 @@ public class EventRole {
         this.numberNeeded = numberNeeded;
         this.roleStatus = roleStatus;
     }
-
-    // private Document getFromId(String id) {
-    //     ObjectId objectId = new ObjectId(id);
-    //     Document doc = eventRolesCollection.find(Filters.eq("_id", objectId)).first();
-    //     return doc;
-    // }
 
     public String getRoleName() {
         return roleName;

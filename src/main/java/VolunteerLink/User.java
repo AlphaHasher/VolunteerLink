@@ -1,6 +1,7 @@
 package VolunteerLink;
 
 import java.util.Arrays;
+// import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,12 +11,7 @@ import org.bson.types.ObjectId;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Aggregates;
-import com.mongodb.client.model.Projections;
-
-// For importing ObjectId list
-import java.util.List;
-import java.util.ArrayList;
-
+// import com.mongodb.client.model.Projections;
 
 
 public class User {
@@ -34,7 +30,7 @@ public class User {
         this.userCollection = Database.getInstance().getUsersCollection();
     }
     public User(String userName, String password) {
-        
+
         this.userCollection = Database.getInstance().getUsersCollection();
         ObjectId userId = logIn(userName, password);
         if (userId == null) {
@@ -45,7 +41,6 @@ public class User {
         }
     }
 
-    // TODO: Update constructor to update database if user doesn't already exist 
     public User(String email, String password, String firstName, String lastName, String role, Date accountCreationDate, List<ObjectId> eventRole_id){
         this.email = email;
         this.password = password;
@@ -113,11 +108,11 @@ public class User {
             this.role = role;
     }
 
-    public Date getaccountCreationDate() {
+    public Date getAccountCreationDate() {
         return accountCreationDate;
     }
 
-    public void setaccountCreationDate(Date accountCreationDate) {
+    public void setAccountCreationDate(Date accountCreationDate) {
         this.accountCreationDate = accountCreationDate;
     }
 
@@ -128,10 +123,10 @@ public class User {
 
 
     // Returns the _id for a matching username and password.
-    public ObjectId logIn(String userName, String password) { 
+    public ObjectId logIn(String userName, String password) {
         Document filter = new Document("email", userName); // Assuming the field name is "email"
         MongoCursor<Document> cursor = userCollection.aggregate(
-        
+
             Arrays.asList(
                 Aggregates.match(filter) // Filter documents based on userName
                 //Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field // Removed, prevented comparison to validate correct pass
@@ -142,7 +137,7 @@ public class User {
             if (cursor.hasNext()) {
                 Document doc = cursor.next();
                 if (doc.getString("password").equals(password)) { // Must use .equals method to compare strings, otherwise results in logic error
-                   // System.out.println("password " + doc.getString("password")); // Test line to print 
+                   // System.out.println("password " + doc.getString("password")); // Test line to print
                     return doc.getObjectId("_id"); // Return the _id as an ObjectId
                 }
                 else {
@@ -163,7 +158,7 @@ public class User {
     private void setAllVariables(ObjectId userId) {
         Document filter = new Document("_id", userId); // Assuming the field name is "email"
         MongoCursor<Document> cursor = userCollection.aggregate(
-        
+
             Arrays.asList(
                 Aggregates.match(filter) // Filter documents based on userName
                 //Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field // Removed, prevented comparison to validate correct pass
@@ -197,12 +192,12 @@ public class User {
 
     }
 
-    
+
     public void setEventRole_id(List<ObjectId> eventRole_id) {
         // adds to the eventRole_id array
         this.eventRole_id = eventRole_id;
     }
-    // TODO: Modify these methods to update the database as well
+
     public void deleteEventRole_id(ObjectId eventRole_id) {
         // removes from the eventRole_id array
         this.eventRole_id = null;

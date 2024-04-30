@@ -1,7 +1,7 @@
 package VolunteerLink;
 
 import java.util.Date;
-import java.time.LocalTime;
+// import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -180,6 +180,7 @@ public class Event {
     }
 
     // May not need.
+    // Possibly causing the time to be off when displaying the event on the front end.
     private static LocalDateTime convertDate(Date date) {
         return date != null ? LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()) : null;
     }

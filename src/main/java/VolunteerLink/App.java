@@ -1,6 +1,6 @@
 package VolunteerLink;
 
-import org.bson.Document;
+// import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.boot.SpringApplication;
 //import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // import org.springframework.context.annotation.ComponentScan;
 // import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+// import org.springframework.boot.SpringApplication;
+// import org.springframework.boot.autoconfigure.SpringBootApplication;
+// import org.springframework.context.ConfigurableApplicationContext;
 // import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -28,10 +28,10 @@ public class App
 
         // runs SpringBoot
         /*ConfigurableApplicationContext context = */SpringApplication.run(App.class, args);
-        
 
 
-        
+
+
 
 
         // System.out.println(Utility.getFieldValueFromDocument("Events", "661de2af56e40f5a3601da9d", "whenCreated", Date.class));
@@ -77,7 +77,7 @@ public class App
                 System.out.printf("Location: %-20s Description: %15s Start Date %-15s Status: %-15s Name: %-15s _id: %-20s%n",
                 locationsArr[i], descriptionsArr[i], startDateArr[i], statusesArr[i], eventNamesArr[i], IdsArr[i]);
             }
-            
+
             User testUser = new User();
             String email = "eorganizer@csus.edu";
             String password = "event12345";

@@ -11,3 +11,7 @@
 //         return "redirect:/FrontEnd/login-page.html";
 //     }
 // }
+
+// =========================================================================
+// This was code written for SpringBoot security, but was never implemented.
+// =========================================================================

@@ -1,4 +1,4 @@
-package VolunteerLink;
+// package VolunteerLink;
 
 // import org.springframework.context.annotation.Bean;
 // import org.springframework.context.annotation.Configuration;
@@ -56,9 +56,14 @@ package VolunteerLink;
 
 // @Configuration
 // public class WebConfig implements WebMvcConfigurer {
- 
+
 //     @Override
 //     public void addViewControllers(ViewControllerRegistry registry) {
 //         registry.addRedirectViewController("/", "https://localhost:8443/intext-test.html");
 //     }
 // }
+
+
+// =========================================================================
+// This was code written for SpringBoot security, but was never implemented.
+// =========================================================================

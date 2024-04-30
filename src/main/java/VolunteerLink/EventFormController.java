@@ -48,7 +48,6 @@ public class EventFormController {
             saveRoles(event_id, roleNames, roleDescriptions, numbersNeeded);
             return "redirect:/FrontEnd/index-test.html";
         } catch (Exception e) {
-            // Log error and provide feedback to the user or system
             return "errorPage";
         }
     }
@@ -79,7 +78,7 @@ public class EventFormController {
         FindIterable<Document> eventDocuments = Database.getInstance().getEventCollection().find();
 
         for (Document doc : eventDocuments) {
-            Event event = Event.convertDocumentToEvent(doc); // Implement this method to convert Document to Event
+            Event event = Event.convertDocumentToEvent(doc);
             events.add(event);
         }
 

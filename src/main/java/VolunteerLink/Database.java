@@ -117,7 +117,7 @@ public class Database {
     public String logInUser(String userName) {
         Document filter = new Document("email", userName); // Assuming the field name for userName is "email"
         MongoCursor<Document> cursor = usersCollection.aggregate(
-        
+
             Arrays.asList(
                 Aggregates.match(filter), // Filter documents based on userName
                 Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field
@@ -127,7 +127,7 @@ public class Database {
         try {
             if (cursor.hasNext()) {
                 Document doc = cursor.next();
-                
+
                 return doc.getObjectId("_id").toString(); // Return the _id as a string
             } else {
                 return null; // User not found
@@ -155,6 +155,18 @@ public class Database {
 
         // Delete all event role id's from users in their eventRole_id field
         usersCollection.updateMany(eq("eventRole_id", id), Updates.unset("eventRole_id"));
+    }
+
+    public void approveEvent(String id){
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(eq("_id", objectId), Updates.set("approved", true));
+        eventCollection.updateOne(eq("_id", objectId), Updates.set("eventStatus", "Scheduled"));
+    }
+
+    public void denyEvent(String id){
+        ObjectId objectId = new ObjectId(id);
+        eventCollection.updateOne(eq("_id", objectId), Updates.set("approved", false));
+        eventCollection.updateOne(eq("_id", objectId), Updates.set("eventStatus", "Denied"));
     }
 
     public void addEventRole(Document eventRole){
