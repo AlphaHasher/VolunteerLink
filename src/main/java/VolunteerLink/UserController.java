@@ -60,12 +60,21 @@ public class UserController {
                         HttpSession session) {
         MongoCollection<Document> usersCollection = Database.getInstance().getUsersCollection();
         Document userDoc = usersCollection.find(Filters.eq("email", email)).first();
-
+                          
         if (userDoc != null && userDoc.getString("password").equals(password)) {
             // session.setAttribute("userId", userDoc.getObjectId("_id").toString());
             session.setAttribute("userId", userDoc.getObjectId("_id"));
-            // return "redirect:/FrontEnd/index.html";
-            return "redirect:/FrontEnd/Form.html";
+
+            // redirect to respective pages. Need to create event organizer page and volunteer page
+            if(userDoc != null && userDoc.getString("role").equals("volunteer")){
+                return "redirect:/FrontEnd/create-account.html";
+            }else if(userDoc != null && userDoc.getString("role").equals("Event Organizer")){
+                return "redirect:/FrontEnd/create-account.html";
+
+            }else if(userDoc != null && userDoc.getString("role").equals("admin")){
+                return "redirect:/FrontEnd/admin-page.html";
+            }
+            return "redirect:/FrontEnd/Form.html";//leaving in for now
         } else {
             return "redirect:/FrontEnd/login-page.html"; // for now this will simply redirect back to the login page
         }
