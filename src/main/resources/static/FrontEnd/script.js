@@ -53,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderEvents();
 });
+
+
     const sections = document.querySelectorAll('section');
     const navButtons = document.querySelectorAll('.nav-button');
 
@@ -174,6 +176,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize with one role input
     addRole();
 });
+
+
 
 window.populateRandomData = function() {
     const eventNames = ["Community Cleanup", "Charity Run", "Book Donation Drive", "Blood Drive", "Food Bank Fundraiser", "Pet Adoption Day", "Recycling Program", "Soup Kitchen Volunteer"];
