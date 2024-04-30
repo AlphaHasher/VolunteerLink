@@ -48,7 +48,7 @@ public class EventFormController {
             LocalDateTime startDateTime = parseDateTime(startDate, startTime);
             LocalDateTime endDateTime = parseDateTime(endDate, endTime);
 
-            String createdBy = (String) session.getAttribute("userId");
+            ObjectId createdBy = (ObjectId) session.getAttribute("userId");
 
 
             Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, 0, 0, tags, eventCreationDate, createdBy);

@@ -62,7 +62,8 @@ public class UserController {
         Document userDoc = usersCollection.find(Filters.eq("email", email)).first();
 
         if (userDoc != null && userDoc.getString("password").equals(password)) {
-            session.setAttribute("userId", userDoc.getObjectId("_id").toString());
+            // session.setAttribute("userId", userDoc.getObjectId("_id").toString());
+            session.setAttribute("userId", userDoc.getObjectId("_id"));
             // return "redirect:/FrontEnd/index.html";
             return "redirect:/FrontEnd/Form.html";
         } else {

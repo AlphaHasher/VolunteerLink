@@ -13,7 +13,7 @@ import java.util.Optional;
 // import java.util.Arrays;
 
 import org.bson.Document;
-// import org.bson.types.ObjectId;
+import org.bson.types.ObjectId;
 
 // import com.mongodb.client.MongoCursor;
 // import com.mongodb.client.MongoClient;
@@ -30,7 +30,8 @@ public class Event {
 
     private String eventName;
     private String eventDescription;
-    private String createdBy;
+    // private String createdBy;
+    private ObjectId createdBy;
 
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -42,7 +43,7 @@ public class Event {
 
     private List<String> tags;
 
-    public Event(String eventName, String description, String location, LocalDateTime startDate, LocalDateTime endDate, int volunteersNeeded, int volunteersRegistered, List<String> tags, Date eventCreationDate, String createdBy) {
+    public Event(String eventName, String description, String location, LocalDateTime startDate, LocalDateTime endDate, int volunteersNeeded, int volunteersRegistered, List<String> tags, Date eventCreationDate, ObjectId createdBy) {
         this.eventName = eventName;
         this.eventDescription = description;
         this.startDate = startDate;
@@ -144,11 +145,11 @@ public class Event {
         return eventCreationDate;
     }
 
-    public String getCreatedBy() {
+    public ObjectId getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(ObjectId createdBy) {
         this.createdBy = createdBy;
     }
 
