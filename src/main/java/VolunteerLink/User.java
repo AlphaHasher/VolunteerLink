@@ -51,6 +51,14 @@ public class User {
         this.eventRole_id = eventRole_id;
     }
 
+    public User(String email, String password, String firstName, String lastName, String role){
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+    }
+
     // Parse database for matching email and password, then return User.
     // Is this still needed if we already have the login method in the Database class?
     public User logInUser(String email, String password) {
@@ -215,7 +223,7 @@ public class User {
         return user;
     }
 
-    public static User convertDocoumentToUesr(Document doc){
+    public static User convertDocumentToUser(Document doc){
         if (doc == null) {
             throw new IllegalArgumentException("Document cannot be null");
         }
