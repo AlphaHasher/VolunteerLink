@@ -143,6 +143,22 @@
             });
         });
     }
+    // Main validation function for the form
+    function validateForm() {
+        let isValid = true; // Flag to track overall form validity
+        let errors = []; // Array to collect error messages
+
+        // Validate email
+        if (!validateEmail(emailInput.value)) {
+            errors.push("Enter a valid email.");
+            isValid = false;
+        }
+
+        // Validate password
+        if (!validatePassword(passwordInput.value)) {
+            errors.push("Password must include at least 8 characters, an uppercase letter, a number, and a special character.");
+            isValid = false;
+        }
 </script>
 </body>
 </html>
