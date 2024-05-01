@@ -175,6 +175,29 @@
         displayErrors(errors);
         return isValid;
     }
+    // Email validation using regular expression
+    function validateEmail(email) {
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailPattern.test(email);
+    }
+
+    // Password validation using regular expression
+    function validatePassword(password) {
+        const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d]).{8,}$/;
+        return passwordPattern.test(password);
+    }
+
+    // Display input-specific feedback based on validation
+    function showInputFeedback(input) {
+        if (input.id === 'password' || input.id === 'confirmPassword') {
+            input.classList.toggle('input-error', !validatePassword(input.value));
+        } else if (input.id === 'email') {
+            input.classList.toggle('input-error', !validateEmail(input.value));
+        } else {
+            input.classList.toggle('input-error', !input.value.trim());
+        }
+    }
+
 </script>
 </body>
 </html>
