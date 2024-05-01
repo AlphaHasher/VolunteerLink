@@ -197,6 +197,29 @@
             input.classList.toggle('input-error', !input.value.trim());
         }
     }
+// Role change handler for dynamic form adjustments
+function handleRoleChange() {
+        const additionalInfoContainer = document.getElementById('additionalInfo');
+        additionalInfoContainer.style.display = roleSelect.value === 'event organizer' ? 'block' : 'none';
+    }
+
+    // Display cumulative errors from form validation
+    function displayErrors(errors) {
+        const errorBox = document.getElementById('errorBox');
+        errorBox.innerHTML = errors.join('<br>');
+        errorBox.style.display = errors.length ? 'block' : 'none';
+    }
+
+    // Form submission handling with AJAX
+    function submitForm() {
+        const formData = new FormData(createAccountForm);
+        fetch('http://localhost:8080/register', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.json())
+          .then(handleResponse)
+          .catch(handleError);
+    }
 
 </script>
 </body>
