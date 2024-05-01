@@ -72,7 +72,7 @@ public class UserController {
                 return "redirect:/FrontEnd/create-account.html";
 
             }else if(userDoc != null && userDoc.getString("role").equals("admin")){
-                return "redirect:/FrontEnd/admin-page.html";
+                return "redirect:/admin-test";//redirects to admin-test right now.
             }
             return "redirect:/FrontEnd/Form.html";//leaving in for now
         } else {
