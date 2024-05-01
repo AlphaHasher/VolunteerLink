@@ -159,6 +159,22 @@
             errors.push("Password must include at least 8 characters, an uppercase letter, a number, and a special character.");
             isValid = false;
         }
+        // Check if passwords match
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            errors.push("Passwords do not match.");
+            isValid = false;
+        }
+
+        // Validate first and last name
+        if (!firstNameInput.value.trim() || !lastNameInput.value.trim()) {
+            errors.push("First name and last name are required.");
+            isValid = false;
+        }
+
+        // Display errors if there are any
+        displayErrors(errors);
+        return isValid;
+    }
 </script>
 </body>
 </html>
