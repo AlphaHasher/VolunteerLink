@@ -221,6 +221,32 @@ function handleRoleChange() {
           .catch(handleError);
     }
 
+    // Handle server response
+    function handleResponse(data) {
+        if (data.success) {
+            alert('Account created successfully!');
+            createAccountForm.reset();
+        } else {
+            displayErrors([data.message || "An error occurred while creating the account."]);
+        }
+    }
+
+    // Handle errors during form submission
+    function handleError(error) {
+        console.error('Error submitting form:', error);
+        displayErrors(['Failed to submit form. Please try again later.']);
+    }
+
+    // Initialization
+    addInputEventListeners();
+    roleSelect.addEventListener('change', handleRoleChange);
+    createAccountForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        if (validateForm()) {
+            submitForm();
+        }
+    });
+});
 </script>
 </body>
 </html>
