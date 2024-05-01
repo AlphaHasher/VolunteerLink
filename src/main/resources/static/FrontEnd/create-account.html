@@ -119,6 +119,30 @@
 <div id="additionalInfo" style="display: none;">
     <!-- Additional fields for event organizers can go here -->
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Form element
+    const createAccountForm = document.getElementById('createAccountForm');
 
+    // Individual input fields
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const firstNameInput = document.getElementById('firstName');
+    const lastNameInput = document.getElementById('lastName');
+    const roleSelect = document.getElementById('role');
+
+    // Utility to add event listeners to inputs for real-time validation feedback
+    function addInputEventListeners() {
+        const inputs = [emailInput, passwordInput, confirmPasswordInput, firstNameInput, lastNameInput];
+        inputs.forEach(input => {
+            input.addEventListener('input', function() {
+                // Validate and show feedback as user types
+                validateInput(input);
+                showInputFeedback(input);
+            });
+        });
+    }
+</script>
 </body>
 </html>
