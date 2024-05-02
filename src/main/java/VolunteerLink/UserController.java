@@ -60,7 +60,7 @@ public class UserController {
                         HttpSession session) {
         MongoCollection<Document> usersCollection = Database.getInstance().getUsersCollection();
         Document userDoc = usersCollection.find(Filters.eq("email", email)).first();
-                          
+
         if (userDoc != null && userDoc.getString("password").equals(password)) {
             // session.setAttribute("userId", userDoc.getObjectId("_id").toString());
             session.setAttribute("userId", userDoc.getObjectId("_id"));
@@ -76,7 +76,7 @@ public class UserController {
             }
             return "redirect:/FrontEnd/Form.html";//leaving in for now
         } else {
-            return "redirect:/FrontEnd/login-page.html"; // for now this will simply redirect back to the login page
+            return "redirect:/FrontEnd/login-page.html";
         }
     }
 

@@ -13,16 +13,16 @@ public class EventRole {
 
     private String roleName;
     private String roleDescription;
-    private ObjectId eventRole_id;
+    private ObjectId event_id;
     private List<ObjectId> assignedUsers;
     private int numberAssigned;
     private int numberNeeded;
     private String roleStatus;
 
-    public EventRole(String roleName, String roleDescription, ObjectId eventRole_id, List<ObjectId> assignedUsers, int numberNeeded, String roleStatus) {
+    public EventRole(String roleName, String roleDescription, ObjectId event_id, List<ObjectId> assignedUsers, int numberNeeded, String roleStatus) {
         this.roleName = roleName;
         this.roleDescription = roleDescription;
-        this.eventRole_id = eventRole_id;
+        this.event_id = event_id;
         this.assignedUsers = assignedUsers;
         this.numberNeeded = numberNeeded;
         this.roleStatus = roleStatus;
@@ -44,12 +44,12 @@ public class EventRole {
         this.roleDescription = roleDescription;
     }
 
-    public ObjectId getEventRole_id() {
-        return eventRole_id;
+    public ObjectId getevent_id() {
+        return event_id;
     }
 
-    public void setEventRole_id(ObjectId eventRole_id) {
-        this.eventRole_id = eventRole_id;
+    public void setevent_id(ObjectId event_id) {
+        this.event_id = event_id;
     }
 
     public ObjectId[] getAssignedUsers() {
@@ -87,7 +87,7 @@ public class EventRole {
     public Document toDocument() {
         Document doc = new Document("roleName", roleName)
             .append("roleDescription", roleDescription)
-            .append("eventRole_id", eventRole_id)
+            .append("event_id", event_id)
             .append("assignedUsers", assignedUsers)
             .append("numberAssigned", 0) // initially there are no assigned users
             .append("numberNeeded", numberNeeded)

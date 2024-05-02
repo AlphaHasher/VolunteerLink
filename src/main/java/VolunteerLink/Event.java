@@ -30,7 +30,8 @@ public class Event {
 
     private String eventName;
     private String eventDescription;
-    // private String createdBy;
+    private String eventStatus;
+
     private ObjectId createdBy;
 
     private LocalDateTime startDate;
@@ -41,9 +42,10 @@ public class Event {
     private int volunteersNeeded;
     private int volunteersRegistered;
 
+
     private List<String> tags;
 
-    public Event(String eventName, String description, String location, LocalDateTime startDate, LocalDateTime endDate, int volunteersNeeded, int volunteersRegistered, List<String> tags, Date eventCreationDate, ObjectId createdBy) {
+    public Event(String eventName, String description, String location, LocalDateTime startDate, LocalDateTime endDate, int volunteersNeeded, int volunteersRegistered, List<String> tags, Date eventCreationDate, ObjectId createdBy, String eventStatus) {
         this.eventName = eventName;
         this.eventDescription = description;
         this.startDate = startDate;
@@ -54,6 +56,7 @@ public class Event {
         this.tags = tags;
         this.eventCreationDate = eventCreationDate;
         this.createdBy = createdBy;
+        this.eventStatus = eventStatus;
     }
 
     public Event(){};
@@ -153,6 +156,14 @@ public class Event {
         this.createdBy = createdBy;
     }
 
+    public String getEventStatus() {
+        return eventStatus;
+    }
+
+    public void setEventStatus(String eventStatus) {
+        this.eventStatus = eventStatus;
+    }
+
     public Document toDocument() {
         Document doc = new Document();
         doc.append("eventName", this.eventName)
@@ -164,7 +175,8 @@ public class Event {
            .append("volunteersRegistered", this.volunteersRegistered)
            .append("tags", this.tags)
            .append("eventCreationDate", this.eventCreationDate)
-           .append("createdBy", this.createdBy);
+           .append("createdBy", this.createdBy)
+           .append("eventStatus", this.eventStatus);
         return doc;
     }
 
@@ -183,6 +195,9 @@ public class Event {
         event.setEndDate(convertDate(doc.getDate("endDate")));
         event.setTags(doc.getList("tags", String.class));
         event.setEventCreationDate(doc.getDate("eventCreationDate"));
+        // Skipping createdBy for now since I've been having issues with casting it to both ObjectId and String.
+        // And we don't really need it as of now anyways.
+        event.setEventStatus(doc.getString("eventStatus"));
         return event;
     }
 

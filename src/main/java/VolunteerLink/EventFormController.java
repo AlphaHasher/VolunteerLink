@@ -51,7 +51,7 @@ public class EventFormController {
             ObjectId createdBy = (ObjectId) session.getAttribute("userId");
 
 
-            Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, 0, 0, tags, eventCreationDate, createdBy);
+            Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, 0, 0, tags, eventCreationDate, createdBy, "Pending");
             ObjectId event_id = saveEvent(event);
             saveRoles(event_id, roleNames, roleDescriptions, numbersNeeded);
             return "redirect:/FrontEnd/index.html";
@@ -72,7 +72,7 @@ public class EventFormController {
     private void saveRoles(ObjectId event_id, List<String> roleNames, List<String> roleDescriptions, List<Integer> numbersNeeded) {
         int totalVolunteersNeeded = 0;
         for (int i = 0; i < roleNames.size(); i++) {
-            EventRole role = new EventRole(roleNames.get(i), roleDescriptions.get(i), event_id, new ArrayList<ObjectId>(), numbersNeeded.get(i), "Open");
+            EventRole role = new EventRole(roleNames.get(i), roleDescriptions.get(i), event_id, new ArrayList<ObjectId>(), numbersNeeded.get(i), "Needed");
             Database.getInstance().getEventRolesCollection().insertOne(role.toDocument());
             totalVolunteersNeeded += numbersNeeded.get(i);
         }
