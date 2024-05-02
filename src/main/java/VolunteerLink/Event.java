@@ -27,7 +27,7 @@ import org.bson.types.ObjectId;
 public class Event {
 
     // private MongoCollection<Document> eventCollection;
-
+    private ObjectId id;
     private String eventName;
     private String eventDescription;
     private String eventStatus;
@@ -59,7 +59,17 @@ public class Event {
         this.eventStatus = eventStatus;
     }
 
+
+
     public Event(){};
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 
     public String getEventName() {
         return eventName;
@@ -198,6 +208,7 @@ public class Event {
         // Skipping createdBy for now since I've been having issues with casting it to both ObjectId and String.
         // And we don't really need it as of now anyways.
         event.setEventStatus(doc.getString("eventStatus"));
+        event.setId(doc.getObjectId("_id"));
         return event;
     }
 

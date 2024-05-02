@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -92,5 +93,17 @@ public class EventFormController {
 
         return ResponseEntity.ok(events);
     }
+    
+    @GetMapping("/FrontEnd/Form.html")
+    public String getEventForm(@RequestParam("eventId") String eventId, Model model) {
+        // Retrieve the event details based on the eventId
+        Event event = EventService.getEventById(eventId);
+    
+        // Add the event object to the model to populate the form
+        model.addAttribute("event", event);
+    
+        return "event-form"; // Return the name of your Thymeleaf template for the event form
+    }
+
 
 }
