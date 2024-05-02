@@ -121,132 +121,61 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    // Form element
-    const createAccountForm = document.getElementById('createAccountForm');
+        const createAccountForm = document.getElementById('createAccountForm');
 
-    // Individual input fields
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const confirmPasswordInput = document.getElementById('confirmPassword');
-    const firstNameInput = document.getElementById('firstName');
-    const lastNameInput = document.getElementById('lastName');
-    const roleSelect = document.getElementById('role');
-
-    // Utility to add event listeners to inputs for real-time validation feedback
-    function addInputEventListeners() {
-        const inputs = [emailInput, passwordInput, confirmPasswordInput, firstNameInput, lastNameInput];
-        inputs.forEach(input => {
-            input.addEventListener('input', function() {
-                // Validate and show feedback as user types
-                validateInput(input);
-                showInputFeedback(input);
-            });
-        });
-    }
-    // Main validation function for the form
-    function validateForm() {
-        let isValid = true; // Flag to track overall form validity
-        let errors = []; // Array to collect error messages
-
-        // Validate email
-        if (!validateEmail(emailInput.value)) {
-            errors.push("Enter a valid email.");
-            isValid = false;
-        }
-
-        // Validate password
-        if (!validatePassword(passwordInput.value)) {
-            errors.push("Password must include at least 8 characters, an uppercase letter, a number, and a special character.");
-            isValid = false;
-        }
-        // Check if passwords match
-        if (passwordInput.value !== confirmPasswordInput.value) {
-            errors.push("Passwords do not match.");
-            isValid = false;
-        }
-
-        // Validate first and last name
-        if (!firstNameInput.value.trim() || !lastNameInput.value.trim()) {
-            errors.push("First name and last name are required.");
-            isValid = false;
-        }
-
-        // Display errors if there are any
-        displayErrors(errors);
-        return isValid;
-    }
-    // Email validation using regular expression
-    function validateEmail(email) {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailPattern.test(email);
-    }
-
-    // Password validation using regular expression
-    function validatePassword(password) {
-        const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d]).{8,}$/;
-        return passwordPattern.test(password);
-    }
-
-    // Display input-specific feedback based on validation
-    function showInputFeedback(input) {
-        if (input.id === 'password' || input.id === 'confirmPassword') {
-            input.classList.toggle('input-error', !validatePassword(input.value));
-        } else if (input.id === 'email') {
-            input.classList.toggle('input-error', !validateEmail(input.value));
-        } else {
-            input.classList.toggle('input-error', !input.value.trim());
-        }
-    }
-// Role change handler for dynamic form adjustments
-function handleRoleChange() {
-        const additionalInfoContainer = document.getElementById('additionalInfo');
-        additionalInfoContainer.style.display = roleSelect.value === 'event organizer' ? 'block' : 'none';
-    }
-
-    // Display cumulative errors from form validation
-    function displayErrors(errors) {
+        // Simplify error handling
         const errorBox = document.getElementById('errorBox');
-        errorBox.innerHTML = errors.join('<br>');
-        errorBox.style.display = errors.length ? 'block' : 'none';
-    }
+        errorBox.innerHTML = ""; // Clear previous errors
 
-    // Form submission handling with AJAX
-    function submitForm() {
-        const formData = new FormData(createAccountForm);
-        fetch('http://localhost:8080/register', {
-            method: 'POST',
-            body: formData
-        }).then(response => response.json())
-          .then(handleResponse)
-          .catch(handleError);
-    }
-
-    // Handle server response
-    function handleResponse(data) {
-        if (data.success) {
-            alert('Account created successfully!');
-            createAccountForm.reset();
-        } else {
-            displayErrors([data.message || "An error occurred while creating the account."]);
+        function displayErrors(errors) {
+            errorBox.innerHTML = errors.join('<br>');
+            errorBox.style.display = errors.length ? 'block' : 'none';
         }
-    }
 
-    // Handle errors during form submission
-    function handleError(error) {
-        console.error('Error submitting form:', error);
-        displayErrors(['Failed to submit form. Please try again later.']);
-    }
+        function validateForm() {
+            let isValid = true;
+            const errors = [];
 
-    // Initialization
-    addInputEventListeners();
-    roleSelect.addEventListener('change', handleRoleChange);
-    createAccountForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        if (validateForm()) {
-            submitForm();
+            // Validate email
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(createAccountForm.email.value)) {
+                errors.push("Enter a valid email.");
+                isValid = false;
+            }
+
+            // Validate password
+            if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d]).{8,}$/.test(createAccountForm.password.value)) {
+                errors.push("Password must include at least 8 characters, an uppercase letter, a number, and a special character.");
+                isValid = false;
+            }
+
+            // Check if passwords match
+            if (createAccountForm.password.value !== createAccountForm.confirmPassword.value) {
+                errors.push("Passwords do not match.");
+                isValid = false;
+            }
+
+            // Validate first and last name
+            if (!createAccountForm.firstName.value.trim() || !createAccountForm.lastName.value.trim()) {
+                errors.push("First name and last name are required.");
+                isValid = false;
+            }
+
+            if (!isValid) {
+                displayErrors(errors);
+            }
+
+            return isValid;
         }
+
+        createAccountForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+            if (validateForm()) {
+                this.submit(); // Allow form submission if validation passes
+            }
+        });
     });
-});
 </script>
+
+
 </body>
 </html>

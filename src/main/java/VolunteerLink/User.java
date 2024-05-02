@@ -1,18 +1,10 @@
 package VolunteerLink;
 
-import java.util.Arrays;
-// import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.model.Aggregates;
-// import com.mongodb.client.model.Projections;
-
 
 public class User {
 
@@ -23,23 +15,6 @@ public class User {
     private String role;
     private Date accountCreationDate;
     private List<ObjectId> eventRole_id;
-    private MongoCollection<Document> userCollection;
-
-    // Creates User Object from pre-existing user in the DB
-    public User() {
-        this.userCollection = Database.getInstance().getUsersCollection();
-    }
-    public User(String email, String password) {
-
-        this.userCollection = Database.getInstance().getUsersCollection();
-        ObjectId userId = logIn(email, password);
-        if (userId == null) {
-            return;
-        }
-        else {
-            setAllVariables(userId);
-        }
-    }
 
     public User(String email, String password, String firstName, String lastName, String role, Date accountCreationDate, List<ObjectId> eventRole_id){
         this.email = email;
@@ -57,13 +32,6 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
-    }
-
-    // Parse database for matching email and password, then return User.
-    // Is this still needed if we already have the login method in the Database class?
-    public User logInUser(String email, String password) {
-        User newUser = new User(email, password, firstName, lastName, role, accountCreationDate, eventRole_id);
-        return newUser;
     }
 
     // ********************************************
@@ -127,79 +95,6 @@ public class User {
     public List<ObjectId> getEventRole_id() {
         return eventRole_id;
     }
-
-
-
-    // Returns the _id for a matching email and password.
-    public ObjectId logIn(String email, String password) {
-        Document filter = new Document("email", email); // Assuming the field name is "email"
-        MongoCursor<Document> cursor = userCollection.aggregate(
-
-            Arrays.asList(
-                Aggregates.match(filter) // Filter documents based on email
-                //Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field // Removed, prevented comparison to validate correct pass
-            )
-        ).iterator();
-
-        try {
-            if (cursor.hasNext()) {
-                Document doc = cursor.next();
-                if (doc.getString("password").equals(password)) { // Must use .equals method to compare strings, otherwise results in logic error
-                   // System.out.println("password " + doc.getString("password")); // Test line to print
-                    return doc.getObjectId("_id"); // Return the _id as an ObjectId
-                }
-                else {
-                    System.out.println("Error in LogIn: Password Incorrect.");
-                    System.out.println(password);
-                    return null;
-                }
-            } else {
-                System.out.println("Error in logIn: email not found");
-                return null; // User not found
-            }
-        } finally {
-            cursor.close();
-        }
-    }
-
-    // fills an existing user's variables with those in the database
-    private void setAllVariables(ObjectId userId) {
-        Document filter = new Document("_id", userId); // Assuming the field name is "email"
-        MongoCursor<Document> cursor = userCollection.aggregate(
-
-            Arrays.asList(
-                Aggregates.match(filter) // Filter documents based on email
-                //Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field // Removed, prevented comparison to validate correct pass
-            )
-        ).iterator();
-
-        try {
-            if (cursor.hasNext()) {
-                Document doc = cursor.next();
-                if (doc.getObjectId("_id").equals(userId)) { // Must use .equals method to compare strings, otherwise results in logic error
-                    email = doc.getString("email");
-                    firstName = doc.getString("firstName");
-                    lastName = doc.getString("lastName");
-                    role = doc.getString("role");
-                    accountCreationDate = doc.getDate("accountCreationDate");
-
-                    eventRole_id = doc.getList("eventRole_id", ObjectId.class);
-
-                    doc.get("eventRole_id", ObjectId.class);
-                }
-                else {
-                    System.out.println("Error: User not found.");
-                    System.out.println(password);
-                }
-            } else {
-                System.out.println("Error: User not found"); // User not found
-            }
-        } finally {
-            cursor.close();
-        }
-
-    }
-
 
     public void setEventRole_id(List<ObjectId> eventRole_id) {
         // adds to the eventRole_id array
