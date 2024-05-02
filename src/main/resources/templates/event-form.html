@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Creation Form</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./public/volunteer-management-logo@2x.png"
+    />
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./admin-page.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #006046;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #045f13;
+        }
+    </style>
+</head>
+<body>
+    <div class="sticky-top">
+        <section class="admin-portal-link">
+            <div class="spotlight-element4">
+                <div class="spotlight-background4"></div>
+                <h1 class="volunteer-link-admin">Volunteer Link Event Form</h1>
+            </div>
+        </section>
+    <div class="container">
+        <form action="/updateEvent" method="post">
+            <button type="button" class="btn btn-info" onclick="populateRandomData()">Populate Random Data</button>
+        
+            <div class="form-group">
+                <label for="eventName">Event Name:</label>
+                <input type="text" id="eventName" name="eventName" th:value="${event.eventName}" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" th:value="${event.location}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="eventDescription" rows="4" required th:text="${event.eventDescription}"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" th:value="${#temporals.format(event.startDate, 'yyyy-MM-dd')}" required>
+            </div>
+            <div class="form-group">
+                <label for="startTime">Start Time:</label>
+                <input type="time" id="startTime" name="startTime" th:value="${#temporals.format(event.startDate, 'HH:mm')}" required step="60">
+            </div>
+            <div class="form-group">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" th:value="${#temporals.format(event.endDate, 'yyyy-MM-dd')}" required>
+            </div>
+            <div class="form-group">
+                <label for="endTime">End Time:</label>
+                <input type="time" id="endTime" name="endTime" th:value="${#temporals.format(event.endDate, 'HH:mm')}" required step="60">
+            </div>
+            <div class="form-group">
+                <label for="tags">Tags:</label>
+                <div class="tag-input-group">
+                    <input type="text" id="tagInput" class="tag" placeholder="Add a tag" />
+                    <button type="button" id="addTagBtn" class="btn btn-primary" onclick="addTag()">Add Tag</button>
+                </div>
+                <div id="tagsContainer" class="tags-container">
+                    <!-- Tags will be added here dynamically -->
+                    <!-- You may need to iterate over event.tags and populate existing tags here -->
+                </div>
+                <!-- Hidden input to store the array of tags to be sent with the form submission -->
+                <input type="hidden" id="hiddenTags" name="tags" th:value="${event.tags}" />
+            </div>
+        
+            <div class="form-group role-group">
+                <div id="roleNotification" style="color: red; display: none;">Please add at least one event role before submitting.</div>
+                <button type="button" id="btn-add-new-role" class="btn btn-primary" onclick="addRole()">Add New Role</button>
+                <div id="roleContainer">
+                    <!-- Role inputs will be added here dynamically -->
+                    <!-- You may need to iterate over event.roles and populate existing roles here -->
+                </div>
+            </div>
+        
+            <script src="script.js"></script>
+        
+            <button type="submit">Update Event</button>
+        </form>
+        
+    </div>
+</body>
+</html>
+
+
+
+
+
+<!-- <form action="/updateEvent" method="post">
+    <input type="hidden" name="eventId" th:value="${event.id}" />
+    <label for="eventName">Event Name:</label>
+    <input type="text" id="eventName" name="eventName" th:value="${event.eventName}" />
+     Add other form fields for event details 
+    <button type="submit">Update Event</button>
+</form> -->
