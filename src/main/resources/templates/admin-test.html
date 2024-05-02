@@ -1,249 +1,311 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
     <title>Volunteer Link</title>
-    <link rel="icon" type="image/x-icon" href="./public/volunteer-management-logo@2x.png" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="./public/volunteer-management-logo@2x.png"
+    />
     <!-- <link rel="stylesheet" href="./global.css" /> -->
     <!-- <link rel="stylesheet" href="./admin-page.css" /> -->
     <!-- <link rel="stylesheet" href="./admin-page.css" /> -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Events and Users List</title>
     <style>
-        /* CSS styling for the page */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-image: url("/FrontEnd/public/background@2x.png");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            margin: 0;
-            padding: 0;
-        }
-        h1 {
-            text-align: center;
-        }
-        .container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-        .events,
-        .users {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid rgba(0, 78, 56, 0.92);
-            border-radius: 5px;
-            background-color: #f9f9f9;
-            margin: 10px;
-        }
-        .events h2,
-        .users h2 {
-            margin-top: 0;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .edit-btn, .delete-btn {
-            padding: 5px 10px;
-            margin-right: 5px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .edit-btn {
-            background-color: rgba(0, 78, 56, 0.92);
-            color: white;
-        }
-        .load-more {
-            background-color: rgba(0, 78, 56, 0.92);
-            color: white;
-            padding: 5px 10px; /* Adjust padding to make the button smaller */
-            border-radius: 5px; /* Add border-radius for rounded corners */
-            display: inline-block; /* Display as inline-block to fit content */
+      /* CSS styling for the page */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-image: url("/FrontEnd/public/background@2x.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin: 0;
+        padding: 0;
+      }
+      h1 {
+        text-align: center;
+      }
+      .container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+      .events,
+      .users {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid rgba(0, 78, 56, 0.92);
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin: 10px;
+      }
+      .events h2,
+      .users h2 {
+        margin-top: 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      .edit-btn,
+      .delete-user,
+      .delete-event {
+        padding: 5px 10px;
+        margin-right: 5px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      .edit-btn {
+        background-color: rgba(0, 78, 56, 0.92);
+        color: white;
+      }
+      .load-more {
+        background-color: rgba(0, 78, 56, 0.92);
+        color: white;
+        padding: 5px 10px; /* Adjust padding to make the button smaller */
+        border-radius: 5px; /* Add border-radius for rounded corners */
+        display: inline-block; /* Display as inline-block to fit content */
+      }
 
-        }
+      .load-more-btn {
+        background-size: 2px; /* Set the background size to be smaller */
+        background-position: center; /* Center the background image */
+        background-repeat: no-repeat; /* Prevent background image from repeating */
+        border: none; /* Remove default button border */
+        width: 30px; /* Set width to make the button smaller */
+        height: 30px; /* Set height to make the button smaller */
+        color: white; /* Set text color */
+        cursor: pointer; /* Add cursor pointer on hover */
+      }
 
-        .load-more-btn {
-            background-size: 2px; /* Set the background size to be smaller */
-            background-position: center; /* Center the background image */
-            background-repeat: no-repeat; /* Prevent background image from repeating */
-            border: none; /* Remove default button border */
-            width: 30px; /* Set width to make the button smaller */
-            height: 30px; /* Set height to make the button smaller */
-            color: white; /* Set text color */
-            cursor: pointer; /* Add cursor pointer on hover */
-        }
+      .delete-user,
+      .delete-event {
+        background-color: #f44336;
+        color: white;
+      }
 
-        .delete-btn {
-            background-color: #f44336;
-            color: white;
-        }
-      
-        /* Additional styling from admin-page.css */
-        .admin-page {
-            font-family: 'Inter', sans-serif;
-        }
-        .nav-bar4 {
-            background-color: #056d3c;
-            color: #fff;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .nav-bar-background4 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #f5f5ed59;
-            z-index: -1;
-        }
-        .frame-parent102 {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .sac-state-logo4 {
-            height: 40px;
-            width: auto;
-        }
-        .apply-exp-give {
-            display: flex;
-            align-items: center;
-        }
-        .frame-nav {
-            display: flex;
-            gap: 20px;
-        }
-        .apply4, .experience4, .give4 {
-            margin: 0;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .spotlight-element4 {
-            position: relative;
-            text-align: center;
-            padding: 50px;
-            background-color: #f0f0f0;
-        }
-        .spotlight-background4 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #056d3c33;
-            z-index: -1;
-        }
-        .volunteer-link-admin {
-            margin: 0;
-            padding: 20px;
-            background-color: #056d41;
-            color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 3px #056d41;
-        }
+      /* Additional styling from admin-page.css */
+      .admin-page {
+        font-family: "Inter", sans-serif;
+      }
+      .nav-bar4 {
+        background-color: #056d3c;
+        color: #fff;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .nav-bar-background4 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #f5f5ed59;
+        z-index: -1;
+      }
+      .frame-parent102 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .sac-state-logo4 {
+        height: 40px;
+        width: auto;
+      }
+      .apply-exp-give {
+        display: flex;
+        align-items: center;
+      }
+      .frame-nav {
+        display: flex;
+        gap: 20px;
+      }
+      .apply4,
+      .experience4,
+      .give4 {
+        margin: 0;
+        padding: 10px;
+        cursor: pointer;
+      }
+      .spotlight-element4 {
+        position: relative;
+        text-align: center;
+        padding: 50px;
+        background-color: #f0f0f0;
+      }
+      .spotlight-background4 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #056d3c33;
+        z-index: -1;
+      }
+      .volunteer-link-admin {
+        margin: 0;
+        padding: 20px;
+        background-color: #056d41;
+        color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 3px #056d41;
+      }
     </style>
-</head>
-<body>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Select all delete buttons
+        const deleteButtons = document.querySelectorAll(
+          ".delete-event, .delete-user"
+        );
+
+        // Add click event listener to each delete button
+        deleteButtons.forEach(function (button) {
+          button.addEventListener("click", function (event) {
+            // Prevent default form submission behavior
+            event.preventDefault();
+
+            // Get the ID of the item to delete (event or user)
+            const itemId = button.dataset.itemId;
+            const itemType = button.classList.contains("delete-event")
+              ? "event"
+              : "user";
+
+            // Confirm deletion with user
+            if (confirm(`Are you sure you want to delete this ${itemType}?`)) {
+              // Send DELETE request to server
+              fetch(
+                `/delete${
+                  itemType.charAt(0).toUpperCase() + itemType.slice(1)
+                }/${itemId}`,
+                {
+                  method: "DELETE",
+                }
+              )
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error(`Failed to delete ${itemType}`);
+                  }
+                  // Remove the deleted item from the UI
+                  button.closest("tr").remove();
+                })
+                .catch((error) => {
+                  console.error(error);
+                  alert(`An error occurred while deleting the ${itemType}.`);
+                });
+            }
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
     <div class="admin-page">
-        <header class="nav-bar4">
-          <div class="nav-bar-background4"></div>
-            <img class="sac-state-logo4" loading="lazy" alt="" src="/FrontEnd/public/sac-logo@2x.png" />
-            <nav class="apply-exp-give">
-                <nav class="frame-nav">
-                    <h3 class="apply4">APPLY</h3>
-                    <h3 class="experience4">EXPERIENCE</h3>
-                    <h3 class="give4">GIVE</h3>
-                </nav>
-            </nav>
-        </header>
-        <section class="admin-portal-link">
-            <div class="spotlight-element4">
-                <div class="spotlight-background4"></div>
-                <h1 class="volunteer-link-admin">Volunteer Link Admin Portal</h1>
-            </div>
-        </section>
+      <header class="nav-bar4">
+        <div class="nav-bar-background4"></div>
+        <img
+          class="sac-state-logo4"
+          loading="lazy"
+          alt=""
+          src="/FrontEnd/public/sac-logo@2x.png"
+        />
+        <nav class="apply-exp-give">
+          <nav class="frame-nav">
+            <h3 class="apply4">APPLY</h3>
+            <h3 class="experience4">EXPERIENCE</h3>
+            <h3 class="give4">GIVE</h3>
+          </nav>
+        </nav>
+      </header>
+      <section class="admin-portal-link">
+        <div class="spotlight-element4">
+          <div class="spotlight-background4"></div>
+          <h1 class="volunteer-link-admin">Volunteer Link Admin Portal</h1>
+        </div>
+      </section>
     </div>
-</body>
-</html>
 
-    </style>
-</head>
-<body>
     <div class="container">
       <!--  Events List -->
       <div class="events">
-        <h2>Events
-            <div class="load-more">
-                <a th:href="@{/admin-test(loadMoreCount=10)}" class="load-more-btn">More Events</a>
-            </div>
+        <h2>
+          Events
+          <div class="load-more">
+            <a th:href="@{/admin-test(loadMoreCount=10)}" class="load-more-btn"
+              >More Events</a
+            >
+          </div>
         </h2>
         <table>
-            <thead>
-                <tr>
-                    <th>Event</th>
-                    <th>Location</th>
-                    <th>Start Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="event, iterStat : ${events}" th:if="${iterStat.index} < 10">
-                    <td th:text="${event.eventName}"></td>
-                    <td th:text="${event.location}"></td>
-                    <td th:text="${event.startDate}"></td>
-                    <td>
-                        <a href="/FrontEnd/Form.html" class="edit-btn">Edit</a>
-                        <button class="delete-btn">Delete</button></td>
-                    </td>
-                </tr>
-            </tbody>
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Location</th>
+              <th>Start Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              th:each="event, iterStat : ${events}"
+              th:if="${iterStat.index} < 10"
+            >
+              <td th:text="${event.eventName}"></td>
+              <td th:text="${event.location}"></td>
+              <td th:text="${event.startDate}"></td>
+              <td>
+                <a href="/FrontEnd/Form.html" class="edit-btn">Edit</a>
+                <button class="delete-event">Delete</button>
+              </td>
+            </tr>
+          </tbody>
         </table>
+      </div>
+      <!--  Users List-->
+      <div class="users">
+        <h2>Users</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Password</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Role</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="user : ${users}">
+              <td th:text="${user.email}"></td>
+              <td th:text="${user.password}"></td>
+              <td th:text="${user.firstName}"></td>
+              <td th:text="${user.lastName}"></td>
+              <td th:text="${user.role}"></td>
+              <td>
+                <button class="edit-btn">Edit</button>
+                <button class="delete-user">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-       <!--  Users List-->
-        <div class="users">
-            <h2>Users</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Role</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.password}"></td>
-                        <td th:text="${user.firstName}"></td>
-                        <td th:text="${user.lastName}"></td>
-                        <td th:text="${user.role}"></td>
-                        <td>
-                            <button class="edit-btn">Edit</button>
-                            <button class="delete-btn">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-</body>
+  </body>
 </html>
