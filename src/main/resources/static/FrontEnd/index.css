@@ -80,13 +80,16 @@
   display: none;
   max-width: 100%;
 }
+
 .volunteer-link1 {
   margin: 0;
   position: relative;
-  font-size: inherit;
+   font-size: inherit;
   font-weight: 600;
   font-family: inherit;
   z-index: 1;
+  top: 22px;
+  right: -250px;
 }
 .login-button-child {
   height: 2.188rem;
@@ -105,22 +108,28 @@
   text-align: left;
   min-width: 2.75rem;
   z-index: 1;
+  
 }
 .condition-checker,
 .login-button {
   display: flex;
+  position: relative;
   align-items: flex-start;
   justify-content: flex-start;
+  
+
 }
 .login-button {
   cursor: pointer;
   border: 0;
+  position: relative;
   padding: var(--padding-5xs) var(--padding-16xl) var(--padding-5xs)
     var(--padding-18xl);
   background-color: var(--color-darkkhaki-100);
   border-radius: var(--br-8xs);
   flex-direction: row;
   z-index: 1;
+  right: 280px;
 }
 .login-button:hover {
   background-color: var(--color-darkkhaki-200);
@@ -129,6 +138,7 @@
   flex-direction: column;
   padding: var(--padding-8xs) 0 0;
 }
+
 .input-provider,
 .spotlight-element1 {
   display: flex;
@@ -137,6 +147,32 @@
   box-sizing: border-box;
   max-width: 100%;
 }
+
+.branching-logic .apply-group a,
+.branching-logic .apply-group a:hover,
+.branching-logic .apply-group a:visited {
+  font-weight: 600;
+  display: block;
+  color: var(--black);
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Make the anchor tags behave like block elements */
+  padding: 8px 16px; /* Add padding to create button-like appearance */
+  border-radius: 4px; /* Add border radius */
+  font-family: inherit; /* Use inherited font */
+  font-size: inherit; /* Use inherited font size */
+  font-weight: bold; /* Set font weight */
+  cursor: pointer; /* Change cursor to pointer on hover */
+ 
+}
+
+.branching-logic .apply-group a:hover {
+  background-color: #999; /* Change background color on hover */
+  color: #ccb878 /* Change text color on hover */
+}
+
+/*.login-button {display:inline-block;margin-right:10px;} 
+.volunteer-link1 {display:inline-block;} */
+
 .spotlight-element1 {
   flex: 1;
   background: linear-gradient(90deg, #006046, #021e14);
@@ -153,6 +189,7 @@
   font-size: var(--font-size-17xl);
   color: var(--color-white);
   font-family: var(--font-inter);
+  margin: 5px;
 }
 .data-flow-control {
   position: absolute;
@@ -1189,7 +1226,7 @@
 
 #event-list-header{
   position: relative;
-  left:5000px;
+  left:50px;
 
 }
 .event-list {
@@ -1201,15 +1238,14 @@
 }
 
 .event-box {
-  /*position: absolute;*/
+  position: relative;
   /* Adjust these values as needed */
-  top: 110000px;
+  top: 500px !important;
   width: 400px;
-  left: 500px;
-  
+  left: 690px;
   aspect-ratio: 5 / 1;
   /*margin-bottom: 800px !important;*/
-  /* You can also use other positioning properties like bottom and right */
+  
 }
 .arc-arbor,
 .circle-core {
@@ -1368,18 +1404,7 @@
   padding: 0 var(--padding-xl) 0 0;
   box-sizing: border-box;
 }
-.creek-clean-up,
-.wednesday2 {
-  position: relative;
-  font-weight: 500;
-  display: inline-block;
-  min-width: 4.625rem;
-}
-.creek-clean-up {
-  flex: 1;
-  min-width: 14.688rem;
-  max-width: 100%;
-}
+
 .fill-filler,
 .stroke-stroke {
   display: flex;
@@ -1459,88 +1484,6 @@
   position: relative;
   border-top: 1px solid var(--color-gainsboro-100);
   box-sizing: border-box;
-}
-.apr-3-10am1 {
-  position: relative;
-  font-weight: 500;
-  display: inline-block;
-  min-width: 7.125rem;
-}
-.apr-3-10am-1pm-wrapper {
-  width: 10.688rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 0 var(--padding-xl) 0 0;
-  box-sizing: border-box;
-}
-.creek-clean-up1,
-.wednesday3 {
-  position: relative;
-  font-weight: 500;
-  display: inline-block;
-  min-width: 4.625rem;
-}
-.creek-clean-up1 {
-  flex: 1;
-  min-width: 14.688rem;
-  max-width: 100%;
-}
-.audio-amplifier3,
-.frame-parent4 {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  max-width: 100%;
-}
-.frame-parent4 {
-  flex: 1;
-  flex-wrap: wrap;
-  gap: var(--gap-8xs);
-}
-.audio-amplifier3 {
-  width: 38.813rem;
-  padding: 0 var(--padding-11xs);
-  box-sizing: border-box;
-}
-.audio-amplifier4 {
-  align-self: stretch;
-  height: 0.063rem;
-  position: relative;
-  border-top: 1px solid var(--color-gainsboro-100);
-  box-sizing: border-box;
-}
-.apr-6-12pm1 {
-  position: relative;
-  font-weight: 500;
-  display: inline-block;
-  min-width: 7.125rem;
-}
-.apr-6-12pm-4pm-wrapper {
-  width: 10.688rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 0 var(--padding-xl) 0 0;
-  box-sizing: border-box;
-}
-.park-clean-up1,
-.saturday1 {
-  position: relative;
-  font-weight: 500;
-  display: inline-block;
-}
-.saturday1 {
-  width: 4.625rem;
-  flex-shrink: 0;
-}
-.park-clean-up1 {
-  flex: 1;
-  min-width: 14.688rem;
-  max-width: 100%;
 }
 .audio-amplifier5,
 .frame-parent5 {
