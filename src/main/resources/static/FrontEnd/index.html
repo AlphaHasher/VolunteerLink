@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
     <style>
+      
         .event-box {
             border: 1px solid #ccc;
             padding: 10px;
@@ -27,8 +28,29 @@
             display: inline-block;
         }
         #event-tags-container {
-            float: left;
-            margin-right: 20px;
+            position: absolute;
+            top: 330px;
+            left: 400px;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .tag-checkbox {
+            margin-bottom: 5px;
+        }
+        #apply-filters-container {
+            position: absolute;
+            top: 650px; /* Adjust as needed */
+            left: 419px;
+        }
+        #apply-filters-btn {
+            cursor: pointer;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -38,7 +60,6 @@
             <div class="nav-bar-background1"></div>
             <img class="sac-state-logo1" loading="lazy" alt="" src="./public/sac-state-logo@2x.png" />
             <nav class="apply-group">
-               <!--Added links from Sac State site to buttons-->
                 <a href="https://www.csus.edu/apply/" class="apply1">APPLY</a>
                 <a href="https://www.csus.edu/experience/" class="experience1">EXPERIENCE</a>
                 <a href="https://www.csus.edu/giving/" class="give1">GIVE</a>
@@ -56,75 +77,14 @@
                 </div>
             </div>
         </section>
-        <div id="event-list" style ="
-        position: relative;
-        left: -760px;
-        top: -34px;
-        "></div>
-        <script>
-          var loginButton = document.getElementById("loginButton");
-          if (loginButton) {
-              loginButton.addEventListener("click", function (e) {
-                  window.location.href = "./login-page.html";
-              });
-          }
-      </script>
-      <script>
-          async function fetchAndDisplayEvents() {
-              try {
-                  const response = await fetch('/events');
-                  let events = await response.json();
-                  events.sort((a, b) => {
-                      const startDateA = new Date(a.startDate);
-                      const startDateB = new Date(b.startDate);
-                      return startDateA - startDateB;
-                  });
-                  const eventList = document.getElementById('event-list');
-                  eventList.innerHTML = '';
-                  
-                  let yPos = 0;
-                  events.forEach(event => {
-                      const eventName = event.eventName;
-                      const eventDescription = event.eventDescription;
-                      const startDate = event.startDate ? new Date(event.startDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
-                      const startTime = event.startDate ? `${new Date(event.startDate).getHours()}:${String(new Date(event.startDate).getMinutes()).padStart(2, '0')}` : null;
-                      const endDate = event.endDate ? new Date(event.endDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
-                      const endTime = event.endDate ? `${new Date(event.endDate).getHours()}:${String(new Date(event.endDate).getMinutes()).padStart(2, '0')}` : null;
-                      const volunteersNeeded = event.volunteersNeeded;
-                      const eventBox = document.createElement('div');
-                      eventBox.classList.add('event-box');
-                      //Remove if not needed. potential way to move list to middle of page
-                      eventBox.classList.add('move-left-up'); // Weird way to move the list but worth a shot
-                      eventBox.style.position = 'relative';
-                      eventBox.style.top = `${yPos}px`;
-                      eventBox.style.left = '0';
-                      eventBox.innerHTML = `
-                          <div class="event-name">${eventName}</div>
-                          <div class="event-description">${eventDescription}</div>
-                          <div class="event-date">Start Date: ${startDate} | Start Time: ${startTime} | End Date: ${endDate} | End Time: ${endTime}</div>
-                          <div class="volunteers-needed">Volunteers Needed: ${volunteersNeeded}</div>
-                      `;
-                      if(event.tags && event.tags.length > 0) {
-                          const tagsDiv = document.createElement('div');
-                          tagsDiv.classList.add('event-tags');
-                          event.tags.forEach(tag => {
-                              const tagSpan = document.createElement('span');
-                              tagSpan.classList.add('event-tag');
-                              tagSpan.textContent = tag;
-                              tagsDiv.appendChild(tagSpan);
-                          });
-                          eventBox.appendChild(tagsDiv);
-                      }
-                      eventList.appendChild(eventBox);
-                      //This is the # of pixels between each event box on main page
-                      yPos += 22;
-                  });
-              } catch (error) {
-                  console.error('Error fetching events:', error);
-              }
-          }
-          fetchAndDisplayEvents();
-      </script>
+        <!--This is the list of dynamic tags pulled from the list generated-->
+        <div id="event-tags-container"></div>
+        <div id="apply-filters-container">
+            <button id="apply-filters-btn">Apply Filters</button>
+        </div>
+        <!--Don't ask why I choose these values-->
+        <div id="event-list" style="position: relative; left: -701px; top: -499px;"></div>
+
         <section class="image-modifier">
             <div class="data-flow-control-parent">
                 <div class="data-flow-control"></div>
@@ -132,7 +92,6 @@
                     <div class="delimiter-parser">
                         <div class="constant-provider">
                             <div class="rate-limiter">
-                                
                                 <div class="image-cropper"></div>
                             </div>
                         </div>
@@ -142,6 +101,115 @@
             </div>
         </section>
     </div>
-    
+
+    <script>
+        var loginButton = document.getElementById("loginButton");
+        if (loginButton) {
+            loginButton.addEventListener("click", function (e) {
+                window.location.href = "./login-page.html";
+            });
+        }
+
+        async function fetchAndDisplayEvents() {
+            try {
+                const response = await fetch('/events');
+                let events = await response.json();
+                events.sort((a, b) => {
+                    const startDateA = new Date(a.startDate);
+                    const startDateB = new Date(b.startDate);
+                    return startDateA - startDateB;
+                });
+
+                const eventList = document.getElementById('event-list');
+                eventList.innerHTML = '';
+                let yPos = 0;
+
+                // find all the unique tags from the list
+                let eventTags = [];
+                events.forEach(event => {
+                    if (event.tags && event.tags.length > 0) {
+                        event.tags.forEach(tag => {
+                            if (!eventTags.includes(tag)) {
+                                eventTags.push(tag);
+                            }
+                        });
+                    }
+                });
+
+                // create checkboxes for each unique tag
+                const tagsContainer = document.getElementById('event-tags-container');
+                tagsContainer.innerHTML = '';
+                eventTags.forEach(tag => {
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.value = tag;
+                    checkbox.classList.add('tag-checkbox');
+                    const label = document.createElement('label');
+                    label.textContent = tag;
+                    label.appendChild(checkbox);
+                    tagsContainer.appendChild(label);
+                    tagsContainer.appendChild(document.createElement('br'));
+                });
+
+                document.getElementById('apply-filters-btn').addEventListener('click', applyFilters);
+
+                events.forEach(event => {
+                    const eventName = event.eventName;
+                    const eventDescription = event.eventDescription;
+                    const startDate = event.startDate ? new Date(event.startDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
+                    const startTime = event.startDate ? `${new Date(event.startDate).getHours()}:${String(new Date(event.startDate).getMinutes()).padStart(2, '0')}` : null;
+                    const endDate = event.endDate ? new Date(event.endDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
+                    const endTime = event.endDate ? `${new Date(event.endDate).getHours()}:${String(new Date(event.endDate).getMinutes()).padStart(2, '0')}` : null;
+                    const volunteersNeeded = event.volunteersNeeded;
+                    const eventBox = document.createElement('div');
+                    eventBox.classList.add('event-box');
+                    eventBox.style.position = 'relative';
+                    eventBox.style.top = `${yPos}px`;
+                    eventBox.style.left = '0';
+                    eventBox.innerHTML = `
+                        <div class="event-name">${eventName}</div>
+                        <div class="event-description">${eventDescription}</div>
+                        <div class="event-date">Start Date: ${startDate} | Start Time: ${startTime} | End Date: ${endDate} | End Time: ${endTime}</div>
+                        <div class="volunteers-needed">Volunteers Needed: ${volunteersNeeded}</div>
+                    `;
+                    if (event.tags && event.tags.length > 0) {
+                        const tagsDiv = document.createElement('div');
+                        tagsDiv.classList.add('event-tags');
+                        event.tags.forEach(tag => {
+                            const tagSpan = document.createElement('span');
+                            tagSpan.classList.add('event-tag');
+                            tagSpan.textContent = tag;
+                            tagsDiv.appendChild(tagSpan);
+                        });
+                        eventBox.appendChild(tagsDiv);
+                    }
+                    eventList.appendChild(eventBox);
+                    yPos += 22;
+                });
+            } catch (error) {
+                console.error('Error fetching events:', error);
+            }
+        }
+        // function to sort the list when button is pressed
+        //fix the looping issue 
+        function applyFilters() {
+            const checkboxes = document.querySelectorAll('.tag-checkbox');
+            const selectedTags = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            const eventBoxes = document.querySelectorAll('.event-box');
+            eventBoxes.forEach(box => {
+                const tags = Array.from(box.querySelectorAll('.event-tag')).map(tag => tag.textContent);
+                if (selectedTags.every(tag => tags.includes(tag))) {
+                    box.style.display = 'block';
+                } else {
+                    box.style.display = 'none';
+                }
+            });
+        }
+
+        fetchAndDisplayEvents();
+    </script>
 </body>
 </html>
