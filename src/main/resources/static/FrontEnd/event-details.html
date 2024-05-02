@@ -100,6 +100,13 @@ Rushabh 'st est code, still building the page-->
             });
         }
 
+        var loginButton = document.getElementById("loginButton");
+        if (loginButton) {
+            loginButton.addEventListener("click", function (e) {
+                window.location.href = "./login-page.html";
+            });
+        }
+
         // Add the fetchAndDisplayEventDetails function here
         async function fetchAndDisplayEventDetails(eventId) {
             try {
@@ -115,32 +122,64 @@ Rushabh 'st est code, still building the page-->
                 const volunteersNeeded = event.volunteersNeeded;
 
                 const eventDetailsContainer = document.getElementById('event-details-container');
-                eventDetailsContainer.innerHTML = `
-                    <div class="event-name">${eventName}</div>
-                    <div class="event-description">${eventDescription}</div>
-                    <div class="event-info">
-                        <strong>Start Date:</strong> ${startDate}<br>
-                        <strong>End Date:</strong> ${endDate}<br>
-                        <strong>Start Time:</strong> ${startTime}<br>
-                        <strong>End Time:</strong> ${endTime}<br>
-                        <strong>Volunteers Needed:</strong> ${volunteersNeeded}
-                    </div>
-                    <div class="register-btn">
-                        <button onclick="registerForEvent()">Register</button>
-                    </div>
-                    <div class="back-btn">
-                        <a href="javascript:history.back()">Back to Events</a>
-                    </div>
-                `;
+                //takes in the session ID from java file
+                //Checks to see if user is logged in already or not
+                const sessionResponse = await fetch("/sessionId");
+                const sessionData = await sessionResponse.json();
+                const userId = sessionData.userId;
+
+                if (!userId) {
+                    // User is not logged in, redirect to login page
+                    eventDetailsContainer.innerHTML = `
+                        <div class="event-name">${eventName}</div>
+                        <div class="event-description">${eventDescription}</div>
+                        <div class="event-info">
+                            <strong>Start Date:</strong> ${startDate}<br>
+                            <strong>End Date:</strong> ${endDate}<br>
+                            <strong>Start Time:</strong> ${startTime}<br>
+                            <strong>End Time:</strong> ${endTime}<br>
+                            <strong>Volunteers Needed:</strong> ${volunteersNeeded}
+                        </div>
+                        <div class="register-btn">
+                            <button onclick="redirectToLogin()">Register</button>
+                        </div>
+                        <div class="back-btn">
+                            <a href="javascript:history.back()">Back to Events</a>
+                        </div>
+                    `;
+                } else {
+                    // User is logged in, redirect to index.html (placeholder for now)
+                    eventDetailsContainer.innerHTML = `
+                        <div class="event-name">${eventName}</div>
+                        <div class="event-description">${eventDescription}</div>
+                        <div class="event-info">
+                            <strong>Start Date:</strong> ${startDate}<br>
+                            <strong>End Date:</strong> ${endDate}<br>
+                            <strong>Start Time:</strong> ${startTime}<br>
+                            <strong>End Time:</strong> ${endTime}<br>
+                            <strong>Volunteers Needed:</strong> ${volunteersNeeded}
+                        </div>
+                        <div class="register-btn">
+                            <button onclick="redirectToIndex()">Register</button>
+                        </div>
+                        <div class="back-btn">
+                            <a href="javascript:history.back()">Back to Events</a>
+                        </div>
+                    `;
+            }
             } catch (error) {
                 console.error('Error fetching event details:', error);
             }
         }
-        
-        //Placeholder function for the Register Button
-        function registerForEvent() {
-            // Add code here for button
-            console.log('Register button clicked');
+
+        //function to redict to login page
+        function redirectToLogin() {
+            window.location.href = "./login-page.html";
+        }
+
+        //function to proceed to register page (function name is different temporarily, will change when register page works)
+        function redirectToIndex() {
+            window.location.href = "./index.html";
         }
 
         // Call the fetchAndDisplayEventDetails function with the eventId parameter
