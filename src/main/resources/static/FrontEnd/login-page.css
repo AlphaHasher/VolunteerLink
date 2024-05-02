@@ -91,7 +91,8 @@
   font-weight: 500;
   font-family: var(--font-inter);
   color: var(--color-white);
-  text-align: left;
+  text-align: right;
+  line-height: 30px;
   display: inline-block;
   min-width: 3.25rem;
 }
@@ -102,6 +103,7 @@
   font-family: var(--font-inter);
   color: var(--color-white);
   text-align: left;
+  line-height: 20px;
   display: inline-block;
   min-width: 3.25rem;
 }
@@ -218,10 +220,10 @@ a:active {
 }
 .help,
 .help-label {
-  min-width: 0.25rem;
+  min-width: 15px;
 }
 .help {
-  min-width: 1.563rem;
+  min-width: 30px;
 }
 .help-label-parent {
   justify-content: flex-start;

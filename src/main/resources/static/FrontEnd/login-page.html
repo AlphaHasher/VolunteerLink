@@ -40,40 +40,31 @@
               src="./public/sac-logo@2x.png"
             />
           </div>
-          <div th:if="${param.error}" style="color: red">
-
-          </div>
-          <div th:if="${param.logout}" style="color: green">
-
-          </div>
+          <div th:if="${param.error}" style="color: red"></div>
+          <div th:if="${param.logout}" style="color: green"></div>
           <form class="component-1" action="/login" method="post">
             <div class="email-field-parent">
-                <div class="email-field">
-                    <label for="email" class="email">email</label>
-                    <input
-                        type="text"
-                        id="email"
-                        name="email"
-                        class="user-field"
-                    />
+              <div class="email-field">
+                <label for="email" class="email">Email</label>
+                <input type="text" id="email" name="email" class="user-field" />
+              </div>
+              <div class="password-field">
+                <div class="password-wrapper">
+                  <label for="password" class="password">Password</label>
                 </div>
-                <div class="password-field">
-                    <div class="password-wrapper">
-                        <label for="password" class="password">Password</label>
-                    </div>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        class="pass-field"
-                    />
-                </div>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="pass-field"
+                />
+              </div>
             </div>
             <button type="submit" class="login-button1">
-                <div class="login-bg1"></div>
-                <div class="login1">Login</div>
+              <div class="login-bg1"></div>
+              <div class="login1">Login</div>
             </button>
-        </form>
+          </form>
           <div class="frame-wrapper23">
             <div class="manage-password-parent">
               <div class="manage-password">
@@ -90,121 +81,121 @@
     </div>
 
     <script>
-     document.addEventListener("DOMContentLoaded", function() {
-    var loginForm = document.querySelector("form.component-1");
-    var emailInput = document.getElementById("email");
-    var passwordInput = document.getElementById("password");
-    var submitButton = document.querySelector("input[type=submit]");
-    var errorMessage = document.createElement("div");
-    var errorList = document.createElement("ul");
+      document.addEventListener("DOMContentLoaded", function () {
+        var loginForm = document.querySelector("form.component-1");
+        var emailInput = document.getElementById("email");
+        var passwordInput = document.getElementById("password");
+        var submitButton = document.querySelector("input[type=submit]");
+        var errorMessage = document.createElement("div");
+        var errorList = document.createElement("ul");
 
-    errorMessage.appendChild(errorList);
-    errorMessage.style.color = "red";
-    errorMessage.style.fontWeight = "bold";
-    loginForm.insertBefore(errorMessage, loginForm.firstChild);
+        errorMessage.appendChild(errorList);
+        errorMessage.style.color = "red";
+        errorMessage.style.fontWeight = "bold";
+        loginForm.insertBefore(errorMessage, loginForm.firstChild);
 
-    function validateInput(input, regex = null) {
-        if (input.value.trim() === "") {
+        function validateInput(input, regex = null) {
+          if (input.value.trim() === "") {
             return false;
-        }
-        if (regex && !regex.test(input.value)) {
+          }
+          if (regex && !regex.test(input.value)) {
             return false;
+          }
+          return true;
         }
-        return true;
-    }
 
-    function displayError(input, message) {
-        var errorItem = document.createElement("li");
-        errorItem.textContent = message;
-        errorList.appendChild(errorItem);
-        input.style.borderColor = "red";
-        input.classList.add("error");
-    }
+        function displayError(input, message) {
+          var errorItem = document.createElement("li");
+          errorItem.textContent = message;
+          errorList.appendChild(errorItem);
+          input.style.borderColor = "red";
+          input.classList.add("error");
+        }
 
-    function clearErrors() {
-        errorList.innerHTML = "";
-        var inputs = document.querySelectorAll("input");
-        inputs.forEach(function(input) {
+        function clearErrors() {
+          errorList.innerHTML = "";
+          var inputs = document.querySelectorAll("input");
+          inputs.forEach(function (input) {
             input.style.borderColor = "";
             input.classList.remove("error");
-        });
-    }
+          });
+        }
 
-    function checkemail() {
-        clearErrors();
-        if (!validateInput(emailInput)) {
+        function checkemail() {
+          clearErrors();
+          if (!validateInput(emailInput)) {
             displayError(emailInput, "email is required.");
             return false;
+          }
+          // if (!validateInput(emailInput, /^[A-Z0-9+_.-]+@[A-Z0-9.-]+$/)) {
+          //     displayError(emailInput, "email contains invalid characters.");
+          //     return false;
+          // }
+          return true;
         }
-        // if (!validateInput(emailInput, /^[A-Z0-9+_.-]+@[A-Z0-9.-]+$/)) {
-        //     displayError(emailInput, "email contains invalid characters.");
-        //     return false;
-        // }
-        return true;
-    }
 
-    function checkPassword() {
-        if (!validateInput(passwordInput)) {
+        function checkPassword() {
+          if (!validateInput(passwordInput)) {
             displayError(passwordInput, "Password is required.");
             return false;
+          }
+          // if (!validateInput(passwordInput, /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/)) {
+          //     displayError(passwordInput, "Password must include at least 8 characters, with at least one number, one lowercase and one uppercase letter.");
+          //     return false;
+          // }
+          return true;
         }
-        // if (!validateInput(passwordInput, /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/)) {
-        //     displayError(passwordInput, "Password must include at least 8 characters, with at least one number, one lowercase and one uppercase letter.");
-        //     return false;
-        // }
-        return true;
-    }
 
-    loginForm.addEventListener("submit", function(event) {
-        var isemailValid = checkemail();
-        var isPasswordValid = checkPassword();
+        loginForm.addEventListener("submit", function (event) {
+          var isemailValid = checkemail();
+          var isPasswordValid = checkPassword();
 
-        if (!isemailValid || !isPasswordValid) {
+          if (!isemailValid || !isPasswordValid) {
             event.preventDefault(); // Stop the form from submitting
-        }
-    });
+          }
+        });
 
-    emailInput.addEventListener("input", function() {
-        if (validateInput(emailInput)) {
+        emailInput.addEventListener("input", function () {
+          if (validateInput(emailInput)) {
             clearErrors();
-        } else {
+          } else {
             checkemail();
-        }
-    });
+          }
+        });
 
-    passwordInput.addEventListener("input", function() {
-        if (validateInput(passwordInput)) {
+        passwordInput.addEventListener("input", function () {
+          if (validateInput(passwordInput)) {
             clearErrors();
-        } else {
+          } else {
             checkPassword();
+          }
+        });
+
+        // Optionally, implement additional security checks, such as input sanitation to avoid SQL injection
+        function sanitizeInput(input) {
+          var sanitized = input.value.replace(/['";$&<>]/g, "");
+          input.value = sanitized;
         }
-    });
 
-    // Optionally, implement additional security checks, such as input sanitation to avoid SQL injection
-    function sanitizeInput(input) {
-        var sanitized = input.value.replace(/['";$&<>]/g, '');
-        input.value = sanitized;
-    }
+        emailInput.addEventListener("change", function () {
+          sanitizeInput(emailInput);
+        });
 
-    emailInput.addEventListener("change", function() {
-        sanitizeInput(emailInput);
-    });
+        passwordInput.addEventListener("change", function () {
+          sanitizeInput(passwordInput);
+        });
 
-    passwordInput.addEventListener("change", function() {
-        sanitizeInput(passwordInput);
-    });
+        // Implement some UI feedback for disabled submit button when errors are present
+        function toggleSubmitButton() {
+          var errorsPresent = document.querySelector(".error") != null;
+          submitButton.disabled = errorsPresent;
+        }
 
-    // Implement some UI feedback for disabled submit button when errors are present
-    function toggleSubmitButton() {
-        var errorsPresent = document.querySelector('.error') != null;
-        submitButton.disabled = errorsPresent;
-    }
+        emailInput.addEventListener("keyup", toggleSubmitButton);
+        passwordInput.addEventListener("keyup", toggleSubmitButton);
+      });
 
-    emailInput.addEventListener("keyup", toggleSubmitButton);
-    passwordInput.addEventListener("keyup", toggleSubmitButton);
-});
-
-     var volunteerManagementLogoImage = document.getElementById(
+      var volunteerManagementLogoImage = document.getElementById(
         "volunteerManagementLogoImage"
       );
       if (volunteerManagementLogoImage) {
