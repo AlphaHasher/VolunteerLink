@@ -52,6 +52,7 @@
             border: none;
             border-radius: 5px;
         }
+        
     </style>
 </head>
 <body>
@@ -130,7 +131,7 @@
                     if (event.tags && event.tags.length > 0) {
                         event.tags.forEach(tag => {
                             if (!eventTags.includes(tag)) {
-                                eventTags.push(tag);
+                              eventTags.push(tag);
                             }
                         });
                     }
@@ -161,11 +162,20 @@
                     const endDate = event.endDate ? new Date(event.endDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
                     const endTime = event.endDate ? `${new Date(event.endDate).getHours()}:${String(new Date(event.endDate).getMinutes()).padStart(2, '0')}` : null;
                     const volunteersNeeded = event.volunteersNeeded;
+
+                    // create anchor tags to make each event a clickable link
+                    const eventLink = document.createElement('a');
+                    eventLink.href = `event-details.html?eventId=${event.Id}`; // insert actual name of html we will use
+                    eventLink.textContext = eventName;
+                    //eventLink.style.textDecoration = 'none'; // remove underline if we want to
+
+
                     const eventBox = document.createElement('div');
                     eventBox.classList.add('event-box');
                     eventBox.style.position = 'relative';
                     eventBox.style.top = `${yPos}px`;
                     eventBox.style.left = '0';
+                    eventBox.appendChild(eventLink); // Append event link to event box
                     eventBox.innerHTML = `
                         <div class="event-name">${eventName}</div>
                         <div class="event-description">${eventDescription}</div>
@@ -183,6 +193,8 @@
                         });
                         eventBox.appendChild(tagsDiv);
                     }
+                    
+                    //eventList.appendChild(eventLink);
                     eventList.appendChild(eventBox);
                     yPos += 22;
                 });
