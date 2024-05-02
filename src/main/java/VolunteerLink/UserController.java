@@ -34,8 +34,6 @@ public class UserController {
                                 @RequestParam("lastName") String lastName,
                                 @RequestParam("role") String role) {
 
-        //TODO: process POST request
-
         if (!password.equals(confirmPassword)) {
             return "errorPage";
         }
@@ -47,7 +45,7 @@ public class UserController {
             User user = new User(email, password, firstName, lastName, role, accountCreationDate, eventRole_id);
             Database.getInstance().getUsersCollection().insertOne(user.toDocument());
 
-            return "redirect:/FrontEnd/login-page.html";//needs to login user or redirect to login page
+            return "redirect:/FrontEnd/login-page.html";
 
         } catch (Exception e) {
             return "errorPage";
@@ -69,15 +67,14 @@ public class UserController {
             if(userDoc != null && userDoc.getString("role").equals("volunteer")){
                 return "redirect:/FrontEnd/create-account.html";
             }else if(userDoc != null && userDoc.getString("role").equals("Event Organizer")){
-                return "redirect:/FrontEnd/create-account.html";
+                return "redirect:/FrontEnd/Form.html";
 
             }else if(userDoc != null && userDoc.getString("role").equals("admin")){
                 return "redirect:/admin-test";//redirects to admin-test right now.
             }
-            return "redirect:/FrontEnd/Form.html";//leaving in for now
-        } else {
-            return "redirect:/FrontEnd/login-page.html";
+            // return "redirect:/FrontEnd/Form.html";//leaving in for now
         }
+        return "redirect:/FrontEnd/login-page.html";
     }
 
     @GetMapping("/logout")

@@ -99,7 +99,7 @@ public class Database {
         // Delete all id's of the user from assignedUsers fields in eventRolesCollection
         eventRolesCollection.updateMany(eq("assignedUsers", objectId), new Document("$pull", new Document("assignedUsers", objectId)));
 
-        // decrement volunteersRegistered in eventCollection for all events the user is registered for, and increment volunteersNeeded for those events
+        // Decrement volunteersRegistered in eventCollection for all events the user is registered for, and increment volunteersNeeded for those events
         MongoCursor<Document> cursor = eventCollection.find(eq("volunteersRegistered", objectId)).iterator();
         try {
             while (cursor.hasNext()) {
@@ -112,31 +112,6 @@ public class Database {
             cursor.close();
         }
     }
-
-    // No clue what this is supposed to do, and I wrote this code...
-    public String logInUser(String email) {
-        Document filter = new Document("email", email); // Assuming the field name for email is "email"
-        MongoCursor<Document> cursor = usersCollection.aggregate(
-
-            Arrays.asList(
-                Aggregates.match(filter), // Filter documents based on email
-                Aggregates.project(Projections.fields(Projections.excludeId(), Projections.include("_id"))) // Project only the _id field
-            )
-        ).iterator();
-
-        try {
-            if (cursor.hasNext()) {
-                Document doc = cursor.next();
-
-                return doc.getObjectId("_id").toString(); // Return the _id as a string
-            } else {
-                return null; // User not found
-            }
-        } finally {
-            cursor.close();
-        }
-    }
-
     // Event methods
 
     public void addEvent(Document event){
