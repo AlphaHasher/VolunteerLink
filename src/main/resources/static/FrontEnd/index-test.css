@@ -115,7 +115,8 @@ body {
 
   }
   */
-  /*
+  
+  /*Opening these commented section to use in index.html*/
   .event-box {
     width: 80%;
     padding: 20px;
@@ -123,13 +124,13 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
-    /*display: flex;
+    display: flex;
     flex-direction: column;
-    Commented these 2 lines out for testing index html page
+    /*Commented these 2 lines out for testing index html page
     Sorry if this breaks any other pages
-    
+    */
   }
-  */
+  
   
   .event-name {
     font-size: 24px;

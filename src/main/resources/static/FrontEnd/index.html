@@ -1,25 +1,17 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
     <title>Volunteer Link</title>
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="./public/volunteer-management-logo@2x.png"
-    />
+    <link rel="icon" type="image/x-icon" href="./public/volunteer-management-logo@2x.png" />
     <link rel="stylesheet" href="./global.css" />
     <link rel="stylesheet" href="./index-test.css" />
     <link rel="stylesheet" href="./index.css" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    />
-    <title>Event Filter</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
     <style>
-      .event-box {
+        .event-box {
             border: 1px solid #ccc;
             padding: 10px;
             margin-bottom: 10px;
@@ -39,167 +31,117 @@
             margin-right: 20px;
         }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="events-page">
-      <header class="nav-bar1">
-        <div class="nav-bar-background1"></div>
-        <img
-          class="sac-state-logo1"
-          loading="lazy"
-          alt=""
-          src="./public/sac-state-logo@2x.png"
-        />
-        <nav class="apply-group">
-          <a href="https://www.csus.edu/apply/" class="apply1">APPLY</a>
-          <a href="https://www.csus.edu/experience/" class="experience1">EXPERIENCE</a>
-          <a href="https://www.csus.edu/giving/" class="give1">GIVE</a>
-        </nav>
-      </header>
-      <section class="input-provider">
-        <div class="spotlight-element1">
-          <div class="spotlight-background1"></div>
-          <h1 class="volunteer-link1">Volunteer Link</h1>
-          <div class="condition-checker">
-            <button class="login-button" id="loginButton">
-              <div class="login-button-child"></div>
-              <b class="login">Login</b>
-            </button>
-          </div>
-        </div>
-      </section>
-      <!--
-      <div id="event-tags-container">
-        <h3>Event Tags</h3>
-        <div id="event-tags"></div>
-    </div>
-    
-     //Apply Button 
-    <button id="applyButton">Apply Filters</button>
-     //Event List Container
-    <div id="event-list"></div>
-      -->
-    
-    
-    <div id="event-list"></div>
-      <section class="image-modifier">
-        <div class="data-flow-control-parent">
-          <div class="data-flow-control"></div>
-          <div class="error-handler">
-            <div class="delimiter-parser">
-              <div class="constant-provider">
-                <div class="rate-limiter">
-                  <div class="format-converter">
-                    <b class="search">Search</b>
-                    <div class="search-field"></div>
-                  </div>
-                  <div class="image-cropper">
-                  </div>
+        <header class="nav-bar1">
+            <div class="nav-bar-background1"></div>
+            <img class="sac-state-logo1" loading="lazy" alt="" src="./public/sac-state-logo@2x.png" />
+            <nav class="apply-group">
+               <!--Added links from Sac State site to buttons-->
+                <a href="https://www.csus.edu/apply/" class="apply1">APPLY</a>
+                <a href="https://www.csus.edu/experience/" class="experience1">EXPERIENCE</a>
+                <a href="https://www.csus.edu/giving/" class="give1">GIVE</a>
+            </nav>
+        </header>
+        <section class="input-provider">
+            <div class="spotlight-element1">
+                <div class="spotlight-background1"></div>
+                <h1 class="volunteer-link1">Volunteer Link</h1>
+                <div class="condition-checker">
+                    <button class="login-button" id="loginButton">
+                        <div class="login-button-child"></div>
+                        <b class="login">Login</b>
+                    </button>
                 </div>
-              </div>
-              <!--
-              <button id="applyButton">Apply</button>-->
-              <div id="event-list"></div>
-             
-              <style>
-                .event-box {
-                    margin-bottom: 800px !important; /* Add margin-bottom to create space between divs */
-                }
-            </style>
-                        
-        <div class="event-list" id="event-list">
-                      <div style = "position:relative; right:1000px;">
-                        </div>
-                                <script>
-                                  var loginButton = document.getElementById("loginButton");
-                                  if (loginButton) {
-                                    loginButton.addEventListener("click", function (e) {
-                                      window.location.href = "./login-page.html";
-                                    });
-                                  }
-                            
-                          var myEventsText = document.getElementById("myEventsText");
-                          if (myEventsText) {
-                            myEventsText.addEventListener("click", function (e) {
-                              window.location.href = "./login-page.html";
-                            });
-                          }
-                                </script>
-    <script>
-      var loginButton = document.getElementById("loginButton");
-      if (loginButton) {
-        loginButton.addEventListener("click", function (e) {
-          window.location.href = "./login-page.html";
-        });
-      }
-      var myEventsText = document.getElementById("myEventsText");
-      if (myEventsText) {
-        myEventsText.addEventListener("click", function (e) {
-          window.location.href = "./login-page.html";
-        });
-      }
-    </script>
-    <script>
-      // Function to fetch events from backend and display them
-      async function fetchAndDisplayEvents() {
-          try {
-              const response = await fetch('/events');
-              let events = await response.json();
-              // Sort events by start date
-              events.sort((a, b) => {
-                  const startDateA = new Date(a.startDate);
-                  const startDateB = new Date(b.startDate);
-                  return startDateA - startDateB;
+            </div>
+        </section>
+        <div id="event-list" style ="
+        position: relative;
+        left: -760px;
+        top: -34px;
+        "></div>
+        <script>
+          var loginButton = document.getElementById("loginButton");
+          if (loginButton) {
+              loginButton.addEventListener("click", function (e) {
+                  window.location.href = "./login-page.html";
               });
-              // Clear previous list items
-              const eventList = document.getElementById('event-list');
-              eventList.innerHTML = '';
-              let yPos = 0
-              // Display each event in the sorted list
-              events.forEach(event => {
-                  const eventName = event.eventName;
-                  const eventDescription = event.eventDescription;
-                  const startDate = event.startDate ? new Date(event.startDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
-                  const startTime = event.startDate ? `${new Date(event.startDate).getHours()}:${String(new Date(event.startDate).getMinutes()).padStart(2, '0')}` : null;
-                  const endDate = event.endDate ? new Date(event.endDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
-                  const endTime = event.endDate ? `${new Date(event.endDate).getHours()}:${String(new Date(event.endDate).getMinutes()).padStart(2, '0')}` : null;
-                  const volunteersNeeded = event.volunteersNeeded;
-                  const eventBox = document.createElement('div');
-                  eventBox.classList.add('event-box');
-                  // Set position for each div
-                  eventBox.style.position = 'absolute';
-                  eventBox.style.top = `${yPos}px`;
-                  eventBox.innerHTML = `
-                      <div class="event-name">${eventName}</div>
-                      <div class="event-description">${eventDescription}</div>
-                      <div class="event-date">Start Date: ${startDate} | Start Time: ${startTime} | End Date: ${endDate} | End Time: ${endTime}</div>
-                      <div class="volunteers-needed">Volunteers Needed: ${volunteersNeeded}</div>
-                  `;
-                  // Check and add tags if they exist
-                  if(event.tags && event.tags.length > 0) {
-                      const tagsDiv = document.createElement('div');
-                      tagsDiv.classList.add('event-tags');
-                      event.tags.forEach(tag => {
-                          const tagSpan = document.createElement('span');
-                          tagSpan.classList.add('event-tag');
-                          tagSpan.textContent = tag;
-                          tagsDiv.appendChild(tagSpan);
-                      });
-                      eventBox.appendChild(tagsDiv);
-                  }
-                  eventList.appendChild(eventBox);
-                  // Increment yPos for next event
-                  // This is the number of pixels between each event box on the front page
-                  yPos += 200; // Adjust this value for desired vertical spacing
-              });
-          } catch (error) {
-              console.error('Error fetching events:', error);
           }
-      }
-      // Call the function when the page loads
-      fetchAndDisplayEvents();
-    </script>
+      </script>
+      <script>
+          async function fetchAndDisplayEvents() {
+              try {
+                  const response = await fetch('/events');
+                  let events = await response.json();
+                  events.sort((a, b) => {
+                      const startDateA = new Date(a.startDate);
+                      const startDateB = new Date(b.startDate);
+                      return startDateA - startDateB;
+                  });
+                  const eventList = document.getElementById('event-list');
+                  eventList.innerHTML = '';
+                  
+                  let yPos = 0;
+                  events.forEach(event => {
+                      const eventName = event.eventName;
+                      const eventDescription = event.eventDescription;
+                      const startDate = event.startDate ? new Date(event.startDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
+                      const startTime = event.startDate ? `${new Date(event.startDate).getHours()}:${String(new Date(event.startDate).getMinutes()).padStart(2, '0')}` : null;
+                      const endDate = event.endDate ? new Date(event.endDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) : null;
+                      const endTime = event.endDate ? `${new Date(event.endDate).getHours()}:${String(new Date(event.endDate).getMinutes()).padStart(2, '0')}` : null;
+                      const volunteersNeeded = event.volunteersNeeded;
+                      const eventBox = document.createElement('div');
+                      eventBox.classList.add('event-box');
+                      //Remove if not needed. potential way to move list to middle of page
+                      eventBox.classList.add('move-left-up'); // Weird way to move the list but worth a shot
+                      eventBox.style.position = 'relative';
+                      eventBox.style.top = `${yPos}px`;
+                      eventBox.style.left = '0';
+                      eventBox.innerHTML = `
+                          <div class="event-name">${eventName}</div>
+                          <div class="event-description">${eventDescription}</div>
+                          <div class="event-date">Start Date: ${startDate} | Start Time: ${startTime} | End Date: ${endDate} | End Time: ${endTime}</div>
+                          <div class="volunteers-needed">Volunteers Needed: ${volunteersNeeded}</div>
+                      `;
+                      if(event.tags && event.tags.length > 0) {
+                          const tagsDiv = document.createElement('div');
+                          tagsDiv.classList.add('event-tags');
+                          event.tags.forEach(tag => {
+                              const tagSpan = document.createElement('span');
+                              tagSpan.classList.add('event-tag');
+                              tagSpan.textContent = tag;
+                              tagsDiv.appendChild(tagSpan);
+                          });
+                          eventBox.appendChild(tagsDiv);
+                      }
+                      eventList.appendChild(eventBox);
+                      //This is the # of pixels between each event box on main page
+                      yPos += 22;
+                  });
+              } catch (error) {
+                  console.error('Error fetching events:', error);
+              }
+          }
+          fetchAndDisplayEvents();
+      </script>
+        <section class="image-modifier">
+            <div class="data-flow-control-parent">
+                <div class="data-flow-control"></div>
+                <div class="error-handler">
+                    <div class="delimiter-parser">
+                        <div class="constant-provider">
+                            <div class="rate-limiter">
+                                
+                                <div class="image-cropper"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-list" id="event-list"></div>
+                </div>
+            </div>
+        </section>
     </div>
     
-  </body>
+</body>
 </html>

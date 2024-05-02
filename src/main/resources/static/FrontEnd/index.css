@@ -1230,22 +1230,25 @@
 
 }
 .event-list {
-  position: relative;
+  position: fixed;
   top: -530px;
-  left: 500px;
-  
-  
+  left: -500px;
+
 }
 
 .event-box {
   position: relative;
   /* Adjust these values as needed */
-  top: 500px !important;
+  top: 50px !important;
   width: 400px;
-  left: 690px;
+  left: -690px;
   aspect-ratio: 5 / 1;
   /*margin-bottom: 800px !important;*/
   
+}
+/*Potential fix to move list in the middle*/
+.move-left-up {
+  transform: translate(-20px, -20px); /* Adjust as needed */
 }
 .arc-arbor,
 .circle-core {
