@@ -270,16 +270,9 @@
               <td th:text="${event.location}"></td>
               <td th:text="${event.startDate}"></td>
               <td>
-                <td>
-                    <td>
-                        <a th:href="@{/FrontEnd/Form.html(eventId=${event.id})}" class="edit-btn">Edit</a>
-                        <button class="delete-event" data-event-id="${event.id}">Delete</button>
-                    </td>
-                    
-                </td>
-                
+                <a th:href="@{/FrontEnd/Form.html(eventId=${event.id})}" class="edit-btn">Edit</a>
+                <button class="delete-event" data-event-id="${event.id}">Delete</button>
               </td>
-            </tr>
           </tbody>
         </table>
       </div>

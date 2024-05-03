@@ -82,7 +82,7 @@
     <div class="container">
         <form action="/updateEvent" method="post">
             <button type="button" class="btn btn-info" onclick="populateRandomData()">Populate Random Data</button>
-        
+
             <div class="form-group">
                 <label for="eventName">Event Name:</label>
                 <input type="text" id="eventName" name="eventName" th:value="${event.eventName}" required>
@@ -118,27 +118,25 @@
                     <button type="button" id="addTagBtn" class="btn btn-primary" onclick="addTag()">Add Tag</button>
                 </div>
                 <div id="tagsContainer" class="tags-container">
-                    <!-- Tags will be added here dynamically -->
-                    <!-- You may need to iterate over event.tags and populate existing tags here -->
+                    <span th:each="tag : ${tags}" th:text="${tag}"></span> <!-- Display each tag -->
                 </div>
                 <!-- Hidden input to store the array of tags to be sent with the form submission -->
                 <input type="hidden" id="hiddenTags" name="tags" th:value="${event.tags}" />
             </div>
-        
+
             <div class="form-group role-group">
                 <div id="roleNotification" style="color: red; display: none;">Please add at least one event role before submitting.</div>
                 <button type="button" id="btn-add-new-role" class="btn btn-primary" onclick="addRole()">Add New Role</button>
                 <div id="roleContainer">
-                    <!-- Role inputs will be added here dynamically -->
-                    <!-- You may need to iterate over event.roles and populate existing roles here -->
+                    <span th:each="role : ${roles}" th:text="${role.roleName}"></span> <!-- Display each role -->
                 </div>
             </div>
-        
+
             <script src="script.js"></script>
-        
+
             <button type="submit">Update Event</button>
         </form>
-        
+
     </div>
 </body>
 </html>
@@ -151,6 +149,6 @@
     <input type="hidden" name="eventId" th:value="${event.id}" />
     <label for="eventName">Event Name:</label>
     <input type="text" id="eventName" name="eventName" th:value="${event.eventName}" />
-     Add other form fields for event details 
+     Add other form fields for event details
     <button type="submit">Update Event</button>
 </form> -->
