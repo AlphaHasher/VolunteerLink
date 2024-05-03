@@ -8,7 +8,8 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 public class User {
-
+    
+    private ObjectId id;
     private String email;
     private String password;
     private String firstName;
@@ -36,6 +37,14 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public String getEmail() {
