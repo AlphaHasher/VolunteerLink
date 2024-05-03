@@ -116,7 +116,7 @@ public class EventFormController {
     // Retrieve the event from the database
     Event event = EventService.getEventById(eventId);
     Database.updateEvent(event, eventName, location, description, startDate, endDate);
-    
+
     return "redirect:/admin-test";
 }
 

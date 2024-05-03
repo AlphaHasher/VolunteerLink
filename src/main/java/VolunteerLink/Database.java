@@ -180,26 +180,26 @@ public class Database {
         updateUserCollection(userId, eventRoleId, false);
     }
 
-    // This method updates the event role's assignedUsers, numberAssigned, and numberNeeded fields when a user registers/unregisters for an event role
-    private void updateEventRoles(ObjectId eventRoleId, int delta, ObjectId userId) {
-        eventRolesCollection.updateOne(eq("_id", eventRoleId), Updates.combine(
-            Updates.push("assignedUsers", delta > 0 ? userId : null),
-            Updates.pull("assignedUsers", delta < 0 ? userId : null),
-            Updates.inc("numberAssigned", delta),
-            Updates.inc("numberNeeded", -delta)
-        ));
-    }
+// This method updates the event role's assignedUsers, numberAssigned,
+// and numberNeeded fields when a user registers/unregisters for an event role
+private void updateEventRoles(ObjectId eventRoleId, int delta, ObjectId userId) {
+    eventRolesCollection.updateOne(eq("_id", eventRoleId), Updates.combine(
+        Updates.push("assignedUsers", delta > 0 ? userId : null),
+        Updates.pull("assignedUsers", delta < 0 ? userId : null),
+        Updates.inc("numberAssigned", delta),
+        Updates.inc("numberNeeded", -delta)
+    ));
+}
 
-    // This method updates the event's volunteersRegistered and volunteersNeeded fields when a user registers/unregisters for an event role
-    private void updateEventCollection(ObjectId eventId, int numberAssignedDelta, int numberNeededDelta) {
-        eventCollection.updateOne(eq("_id", eventId), Updates.combine(
-            Updates.inc("volunteersRegistered", numberAssignedDelta),
-            Updates.inc("volunteersNeeded", numberNeededDelta)
-        ));
-    }
+// This method updates the event's volunteersRegistered and
+// volunteersNeeded fields when a user registers/unregisters for an event role
+private void updateEventCollection(ObjectId eventId, int numberAssignedDelta, int numberNeededDelta) {
+    eventCollection.updateOne(eq("_id", eventId), Updates.combine(
+        Updates.inc("volunteersRegistered", numberAssignedDelta),
+        Updates.inc("volunteersNeeded", numberNeededDelta)
+    ));
+}
     public static void updateEvent(Event event, String eventName,String location, String description, Date startDate, Date endDate) {
-
-        
         eventCollection.updateOne(eq("_id", event.getId()), Updates.combine(
             Updates.set("eventName", eventName),
             Updates.set("location", location),

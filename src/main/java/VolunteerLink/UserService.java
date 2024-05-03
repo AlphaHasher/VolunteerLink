@@ -46,7 +46,3 @@ public class UserService {
         return new User(email, password, firstName, lastName, role);
     }
 }
-
-// =========================================================================
-// This was code written for SpringBoot security, but was never implemented.
-// =========================================================================
