@@ -27,22 +27,11 @@ public class UserService {
         try (MongoCursor<Document> cursor = userDocuments.iterator()) {
             while (cursor.hasNext()) {
                 Document doc = cursor.next();
-                User user = convertDocumentToUser(doc);
+                User user = User.convertDocumentToUser(doc);
                 users.add(user);
             }
         }
 
         return users;
-    }
-
-    // Method to convert a Document object to a User object
-    private static User convertDocumentToUser(Document doc) {
-        String email = doc.getString("email");
-        String password = doc.getString("password");
-        String firstName = doc.getString("firstName");
-        String lastName = doc.getString("lastName");
-        String role = doc.getString("role");
-
-        return new User(email, password, firstName, lastName, role);
     }
 }

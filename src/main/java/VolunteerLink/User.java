@@ -17,7 +17,9 @@ public class User {
     private Date accountCreationDate;
     private List<ObjectId> eventRole_id;
 
-    public User(String email, String password, String firstName, String lastName, String role, Date accountCreationDate, List<ObjectId> eventRole_id){
+    public User(String email, String password, String firstName,
+                String lastName, String role, Date accountCreationDate,
+                List<ObjectId> eventRole_id){
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -27,7 +29,8 @@ public class User {
         this.eventRole_id = eventRole_id;
     }
 
-    public User(String email, String password, String firstName, String lastName, String role){
+    public User(String email, String password, String firstName,
+                String lastName, String role){
         this.email = email;
         this.password = password;
         this.firstName = firstName;
@@ -126,19 +129,9 @@ public class User {
         String lastName = doc.getString("lastName");
         String role = doc.getString("role");
         Date accountCreationDate = doc.getDate("accountCreationDate");
-
-        if (email == null || password == null || firstName == null || lastName == null || role == null || accountCreationDate == null) {
-            throw new IllegalArgumentException("Document is missing mandatory fields");
-        }
-
-        List<ObjectId> eventRoleIds = getObjectIdList(doc, "eventRole_id");
+        List<ObjectId> eventRoleIds = Collections.emptyList();
 
         return new User(email, password, firstName, lastName, role, accountCreationDate, eventRoleIds);
-    }
-
-    private static List<ObjectId> getObjectIdList(Document doc, String key) {
-        List<ObjectId> objectIdList = doc.getList(key, ObjectId.class);
-        return objectIdList != null ? objectIdList : Collections.emptyList();
     }
 
 }

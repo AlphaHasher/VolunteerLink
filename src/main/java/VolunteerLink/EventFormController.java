@@ -110,14 +110,12 @@ public class EventFormController {
                               @RequestParam("location") String location,
                               @RequestParam("eventDescription") String description,
                               @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                              @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate
-                          // Add other form parameters as needed,
-                        ) {
-    // Retrieve the event from the database
-    Event event = EventService.getEventById(eventId);
-    Database.updateEvent(event, eventName, location, description, startDate, endDate);
+                              @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        // Retrieve the event from the database
+        Event event = EventService.getEventById(eventId);
+        Database.updateEvent(event, eventName, location, description, startDate, endDate);
 
-    return "redirect:/admin-test";
-}
+        return "redirect:/admin-test";
+    }
 
 }
