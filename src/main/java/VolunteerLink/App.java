@@ -1,5 +1,6 @@
 package VolunteerLink;
 
+import org.bson.Document;
 // import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +13,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // import org.springframework.boot.autoconfigure.SpringBootApplication;
 // import org.springframework.context.ConfigurableApplicationContext;
 // import org.springframework.web.bind.annotation.RestController;
+
+//import static org.mockito.ArgumentMatchers.eq;
 
 import java.util.Date;
 // import java.util.List;
@@ -36,7 +39,7 @@ public class App
 
         // System.out.println(Utility.getFieldValueFromDocument("Events", "661de2af56e40f5a3601da9d", "whenCreated", Date.class));
 
-        // colinTesting();
+        //colinTesting();
         // Utility.updateFieldInDocument("Events", "661de2af56e40f5a3601da9d", "startDate", new Date());
 
         // Searches for all events with a status of "Pending"
@@ -45,7 +48,7 @@ public class App
         //     System.out.println(event);
         // }
 
-        // System.out.println(Utility.getFieldValueFromDocument("Events", "661de2af56e40f5a3601da9d", "startDate", Date.class));
+        //System.out.println(Utility.getFieldValueFromDocument("Events", "661de2af56e40f5a3601da9d", "startDate", Date.class));
 
         long endTime = System.nanoTime();
         long durationInMilliseconds = (endTime - startTime) / 1_000_000;
@@ -62,7 +65,7 @@ public class App
     // Method for Colin to put his testing code to help keep main clean.
     public static void colinTesting() {
             // Testing section for Colin
-
+            /* 
             String[] locationsArr = Utility.getEventField("Events", "location", String.class);
             int size = locationsArr.length; // used for the loop later on
             String[] descriptionsArr = Utility.getEventField("Events", "eventDescription", String.class);
@@ -76,7 +79,14 @@ public class App
             for (int i = 0; i < size; ++i) {
                 System.out.printf("Location: %-20s Description: %15s Start Date %-15s Status: %-15s Name: %-15s _id: %-20s%n",
                 locationsArr[i], descriptionsArr[i], startDateArr[i], statusesArr[i], eventNamesArr[i], IdsArr[i]);
-            }
+            }*/
+
+            Database db = Database.getInstance();
+
+            //db.revokeUser("66345b74282f512fe59522b6");
+            //db.promoteUser("66345b74282f512fe59522b6");
+
+            
 
             // User testUser = new User();
             // String email = "eorganizer@csus.edu";
@@ -86,8 +96,12 @@ public class App
             // System.out.println();
 
             // Colin testing section end
+            
 
     }
+    // "Revokes" a user's role. Updates role to volunteer if currently event organizer, and deletes account if volunteer.
+
+    
 
     // Prints all Pending events as if on the admin page
     public void testAdminPage() {

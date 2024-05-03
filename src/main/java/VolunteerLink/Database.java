@@ -112,6 +112,39 @@ public class Database {
             cursor.close();
         }
     }
+    // "Revokes" a user's role. Updates role to volunteer if currently event organizer, and deletes account if volunteer.
+    public void revokeUser(String id) {
+        // Grabs current role from the database
+        String currentRole = Utility.getFieldValueFromDocument("Users", id, "role", String.class);
+        
+        if (currentRole.equals("Event Organizer")) {
+            String newRole = "Volunteer";
+            Utility.updateFieldInDocument("Users", id, "role", newRole);
+            System.out.println("Now Volunteer");
+        }
+        if (currentRole.equals("Volunteer")) {
+            String newRole = "Deleted";
+            deleteUser(id);
+            System.out.println("Volunteer Deleted");
+        }
+        System.out.println("Previous Role: " + currentRole);
+    }
+    // Increases a user's role Volunteer -> Event Organizer, Event Organizer -> admin
+    public void promoteUser(String id) {
+        // Grabs current role from the database
+        String currentRole = Utility.getFieldValueFromDocument("Users", id, "role", String.class);
+        
+        if (currentRole.equals("Volunteer")) {
+            String newRole = "Event Organizer";
+            Utility.updateFieldInDocument("Users", id, "role", newRole);
+        }
+        if (currentRole.equals("Event Organizer")) {
+            String newRole = "Admin";
+            Utility.updateFieldInDocument("Users", id, "role", newRole);
+        }
+    }
+
+     
     // Event methods
 
     public void addEvent(Document event){
