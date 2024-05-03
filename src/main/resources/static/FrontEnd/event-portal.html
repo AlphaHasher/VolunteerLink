@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="./global.css" />
+    <link rel="stylesheet" href="./event-portal.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+  </head>
+  <body>
+    <div class="event-portal">
+      <header class="nav-bar9">
+        <div class="nav-bar-background9"></div>
+        <div class="back-button-parent">
+          <div class="back-button1">
+            <img
+              class="back-button-icon8"
+              loading="lazy"
+              alt=""
+              src="./public/back-button.svg"
+              id="backButtonIcon"
+            />
+          </div>
+          <img
+            class="sac-state-logo9"
+            loading="lazy"
+            alt=""
+            src="./public/sac-state-logo@2x.png"
+          />
+        </div>
+        <nav class="apply-experience-give">
+          <nav class="apply-parent4">
+            <h3 class="apply9">APPLY</h3>
+            <h3 class="experience9">EXPERIENCE</h3>
+            <h3 class="give9">GIVE</h3>
+          </nav>
+        </nav>
+      </header>
+      <section class="spotlight-element-wrapper4">
+        <div class="spotlight-element9">
+          <div class="spotlight-background9"></div>
+          <h1 class="volunteer-link9">Volunteer Link</h1>
+          <div class="event-organizer-wrapper">
+            <h1 class="event-organizer">Event Organizer</h1>
+          </div>
+        </div>
+      </section>
+      <section class="event-portal-inner">
+        <div class="frame-parent170">
+          <div class="my-events-button-wrapper1">
+            <h1 class="my-events-button9">Event Portal</h1>
+          </div>
+          <div class="frame-child80"></div>
+          <div class="frame-parent171">
+            <div class="april-2024-wrapper2">
+              <div class="april-20247">APRIL 2024</div>
+            </div>
+            <div class="info-bar8">
+              <div class="bg8"></div>
+              <div class="when-wrapper4">
+                <div class="when9">When</div>
+              </div>
+              <div class="start-day8">Start Day</div>
+              <div class="event8">Event</div>
+            </div>
+          </div>
+          <div class="for-event-org-wrapper">
+            <div class="for-event-org">
+              <div class="info-bar-instance">
+                <div class="apr-3-9308">Apr 3, 9:30 - 10:30am</div>
+              </div>
+              <div class="wednesday90">Wednesday</div>
+              <div class="food-drive-delivering8">
+                Food Drive: Delivering food to those in need
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      var backButtonIcon = document.getElementById("backButtonIcon");
+      if (backButtonIcon) {
+        backButtonIcon.addEventListener("click", function (e) {
+          window.location.href = "./event-organizer-page.html";
+        });
+      }
+      </script>
+  </body>
+</html>
