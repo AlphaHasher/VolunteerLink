@@ -117,12 +117,12 @@ public class Database {
         // Grabs current role from the database
         String currentRole = Utility.getFieldValueFromDocument("Users", id, "role", String.class);
         
-        if (currentRole.equals("Event Organizer")) {
+        if (currentRole.toLowerCase().equals("event organizer")) {
             String newRole = "Volunteer";
             Utility.updateFieldInDocument("Users", id, "role", newRole);
             System.out.println("Now Volunteer");
         }
-        if (currentRole.equals("Volunteer")) {
+        if (currentRole.toLowerCase().equals("volunteer")) {
             String newRole = "Deleted";
             deleteUser(id);
             System.out.println("Volunteer Deleted");
@@ -134,11 +134,11 @@ public class Database {
         // Grabs current role from the database
         String currentRole = Utility.getFieldValueFromDocument("Users", id, "role", String.class);
         
-        if (currentRole.equals("Volunteer")) {
+        if (currentRole.toLowerCase().equals("volunteer")) {
             String newRole = "Event Organizer";
             Utility.updateFieldInDocument("Users", id, "role", newRole);
         }
-        if (currentRole.equals("Event Organizer")) {
+        if (currentRole.toLowerCase().equals("event organizer")) {
             String newRole = "Admin";
             Utility.updateFieldInDocument("Users", id, "role", newRole);
         }
