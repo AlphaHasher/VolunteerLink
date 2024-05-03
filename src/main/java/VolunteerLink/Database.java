@@ -3,7 +3,6 @@ package VolunteerLink;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.Arrays;
 import java.util.Date;
 
 import org.bson.Document;
@@ -14,9 +13,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCursor;
-import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.Updates;
-import com.mongodb.client.model.Aggregates;
 import static com.mongodb.client.model.Filters.eq;
 
 public class Database {

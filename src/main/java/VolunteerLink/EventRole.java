@@ -6,8 +6,6 @@ import org.bson.types.ObjectId;
 import java.util.List;
 import java.util.Arrays;
 
-// import com.mongodb.client.MongoCollection;
-// import com.mongodb.client.model.Filters;
 
 public class EventRole {
 

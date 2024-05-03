@@ -7,26 +7,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-
-// import java.util.List;
-// import java.util.ArrayList;
-// import java.util.Arrays;
-
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-// import com.mongodb.client.MongoCursor;
-// import com.mongodb.client.MongoClient;
-// import com.mongodb.client.MongoCollection;
-// import com.mongodb.client.MongoDatabase;
-// import com.mongodb.client.model.Accumulators;
-// import com.mongodb.client.model.Aggregates;
-// import com.mongodb.client.model.Filters;
-// import com.mongodb.client.model.Updates;
-
 public class Event {
 
-    // private MongoCollection<Document> eventCollection;
     private ObjectId id;
     private String eventName;
     private String eventDescription;
@@ -41,7 +26,6 @@ public class Event {
     private String location;
     private int volunteersNeeded;
     private int volunteersRegistered;
-
 
     private List<String> tags;
 
@@ -58,8 +42,6 @@ public class Event {
         this.createdBy = createdBy;
         this.eventStatus = eventStatus;
     }
-
-
 
     public Event(){};
 

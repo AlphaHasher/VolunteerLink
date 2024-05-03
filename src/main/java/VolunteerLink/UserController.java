@@ -69,8 +69,8 @@ public class UserController {
             }else if(userDoc != null && userDoc.getString("role").equals("Event Organizer")){
                 return "redirect:/FrontEnd/Form.html";
 
-            }else if(userDoc != null && userDoc.getString("role").equals("admin")){
-                return "redirect:/admin-test";//redirects to admin-test right now.
+            }else if(userDoc != null && userDoc.getString("role").equals("Admin")){
+                return "redirect:/admin-test";
             }
             // return "redirect:/FrontEnd/Form.html";//leaving in for now
         }

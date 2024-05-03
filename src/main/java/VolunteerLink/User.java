@@ -1,5 +1,6 @@
 package VolunteerLink;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -33,10 +34,6 @@ public class User {
         this.lastName = lastName;
         this.role = role;
     }
-
-    // ********************************************
-    // *** Getters and setters for class fields ***
-    // ********************************************
 
     public String getEmail() {
         return email;
@@ -78,10 +75,10 @@ public class User {
     }
 
     public void setRole(String role) {
-        if (!"volunteer".equals(role) && !"event organizer".equals(role) && !"admin".equals(role)) {
-                throw new IllegalArgumentException("Invalid role. Please enter 'volunteer', 'event organizer', or 'admin'.");
+        if (!"Volunteer".equals(role) && !"Event Organizer".equals(role) && !"Admin".equals(role)) {
+                throw new IllegalArgumentException("Invalid role. Please enter 'Volunteer', 'Event Organizer', or 'Admin'.");
             }
-            this.role = role;
+        this.role = role;
     }
 
     public Date getAccountCreationDate() {
@@ -123,17 +120,25 @@ public class User {
             throw new IllegalArgumentException("Document cannot be null");
         }
 
-        User user = new User(
-            doc.getString("email"),
-            doc.getString("password"),
-            doc.getString("firstName"),
-            doc.getString("lastName"),
-            doc.getString("role"),
-            doc.getDate("accountCreationDate"),
-            (List<ObjectId>) doc.get("eventRole_id")
-        );
+        String email = doc.getString("email");
+        String password = doc.getString("password");
+        String firstName = doc.getString("firstName");
+        String lastName = doc.getString("lastName");
+        String role = doc.getString("role");
+        Date accountCreationDate = doc.getDate("accountCreationDate");
 
-        return user;
+        if (email == null || password == null || firstName == null || lastName == null || role == null || accountCreationDate == null) {
+            throw new IllegalArgumentException("Document is missing mandatory fields");
+        }
+
+        List<ObjectId> eventRoleIds = getObjectIdList(doc, "eventRole_id");
+
+        return new User(email, password, firstName, lastName, role, accountCreationDate, eventRoleIds);
+    }
+
+    private static List<ObjectId> getObjectIdList(Document doc, String key) {
+        List<ObjectId> objectIdList = doc.getList(key, ObjectId.class);
+        return objectIdList != null ? objectIdList : Collections.emptyList();
     }
 
 }
