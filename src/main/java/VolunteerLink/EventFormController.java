@@ -28,17 +28,17 @@ public class EventFormController {
 
     @PostMapping("/submitEvent")
     public String submitEvent(@RequestParam("eventName") String eventName,
-                            @RequestParam("location") String location,
-                            @RequestParam("eventDescription") String eventDescription,
-                            @RequestParam("startDate") String startDate,
-                            @RequestParam("startTime") String startTime,
-                            @RequestParam("endDate") String endDate,
-                            @RequestParam("endTime") String endTime,
-                            @RequestParam("roleNames") List<String> roleNames,
-                            @RequestParam("roleDescriptions") List<String> roleDescriptions,
-                            @RequestParam("numbersNeeded") List<Integer> numbersNeeded,
-                            @RequestParam("tags") List<String> tags,
-                            HttpSession session) {
+            @RequestParam("location") String location,
+            @RequestParam("eventDescription") String eventDescription,
+            @RequestParam("startDate") String startDate,
+            @RequestParam("startTime") String startTime,
+            @RequestParam("endDate") String endDate,
+            @RequestParam("endTime") String endTime,
+            @RequestParam("roleNames") List<String> roleNames,
+            @RequestParam("roleDescriptions") List<String> roleDescriptions,
+            @RequestParam("numbersNeeded") List<Integer> numbersNeeded,
+            @RequestParam("tags") List<String> tags,
+            HttpSession session) {
         if (roleNames == null || roleNames.isEmpty()) {
             return "errorPage";
         }
@@ -51,11 +51,11 @@ public class EventFormController {
 
             ObjectId createdBy = (ObjectId) session.getAttribute("userId");
 
-
-            Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, 0, 0, tags, eventCreationDate, createdBy, "Pending");
+            Event event = new Event(eventName, eventDescription, location, startDateTime, endDateTime, 0, 0, tags,
+                    eventCreationDate, createdBy, "Pending");
             ObjectId event_id = saveEvent(event);
             saveRoles(event_id, roleNames, roleDescriptions, numbersNeeded);
-            return "redirect:/FrontEnd/index.html";
+            return "redirect:/FrontEnd/event-organizer-page.html";
         } catch (Exception e) {
             return "errorPage";
         }
@@ -67,19 +67,21 @@ public class EventFormController {
 
     private ObjectId saveEvent(Event event) {
         Database.getInstance().getEventCollection().insertOne(event.toDocument());
-        return Database.getInstance().getEventCollection().find(Filters.eq("eventCreationDate", event.getEventCreationDate())).first().getObjectId("_id");
+        return Database.getInstance().getEventCollection()
+                .find(Filters.eq("eventCreationDate", event.getEventCreationDate())).first().getObjectId("_id");
     }
 
-    private void saveRoles(ObjectId event_id, List<String> roleNames, List<String> roleDescriptions, List<Integer> numbersNeeded) {
+    private void saveRoles(ObjectId event_id, List<String> roleNames, List<String> roleDescriptions,
+            List<Integer> numbersNeeded) {
         int totalVolunteersNeeded = 0;
         for (int i = 0; i < roleNames.size(); i++) {
-            EventRole role = new EventRole(roleNames.get(i), roleDescriptions.get(i), event_id, new ArrayList<ObjectId>(), numbersNeeded.get(i), "Needed");
+            EventRole role = new EventRole(roleNames.get(i), roleDescriptions.get(i), event_id,
+                    new ArrayList<ObjectId>(), numbersNeeded.get(i), "Needed");
             Database.getInstance().getEventRolesCollection().insertOne(role.toDocument());
             totalVolunteersNeeded += numbersNeeded.get(i);
         }
         Utility.updateFieldInDocument("Events", event_id.toString(), "volunteersNeeded", totalVolunteersNeeded);
     }
-
 
     @GetMapping("/events")
     public ResponseEntity<List<Event>> getEvents() {
@@ -104,20 +106,19 @@ public class EventFormController {
 
         return "event-form"; // Return the name of your Thymeleaf template for the event form
     }
+
     @PostMapping("/updateEvent")
     public String updateEvent(@RequestParam("eventId") String eventId,
-                              @RequestParam("eventName") String eventName,
-                              @RequestParam("location") String location,
-                              @RequestParam("eventDescription") String description,
-                              @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                              @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate
-                          // Add other form parameters as needed,
-                        ) {
-    // Retrieve the event from the database
-    Event event = EventService.getEventById(eventId);
-    Database.updateEvent(event, eventName, location, description, startDate, endDate);
-    
-    return "redirect:/admin-test";
-}
+            @RequestParam("eventName") String eventName,
+            @RequestParam("location") String location,
+            @RequestParam("eventDescription") String description,
+            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        // Retrieve the event from the database
+        Event event = EventService.getEventById(eventId);
+        Database.updateEvent(event, eventName, location, description, startDate, endDate);
+
+        return "redirect:/admin-test";
+    }
 
 }

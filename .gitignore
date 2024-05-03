@@ -25,3 +25,5 @@ target/
 
 # Test folder
 VolunteerLink/VolunteerLink/src/test/
+
+*DS_Store

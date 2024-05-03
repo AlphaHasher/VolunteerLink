@@ -40,7 +40,21 @@ public class AdminController {
     Database.deleteEvent(eventId);
     System.out.println(eventId);
     return "redirect:/admin-test";
-}
+    }
+
+    @PostMapping("/promoteUser")
+    public String promote(@RequestParam String eventId) {
+    // Call your service method to delete the event
+    //Database.promoteUser(eventId);
+    return "redirect:/admin-test";
+    }
+
+    @PostMapping("/revokeUser")
+    public String revoke(@RequestParam String eventId) {
+    // Call your service method to delete the event
+    //Database.revokeUser(eventId);
+    return "redirect:/admin-test";
+    }
 
     // Other admin-related endpoints and methods can go here
 }

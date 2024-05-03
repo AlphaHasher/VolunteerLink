@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,37 +147,27 @@
                     const volunteersNeeded = event.volunteersNeeded;
 
                     // create anchor tags to make each event a clickable link
-                    const eventLink = document.createElement('a');
-                    eventLink.href = `event-details.html?eventId=${event.Id}`; // insert actual name of html we will use
-                    eventLink.textContext = eventName;
-                    //eventLink.style.textDecoration = 'none'; // remove underline if we want to
-
-
                     const eventBox = document.createElement('div');
                     eventBox.classList.add('event-box');
                     eventBox.style.position = 'relative';
                     eventBox.style.top = `${yPos}px`;
                     eventBox.style.left = '0';
-                    eventBox.appendChild(eventLink); // Append event link to event box
                     eventBox.innerHTML = `
                         <div class="event-name">${eventName}</div>
                         <div class="event-description">${eventDescription}</div>
                         <div class="event-date">Start Date: ${startDate} | Start Time: ${startTime} | End Date: ${endDate} | End Time: ${endTime}</div>
                         <div class="volunteers-needed">Volunteers Needed: ${volunteersNeeded}</div>
                     `;
-                    if (event.tags && event.tags.length > 0) {
-                        const tagsDiv = document.createElement('div');
-                        tagsDiv.classList.add('event-tags');
-                        event.tags.forEach(tag => {
-                            const tagSpan = document.createElement('span');
-                            tagSpan.classList.add('event-tag');
-                            tagSpan.textContent = tag;
-                            tagsDiv.appendChild(tagSpan);
-                        });
-                        eventBox.appendChild(tagsDiv);
-                    }
 
-                    //eventList.appendChild(eventLink);
+                    // create anchor tags to make each event a clickable link
+                    const eventLink = document.createElement('a');
+                    eventLink.href = `event-details.html?eventId=${event.Id}`; // insert actual name of html we will use
+                    eventLink.text = "View Details";
+                    eventLink.style.textDecoration = 'none'; // remove underline if we want to
+
+                    // Append event link to event box
+                    eventBox.appendChild(eventLink);
+
                     eventList.appendChild(eventBox);
                     yPos += 22;
                 });
@@ -186,6 +175,7 @@
                 console.error('Error fetching events:', error);
             }
         }
+
         // function to sort the list when button is pressed
         //fix the looping issue
         function applyFilters() {
