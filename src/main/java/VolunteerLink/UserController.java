@@ -63,7 +63,7 @@ public class UserController {
             session.setAttribute("userId", userDoc.getObjectId("_id"));
 
             if (userDoc != null && userDoc.getString("role").equals("volunteer")) {
-                return "redirect:/FrontEnd/index.html";
+                return "redirect:/FrontEnd/student-page.html";
             } else if (userDoc != null && userDoc.getString("role").equals("Event Organizer")) {
                 return "redirect:/FrontEnd/event-organizer-page.html";
 
