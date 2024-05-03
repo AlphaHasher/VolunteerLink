@@ -2,10 +2,15 @@ package VolunteerLink;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -27,6 +32,15 @@ public class AdminController {
 
         return "admin-test"; // Return the name of your Thymeleaf template
     }
+
+    
+    @PostMapping("/deleteEvent")
+    public String adminDeleteEvent(@RequestParam String eventId) {
+    // Call your service method to delete the event
+    Database.deleteEvent(eventId);
+    System.out.println(eventId);
+    return "redirect:/admin-test";
+}
 
     // Other admin-related endpoints and methods can go here
 }
