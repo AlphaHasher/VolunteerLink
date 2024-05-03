@@ -28,6 +28,20 @@ public class User {
         this.role = role;
         this.accountCreationDate = accountCreationDate;
         this.eventRole_id = eventRole_id;
+        
+    }
+
+    public User(String email, String password, String firstName,
+                String lastName, String role, Date accountCreationDate,
+                List<ObjectId> eventRole_id,ObjectId id){
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.accountCreationDate = accountCreationDate;
+        this.eventRole_id = eventRole_id;
+        this.id = id;
     }
 
     public User(String email, String password, String firstName,
@@ -138,9 +152,10 @@ public class User {
         String lastName = doc.getString("lastName");
         String role = doc.getString("role");
         Date accountCreationDate = doc.getDate("accountCreationDate");
+        ObjectId id = doc.getObjectId("_id");
         List<ObjectId> eventRoleIds = Collections.emptyList();
 
-        return new User(email, password, firstName, lastName, role, accountCreationDate, eventRoleIds);
+        return new User(email, password, firstName, lastName, role, accountCreationDate, eventRoleIds, id);
     }
 
 }

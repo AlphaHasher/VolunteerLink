@@ -43,16 +43,16 @@ public class AdminController {
     }
 
     @PostMapping("/promoteUser")
-    public String promote(@RequestParam String eventId) {
+    public String promote(@RequestParam("userId") String eventId) {
     // Call your service method to delete the event
-    //Database.promoteUser(eventId);
+    Database.promoteUser(eventId);
     return "redirect:/admin-test";
     }
 
     @PostMapping("/revokeUser")
-    public String revoke(@RequestParam String eventId) {
+    public String revoke(@RequestParam("userId") String userId) {
     // Call your service method to delete the event
-    //Database.revokeUser(eventId);
+    Database.revokeUser(userId);
     return "redirect:/admin-test";
     }
 

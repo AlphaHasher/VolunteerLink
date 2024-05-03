@@ -92,7 +92,7 @@ public class Database {
     // User methods
 
     // Delete a user
-    public void deleteUser(String id) {
+    public static void deleteUser(String id) {
         ObjectId objectId = new ObjectId(id);
         usersCollection.deleteOne(eq("_id", objectId));
 
@@ -113,7 +113,7 @@ public class Database {
         }
     }
     // "Revokes" a user's role. Updates role to volunteer if currently event organizer, and deletes account if volunteer.
-    public void revokeUser(String id) {
+    public static void revokeUser(String id) {
         // Grabs current role from the database
         String currentRole = Utility.getFieldValueFromDocument("Users", id, "role", String.class);
         
@@ -130,7 +130,7 @@ public class Database {
         System.out.println("Previous Role: " + currentRole);
     }
     // Increases a user's role Volunteer -> Event Organizer, Event Organizer -> admin
-    public void promoteUser(String id) {
+    public static void promoteUser(String id) {
         // Grabs current role from the database
         String currentRole = Utility.getFieldValueFromDocument("Users", id, "role", String.class);
         
