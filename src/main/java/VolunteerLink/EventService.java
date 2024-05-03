@@ -62,16 +62,14 @@ public class EventService {
         // Use your database access method to retrieve the event by its ID
         Bson filter = Filters.eq("_id", new ObjectId(eventId));
     
-    // Use the filter to query the event collection
+        // Use the filter to query the event collection
         Document eventDocument = Database.getInstance().getEventCollection().find(filter).first();
     
-    // Convert the document to an Event object
+        // Convert the document to an Event object
         if (eventDocument != null) {
             return Event.convertDocumentToEvent(eventDocument);
         } else {
             return null; // No event found with the given eventId
         }
     }
-    
-
 }

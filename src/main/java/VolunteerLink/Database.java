@@ -2,6 +2,9 @@ package VolunteerLink;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Properties;
 import java.util.Date;
 
@@ -192,6 +195,17 @@ public class Database {
         eventCollection.updateOne(eq("_id", eventId), Updates.combine(
             Updates.inc("volunteersRegistered", numberAssignedDelta),
             Updates.inc("volunteersNeeded", numberNeededDelta)
+        ));
+    }
+    public static void updateEvent(Event event, String eventName,String location, String description, Date startDate) {
+
+        
+        eventCollection.updateOne(eq("_id", event.getId()), Updates.combine(
+            Updates.set("eventName", eventName),
+            Updates.set("location", location),
+            Updates.set("description", description),
+            Updates.set("startDate", startDate)
+            //adding more parameters
         ));
     }
 
