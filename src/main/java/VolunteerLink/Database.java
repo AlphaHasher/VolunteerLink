@@ -121,7 +121,7 @@ public class Database {
         eventCollection.insertOne(event);
     }
 
-    public void deleteEvent(String id){
+    public static void deleteEvent(String id){
         ObjectId objectId = new ObjectId(id);
         eventCollection.deleteOne(eq("_id", objectId));
 
