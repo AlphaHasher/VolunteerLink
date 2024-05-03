@@ -28,11 +28,11 @@ public class UserController {
 
     @PostMapping("/register")
     public String postMethodName(@RequestParam("email") String email,
-                                @RequestParam("password") String password,
-                                @RequestParam("confirmPassword") String confirmPassword,
-                                @RequestParam("firstName") String firstName,
-                                @RequestParam("lastName") String lastName,
-                                @RequestParam("role") String role) {
+            @RequestParam("password") String password,
+            @RequestParam("confirmPassword") String confirmPassword,
+            @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("role") String role) {
 
         if (!password.equals(confirmPassword)) {
             return "errorPage";
@@ -54,20 +54,20 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam("email") String email,
-                        @RequestParam("password") String password,
-                        HttpSession session) {
+            @RequestParam("password") String password,
+            HttpSession session) {
         MongoCollection<Document> usersCollection = Database.getInstance().getUsersCollection();
         Document userDoc = usersCollection.find(Filters.eq("email", email)).first();
 
         if (userDoc != null && userDoc.getString("password").equals(password)) {
             session.setAttribute("userId", userDoc.getObjectId("_id"));
 
-            if(userDoc != null && userDoc.getString("role").equals("volunteer")){
-                return "redirect:/FrontEnd/create-account.html";
-            }else if(userDoc != null && userDoc.getString("role").equals("Event Organizer")){
-                return "redirect:/FrontEnd/Form.html";
+            if (userDoc != null && userDoc.getString("role").equals("volunteer")) {
+                return "redirect:/FrontEnd/index.html";
+            } else if (userDoc != null && userDoc.getString("role").equals("Event Organizer")) {
+                return "redirect:/FrontEnd/event-organizer-page.html";
 
-            }else if(userDoc != null && userDoc.getString("role").equals("Admin")){
+            } else if (userDoc != null && userDoc.getString("role").equals("Admin")) {
                 return "redirect:/admin-test";
             }
         }
