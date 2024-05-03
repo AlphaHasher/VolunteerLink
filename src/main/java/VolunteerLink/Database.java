@@ -197,14 +197,15 @@ public class Database {
             Updates.inc("volunteersNeeded", numberNeededDelta)
         ));
     }
-    public static void updateEvent(Event event, String eventName,String location, String description, Date startDate) {
+    public static void updateEvent(Event event, String eventName,String location, String description, Date startDate, Date endDate) {
 
         
         eventCollection.updateOne(eq("_id", event.getId()), Updates.combine(
             Updates.set("eventName", eventName),
             Updates.set("location", location),
             Updates.set("description", description),
-            Updates.set("startDate", startDate)
+            Updates.set("startDate", startDate),
+            Updates.set("endDate", endDate)
             //adding more parameters
         ));
     }

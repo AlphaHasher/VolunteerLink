@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import org.bson.Document;
 import org.bson.types.ObjectId;
-
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -94,7 +94,7 @@ public class EventFormController {
         return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/FrontEnd/Form.html")
+    @GetMapping("/event-form")
     public String getEventForm(@RequestParam("eventId") String eventId, Model model) {
         // Retrieve the event details based on the eventId
         Event event = EventService.getEventById(eventId);
@@ -104,6 +104,20 @@ public class EventFormController {
 
         return "event-form"; // Return the name of your Thymeleaf template for the event form
     }
-
+    @PostMapping("/updateEvent")
+    public String updateEvent(@RequestParam("eventId") String eventId,
+                              @RequestParam("eventName") String eventName,
+                              @RequestParam("location") String location,
+                              @RequestParam("eventDescription") String description,
+                              @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+                              @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate
+                          // Add other form parameters as needed,
+                        ) {
+    // Retrieve the event from the database
+    Event event = EventService.getEventById(eventId);
+    Database.updateEvent(event, eventName, location, description, startDate, endDate);
+    
+    return "redirect:/admin-test";
+}
 
 }
