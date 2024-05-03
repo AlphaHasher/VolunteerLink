@@ -296,15 +296,23 @@
           </thead>
           <tbody>
             <tr th:each="user : ${users}">
-              <td th:text="${user.email}"></td>
-              <td th:text="${user.password}"></td>
-              <td th:text="${user.firstName}"></td>
-              <td th:text="${user.lastName}"></td>
-              <td th:text="${user.role}"></td>
-              <td>
-                <button class="edit-btn">Promote</button>
-                <button class="delete-user">Revoke</button>
-              </td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.role}" id="role_${user.id}"></td>
+                <td>
+                    <div class="action-buttons">
+                        <form th:action="@{/promoteUser}" method="post">
+                            <input type="hidden" name="userId" th:value="${user.id}" />
+                            <button type="submit" class="edit-btn">Promote</button>
+                        </form>
+                        <form th:action="@{/revokeUser}" method="post">
+                            <input type="hidden" name="userId" th:value="${user.id}" />
+                            <button type="submit" class="delete-user">Revoke</button>
+                        </form>
+                    </div>
+                </td>
             </tr>
           </tbody>
         </table>
