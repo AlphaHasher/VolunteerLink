@@ -26,6 +26,9 @@ public class Event {
     private String location;
     private int volunteersNeeded;
     private int volunteersRegistered;
+    //Created new class for getting the ID that will be string format instead of object format
+    private String idForDetail;
+
 
     private List<String> tags;
 
@@ -51,6 +54,10 @@ public class Event {
 
     public void setId(ObjectId id) {
         this.id = id;
+    }
+//Created new class for getting the ID that will be string format instead of object format
+    public void setIdForDetail(String idForDetail) {
+        this.idForDetail = idForDetail;
     }
 
     public String getEventName() {
@@ -191,6 +198,7 @@ public class Event {
         // And we don't really need it as of now anyways.
         event.setEventStatus(doc.getString("eventStatus"));
         event.setId(doc.getObjectId("_id"));
+        event.setIdForDetail(doc.getObjectId("_id").toString());
         return event;
     }
 

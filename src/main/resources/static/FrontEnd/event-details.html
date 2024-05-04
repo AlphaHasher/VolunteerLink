@@ -1,10 +1,10 @@
+
 <!--This site is what the user will see when they open it for details
 Site will show more details about particular event
 User will be able to register for that event as well
 Assuming we can get it to work-->
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,11 +94,11 @@ Assuming we can get it to work-->
         </div>
     </section>
     <div class="event-details" id="event-details-container"></div>
-
     <div class="container">
         <!-- Event Details -->
         <div class="event-details">
             <h2>Event Details</h2>
+            <!-- Thymeleaf condition to check if event exists -->
             <div th:if="${event}">
                 <p><strong>Event Name:</strong> <span th:text="${event.eventName}"></span></p>
                 <p><strong>Location:</strong> <span th:text="${event.location}"></span></p>
@@ -109,22 +109,102 @@ Assuming we can get it to work-->
                 <p><strong>End Time:</strong> <span th:text="${#dates.format(event.endDate, 'HH:mm')}"></span></p>
                 <p><strong>Volunteers Needed:</strong> <span th:text="${event.volunteersNeeded}"></span></p>
             </div>
+            <!-- Thymeleaf condition if no event exists -->
             <div th:unless="${event}">
                 <p>No event details found.</p>
             </div>
+            <!-- Register button to take the user to somewhere -->
             <div class="register-btn">
                 <button onclick="redirectToIndex()">Register</button>
             </div>
-            <!--This function will execute when the register button is pressed. Currently goes back to index.html-->
+            <!-- This function will execute when the register button is pressed. Currently goes back to index.html -->
             <script>
+                // This function is executed when the DOM content is loaded
+                document.addEventListener("DOMContentLoaded", function () {
+                    // Get the event ID from the query string
+                    const eventId = getEventIdFromQueryString();
+                    // Check if eventId exists
+                    if (eventId) {
+                        // Fetch event details using eventId
+                        fetchEventDetails(eventId);
+                    } else {
+                        console.error("No event ID provided.");
+                    }
+                });
+    
+                // Function to extract event ID from the query string
+                function getEventIdFromQueryString() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    return urlParams.get("eventId");
+                }
+    
+                // Make AJAX Request to Fetch Event Details
+                fetch(`/getEventDetails?eventId=${event.idForDetail}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle the response and update HTML elements with event details
+                        document.getElementById('eventName').textContent = data.eventName;
+                        document.getElementById('location').textContent = data.location;
+                        // Update other HTML elements with event details as needed
+                    })
+                    .catch(error => {
+                        console.error('Error fetching event details:', error);
+                        alert('Failed to fetch event details.');
+                    });
+    
+                // Function to fetch event details using eventId
+                function fetchEventDetails(eventId) {
+                    fetch(`/event-details?eventId=${eventId}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("Failed to fetch event details.");
+                            }
+                            return response.json();
+                        })
+                        .then(event => {
+                            populateEventDetails(event);
+                        })
+                        .catch(error => {
+                            console.error("Error fetching event details:", error);
+                        });
+                }
+    
+                // Function to populate event details on the page
+                function populateEventDetails(event) {
+                    const eventDetailsContainer = document.getElementById("event-details-container");
+                    if (event) {
+                        // Create HTML elements to display event details
+                        const eventDetailsHtml = `
+                            <p><strong>Event Name:</strong> ${event.eventName}</p>
+                            <p><strong>Location:</strong> ${event.location}</p>
+                            <p><strong>Description:</strong> ${event.eventDescription}</p>
+                            <p><strong>Start Date:</strong> ${event.startDate}</p>
+                            <p><strong>Start Time:</strong> ${event.startTime}</p>
+                            <p><strong>End Date:</strong> ${event.endDate}</p>
+                            <p><strong>End Time:</strong> ${event.endTime}</p>
+                            <p><strong>Volunteers Needed:</strong> ${event.volunteersNeeded}</p>
+                            <!-- Link to event form with event ID -->
+                            <a href="/event-form?eventId=${event.idForDetail}" class="register-btn">Register</a>
+                            <p><strong>Event ID:</strong> ${event.idForDetail}</p>
+                        `;
+                        
+                        eventDetailsContainer.innerHTML = eventDetailsHtml;
+                    } else {
+                        // No events found error
+                        eventDetailsContainer.innerHTML = "<p>No event details found.</p>";
+                    }
+                }
+    
+                // Function to redirect to index.html (test for now)
                 function redirectToIndex() {
-                window.location.href = "./index.html";
-        }
+                    window.location.href = "./index.html";
+                }
             </script>
+            <!-- Back button to go back to previous page -->
             <div class="back-btn">
                 <a href="javascript:history.back()">Back to Events</a>
             </div>
         </div>
     </div>
-</body>
-</html>
+    </body>
+    </html>

@@ -10,6 +10,8 @@ import org.bson.types.ObjectId;
 public class User {
     
     private ObjectId id;
+    //Created new class for getting the ID that will be string format instead of object format
+    private String idForDetail;
     private String email;
     private String password;
     private String firstName;
@@ -57,6 +59,10 @@ public class User {
         return id;
     }
 
+    //Created new class for getting the ID that will be string format instead of object format
+    public void setIdForDetail(String idForDetail) {
+        this.idForDetail = idForDetail;
+    }
     public void setId(ObjectId id) {
         this.id = id;
     }
