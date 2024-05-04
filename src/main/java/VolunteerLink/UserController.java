@@ -25,6 +25,7 @@ import java.util.Map;
 
 @Controller
 public class UserController {
+    private boolean isLoggedIn = false;
 
     @PostMapping("/register")
     public String postMethodName(@RequestParam("email") String email,
@@ -54,30 +55,43 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@RequestParam("email") String email,
-            @RequestParam("password") String password,
-            HttpSession session) {
-        MongoCollection<Document> usersCollection = Database.getInstance().getUsersCollection();
-        Document userDoc = usersCollection.find(Filters.eq("email", email)).first();
+        @RequestParam("password") String password,
+        HttpSession session) {
+    MongoCollection<Document> usersCollection = Database.getInstance().getUsersCollection();
+    Document userDoc = usersCollection.find(Filters.eq("email", email)).first();
 
-        if (userDoc != null && userDoc.getString("password").equals(password)) {
-            session.setAttribute("userId", userDoc.getObjectId("_id"));
+    if (userDoc != null && userDoc.getString("password").equals(password)) {
+        session.setAttribute("userId", userDoc.getObjectId("_id"));
 
-            if (userDoc != null && userDoc.getString("role").equals("volunteer")) {
-                return "redirect:/FrontEnd/student-page.html";
-            } else if (userDoc != null && userDoc.getString("role").equals("Event Organizer")) {
-                return "redirect:/FrontEnd/event-organizer-page.html";
-
-            } else if (userDoc != null && userDoc.getString("role").equals("Admin")) {
-                return "redirect:/admin-test";
-            }
+        if (userDoc.getString("role").equals("volunteer")) {
+            session.setAttribute("isLoggedIn", true);
+            //session.setAttribute("userId", userDoc.getObjectId("_id"));
+            isLoggedIn = true;
+            return "redirect:/FrontEnd/student-page.html";
+        } else if (userDoc.getString("role").equals("Event Organizer")) {
+            session.setAttribute("isLoggedIn", true);
+            //session.setAttribute("userId", userDoc.getObjectId("_id"));
+            isLoggedIn = true;
+            return "redirect:/FrontEnd/event-organizer-page.html";
+        } else if (userDoc.getString("role").equals("Admin")) {
+            session.setAttribute("isLoggedIn", true);
+            //session.setAttribute("userId", userDoc.getObjectId("_id"));
+            isLoggedIn = true;
+            return "redirect:/admin-test";
         }
-        return "redirect:/FrontEnd/login-page.html";
     }
+    return "redirect:/FrontEnd/login-page.html";
+}
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/FrontEnd/login-page.html";
+        isLoggedIn = false;
+        //session.setAttribute("isLoggedIn", false);
+        return "redirect:/FrontEnd/index-test.html";
+    }
+    public boolean isLoggedIn() {
+        return isLoggedIn;
     }
 
     @GetMapping("/user")

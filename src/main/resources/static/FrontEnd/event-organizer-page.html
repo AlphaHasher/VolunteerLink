@@ -41,6 +41,7 @@
         border: none;
         border-radius: 5px;
       }
+      
     </style>
   </head>
   <body>
@@ -76,12 +77,31 @@
         <div class="spotlight-element2">
           <div class="spotlight-background2"></div>
           <h1 class="volunteer-link2">Volunteer Link</h1>
+          <form action="/logout" method="GET">
+            <button type="submit" style="cursor: pointer;
+                                        border: 0;
+                                        position:relative;
+                                        padding: var(--padding-5xs) var(--padding-2xs);
+                                        background-color: var(--color-darkkhaki-100);
+                                        border-radius: var(--br-8xs);
+                                        flex-direction: row;
+                                        white-space: nowrap;
+                                        z-index: 10 !important;
+                                        right: -500px;
+                                        top: -09px;
+                                        
+                                        margin-left: 10px;">Logout</button>
+        </form>
+          
           <div class="subtree">
+            
             <button class="login-button2" id="loginButton">
               <div class="login-button-item"></div>
               <b class="create-event">Create Event</b>
             </button>
           </div>
+          
+
         </div>
       </section>
       <div id="event-tags-container"></div>
@@ -97,6 +117,7 @@
       <section class="image-modifier">
         <div class="data-flow-control-parent">
           <div class="data-flow-control"></div>
+          
           <div class="error-handler">
             <div class="delimiter-parser">
               <div class="constant-provider">
@@ -108,6 +129,7 @@
             <div class="event-list" id="event-list"></div>
           </div>
         </div>
+        
       </section>
     </div>
 
@@ -118,7 +140,7 @@
           window.location.href = "./login-page.html";
         });
       }
-
+     
       async function fetchAndDisplayEvents() {
         try {
           const response = await fetch("/events");
